@@ -52,6 +52,13 @@ if (isset($_SESSION['user_id'])) {
 if (isset($_SESSION['user_id']) && !isset($_SESSION['score_saved'])) {
     saveScoreWithUser($_SESSION['user_id'], $_SESSION['username'], $categoryId, $score, $totalQuestions, $timeTaken, $xpEarned);
     updateUserXP($_SESSION['user_id'], $xpEarned);
+    
+    // Award coins for quiz completion (20 coins)
+    $pdo = getDB();
+    $stmt = $pdo->prepare("UPDATE users SET coins = coins + 20 WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $_SESSION['coins'] = ($_SESSION['coins'] ?? 0) + 20;
+
     $_SESSION['score_saved'] = true;
     $_SESSION['saved_player_name'] = $_SESSION['username'];
 }

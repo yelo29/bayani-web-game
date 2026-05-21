@@ -14,6 +14,89 @@ $userId = $_SESSION['user_id'];
 $userData = getUserData($userId);
 $userStats = getUserStats($userId);
 $achievements = getUserAchievements($userId);
+$pdo = getDB();
+
+// Get equipped items
+$equippedWeapon = null;
+$equippedArmor = null;
+$equippedScroll = null;
+$stmt = $pdo->prepare("
+    SELECT i.name, i.power, i.type, i.description
+    FROM inventory inv
+    JOIN items i ON inv.item_id = i.id
+    WHERE inv.user_id = ? AND inv.equipped = 1 AND i.type = 'weapon'
+    LIMIT 1
+");
+$stmt->execute([$userId]);
+$equippedWeapon = $stmt->fetch();
+
+$stmt = $pdo->prepare("
+    SELECT i.name, i.power, i.type, i.description
+    FROM inventory inv
+    JOIN items i ON inv.item_id = i.id
+    WHERE inv.user_id = ? AND inv.equipped = 1 AND i.type = 'armor'
+    LIMIT 1
+");
+$stmt->execute([$userId]);
+$equippedArmor = $stmt->fetch();
+
+$stmt = $pdo->prepare("
+    SELECT i.name, i.power, i.type, i.description
+    FROM inventory inv
+    JOIN items i ON inv.item_id = i.id
+    WHERE inv.user_id = ? AND inv.equipped = 1 AND i.type = 'scroll'
+    LIMIT 1
+");
+$stmt->execute([$userId]);
+$equippedScroll = $stmt->fetch();
+
+// Calculate total attack and defense with level-based formulas
+$playerLevel = $userData['level'] ?? 1;
+$baseAttack = 10 + ($playerLevel * 5);
+$baseDefense = 5 + ($playerLevel * 2);
+$weaponBonus = $equippedWeapon ? $equippedWeapon['power'] : 0;
+$armorBonus = $equippedArmor ? $equippedArmor['power'] : 0;
+$scrollBonus = $equippedScroll ? $equippedScroll['power'] : 0;
+$totalAttack = $baseAttack + $weaponBonus;
+$totalDefense = $baseDefense + $armorBonus;
+
+// Get battle stats
+$stmt = $pdo->prepare("
+    SELECT 
+        COUNT(*) as total_battles,
+        SUM(won) as battles_won,
+        SUM(1 - won) as battles_lost,
+        AVG(xp_earned) as avg_xp
+    FROM battle_log
+    WHERE user_id = ?
+");
+$stmt->execute([$userId]);
+$battleStats = $stmt->fetch();
+$winRate = $battleStats['total_battles'] > 0 ? round(($battleStats['battles_won'] / $battleStats['total_battles']) * 100, 1) : 0;
+
+// Get recent battle history
+$stmt = $pdo->prepare("
+    SELECT bl.*, e.name as enemy_name, e.era
+    FROM battle_log bl
+    JOIN enemies e ON bl.enemy_id = e.id
+    WHERE bl.user_id = ?
+    ORDER BY bl.created_at DESC
+    LIMIT 5
+");
+$stmt->execute([$userId]);
+$recentBattles = $stmt->fetchAll();
+
+// Get quiz stats
+$stmt = $pdo->prepare("
+    SELECT 
+        COUNT(*) as total_quizzes,
+        MAX(score) as best_score,
+        AVG(score) as avg_score
+    FROM scores
+    WHERE user_id = ?
+");
+$stmt->execute([$userId]);
+$quizStats = $stmt->fetch();
 
 // Hero class info
 $heroClasses = [
@@ -90,22 +173,158 @@ $currentHero = $heroClasses[$userData['hero_class']] ?? null;
             </p>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
-                <i class="fas fa-gamepad text-4xl text-[#0038A8] mb-4"></i>
-                <p class="text-3xl font-bold text-gray-800"><?php echo $userStats['total_quizzes']; ?></p>
-                <p class="text-gray-600">Quizzes Taken</p>
+        <!-- HP Bar -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-[#0038A8] mb-4">Health Points</h3>
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-red-500"><?php echo $userData['player_hp'] ?? 100; ?></p>
+                    <p class="text-sm text-gray-600">Current HP</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-bold text-gray-800"><?php echo $userData['player_max_hp'] ?? 100; ?></p>
+                    <p class="text-sm text-gray-600">Max HP</p>
+                </div>
             </div>
-            <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
-                <i class="fas fa-trophy text-4xl text-yellow-500 mb-4"></i>
-                <p class="text-3xl font-bold text-gray-800"><?php echo $userStats['best_score']; ?>/10</p>
-                <p class="text-gray-600">Best Score</p>
+            <div class="w-full bg-gray-200 rounded-full h-6">
+                <div class="bg-gradient-to-r from-red-400 to-red-600 h-6 rounded-full transition-all duration-1000" style="width: <?php echo (($userData['player_hp'] ?? 100) / ($userData['player_max_hp'] ?? 100)) * 100; ?>%"></div>
             </div>
-            <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
-                <i class="fas fa-medal text-4xl text-green-500 mb-4"></i>
-                <p class="text-3xl font-bold text-gray-800"><?php echo count($achievements); ?></p>
-                <p class="text-gray-600">Achievements</p>
+        </div>
+
+        <!-- Equipped Items -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-[#0038A8] mb-4">Equipped Items</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Weapon -->
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-sword text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800"><?php echo $equippedWeapon ? htmlspecialchars($equippedWeapon['name']) : 'Walang Armas'; ?></p>
+                            <p class="text-sm text-gray-600">Weapon</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        Power: <span class="font-bold text-red-600">+<?php echo $weaponBonus; ?></span>
+                    </p>
+                </div>
+                <!-- Armor -->
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-shield-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800"><?php echo $equippedArmor ? htmlspecialchars($equippedArmor['name']) : 'Walang Armor'; ?></p>
+                            <p class="text-sm text-gray-600">Armor</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        Defense: <span class="font-bold text-blue-600">+<?php echo $armorBonus; ?></span>
+                    </p>
+                </div>
+                <!-- Scroll -->
+                <div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-scroll text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800"><?php echo $equippedScroll ? htmlspecialchars($equippedScroll['name']) : 'Walang Scroll'; ?></p>
+                            <p class="text-sm text-gray-600">Scroll</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        XP Bonus: <span class="font-bold text-yellow-600">+<?php echo $scrollBonus; ?>%</span>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center p-3 bg-orange-50 rounded-xl">
+                    <p class="text-2xl font-bold text-orange-600"><?php echo $totalAttack; ?></p>
+                    <p class="text-sm text-gray-600">Total Attack</p>
+                    <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseAttack; ?> + Weapon: <?php echo $weaponBonus; ?></p>
+                </div>
+                <div class="text-center p-3 bg-blue-50 rounded-xl">
+                    <p class="text-2xl font-bold text-blue-600"><?php echo $totalDefense; ?></p>
+                    <p class="text-sm text-gray-600">Total Defense</p>
+                    <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseDefense; ?> + Armor: <?php echo $armorBonus; ?></p>
+                </div>
+                <div class="text-center p-3 bg-yellow-50 rounded-xl">
+                    <p class="text-2xl font-bold text-yellow-600"><?php echo $scrollBonus; ?>%</p>
+                    <p class="text-sm text-gray-600">XP Bonus</p>
+                    <p class="text-xs text-gray-500 mt-1">Boosts XP earned per battle</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Battle Stats -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-[#0038A8] mb-4">Battle Statistics</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <p class="text-3xl font-bold text-gray-800"><?php echo $battleStats['total_battles']; ?></p>
+                    <p class="text-sm text-gray-600">Total Battles</p>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-xl">
+                    <p class="text-3xl font-bold text-green-600"><?php echo $battleStats['battles_won']; ?></p>
+                    <p class="text-sm text-gray-600">Battles Won</p>
+                </div>
+                <div class="text-center p-4 bg-red-50 rounded-xl">
+                    <p class="text-3xl font-bold text-red-600"><?php echo $battleStats['battles_lost']; ?></p>
+                    <p class="text-sm text-gray-600">Battles Lost</p>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 rounded-xl">
+                    <p class="text-3xl font-bold text-yellow-600"><?php echo $winRate; ?>%</p>
+                    <p class="text-sm text-gray-600">Win Rate</p>
+                </div>
+            </div>
+            <h4 class="font-bold text-gray-800 mb-3">Recent Battle History</h4>
+            <?php if (empty($recentBattles)): ?>
+                <p class="text-gray-500 text-center py-4">No battles yet. Start fighting in Mundo!</p>
+            <?php else: ?>
+                <div class="space-y-3">
+                    <?php foreach ($recentBattles as $battle): ?>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full <?php echo $battle['won'] ? 'bg-green-500' : 'bg-red-500'; ?> flex items-center justify-center text-white">
+                                    <i class="fas <?php echo $battle['won'] ? 'fa-trophy' : 'fa-skull'; ?>"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800"><?php echo htmlspecialchars($battle['enemy_name']); ?> (<?php echo htmlspecialchars($battle['era']); ?>)</p>
+                                    <p class="text-sm text-gray-500"><?php echo date('M j, Y g:i A', strtotime($battle['created_at'])); ?></p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold <?php echo $battle['won'] ? 'text-green-600' : 'text-red-600'; ?>">
+                                    <?php echo $battle['won'] ? 'Victory' : 'Defeat'; ?>
+                                </p>
+                                <p class="text-sm text-gray-500">+<?php echo $battle['xp_earned']; ?> XP</p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Quiz Stats -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-[#0038A8] mb-4">Quiz Statistics</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-xl">
+                    <p class="text-3xl font-bold text-gray-800"><?php echo $quizStats['total_quizzes']; ?></p>
+                    <p class="text-sm text-gray-600">Quizzes Taken</p>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 rounded-xl">
+                    <p class="text-3xl font-bold text-yellow-600"><?php echo $quizStats['best_score']; ?>/10</p>
+                    <p class="text-sm text-gray-600">Best Score</p>
+                </div>
+                <div class="text-center p-4 bg-blue-50 rounded-xl">
+                    <p class="text-3xl font-bold text-blue-600"><?php echo round($quizStats['avg_score'], 1); ?>/10</p>
+                    <p class="text-sm text-gray-600">Average Score</p>
+                </div>
             </div>
         </div>
 
@@ -127,34 +346,6 @@ $currentHero = $heroClasses[$userData['hero_class']] ?? null;
                                     <p class="text-sm text-gray-600"><?php echo htmlspecialchars($achievement['achievement_description']); ?></p>
                                     <p class="text-xs text-gray-500 mt-1"><?php echo date('M j, Y', strtotime($achievement['earned_at'])); ?></p>
                                 </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </div>
-
-        <!-- Recent Quiz History -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
-            <h3 class="text-xl font-bold text-[#0038A8] mb-4">Recent Quiz History</h3>
-            <?php if (empty($userStats['recent_quizzes'])): ?>
-                <p class="text-gray-500 text-center py-8">No quizzes taken yet. Start your journey!</p>
-            <?php else: ?>
-                <div class="space-y-4">
-                    <?php foreach ($userStats['recent_quizzes'] as $quiz): ?>
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-[#0038A8] flex items-center justify-center text-white font-bold">
-                                    <?php echo $quiz['score']; ?>/<?php echo $quiz['total_questions']; ?>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800"><?php echo htmlspecialchars($quiz['category_name']); ?></p>
-                                    <p class="text-sm text-gray-500"><?php echo date('M j, Y g:i A', strtotime($quiz['created_at'])); ?></p>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-lg font-bold text-yellow-500">+<?php echo $quiz['xp_earned']; ?> XP</p>
-                                <p class="text-sm text-gray-500"><?php echo gmdate('i:s', $quiz['time_taken']); ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>

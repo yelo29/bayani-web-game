@@ -27,7 +27,7 @@ try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS regions (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(100) NOT NULL,
+            name VARCHAR(100) NOT NULL UNIQUE,
             province VARCHAR(100),
             island_group ENUM('luzon','visayas','mindanao') NOT NULL,
             min_level INT DEFAULT 1,
@@ -139,6 +139,40 @@ try {
     ");
     echo "✓ battle_log table created\n\n";
 
+    // Add player_hp columns to users table
+    echo "Adding player_hp columns to users table...\n";
+    $pdo->exec("
+        ALTER TABLE users 
+        ADD COLUMN IF NOT EXISTS player_hp INT DEFAULT 100,
+        ADD COLUMN IF NOT EXISTS player_max_hp INT DEFAULT 100
+    ");
+    echo "✓ player_hp columns added to users table\n\n";
+
+    // Add UNIQUE KEY to regions.name
+    echo "Adding UNIQUE KEY to regions.name...\n";
+    $pdo->exec("
+        ALTER TABLE regions 
+        ADD UNIQUE KEY unique_name (name)
+    ");
+    echo "✓ UNIQUE KEY added to regions.name\n\n";
+
+    // Add streak columns to users table
+    echo "Adding streak columns to users table...\n";
+    $pdo->exec("
+        ALTER TABLE users 
+        ADD COLUMN IF NOT EXISTS current_streak INT DEFAULT 0,
+        ADD COLUMN IF NOT EXISTS best_streak INT DEFAULT 0
+    ");
+    echo "✓ streak columns added to users table\n\n";
+
+    // Add coins column to users table
+    echo "Adding coins column to users table...\n";
+    $pdo->exec("
+        ALTER TABLE users 
+        ADD COLUMN IF NOT EXISTS coins INT DEFAULT 0
+    ");
+    echo "✓ coins column added to users table\n\n";
+
     // Insert seed data for regions
     echo "Inserting seed data for regions...\n";
     $regions = [
@@ -211,6 +245,30 @@ try {
         echo "✓ Inserted enemy: {$enemy[0]}\n";
     }
     echo "\n";
+
+    // Update enemy stats for better balance
+    echo "Updating enemy stats for better balance...\n";
+    $pdo->exec("UPDATE enemies SET hp=200, attack=18, defense=8 WHERE name='Conquistador'");
+    $pdo->exec("UPDATE enemies SET hp=150, attack=15, defense=5 WHERE name='Corrupt Alcalde'");
+    $pdo->exec("UPDATE enemies SET hp=120, attack=12, defense=4 WHERE name='Friar'");
+    $pdo->exec("UPDATE enemies SET hp=280, attack=25, defense=12 WHERE name='Magellan'");
+    $pdo->exec("UPDATE enemies SET hp=220, attack=28, defense=8 WHERE name='Pirate'");
+    $pdo->exec("UPDATE enemies SET hp=250, attack=22, defense=10 WHERE name='Rajah\\'s Rival'");
+    $pdo->exec("UPDATE enemies SET hp=350, attack=35, defense=15 WHERE name='Japanese Invader'");
+    $pdo->exec("UPDATE enemies SET hp=300, attack=30, defense=12 WHERE name='Traitor'");
+    $pdo->exec("UPDATE enemies SET hp=380, attack=38, defense=18 WHERE name='Warlord'");
+    $pdo->exec("UPDATE enemies SET hp=260, attack=22, defense=10 WHERE name='Tax Collector'");
+    $pdo->exec("UPDATE enemies SET hp=300, attack=28, defense=14 WHERE name='Slave Trader'");
+    $pdo->exec("UPDATE enemies SET hp=320, attack=32, defense=16 WHERE name='Cruel Overseer'");
+    $pdo->exec("UPDATE enemies SET hp=400, attack=40, defense=20 WHERE name='Moro Raider'");
+    $pdo->exec("UPDATE enemies SET hp=450, attack=35, defense=25 WHERE name='Fort Defender'");
+    $pdo->exec("UPDATE enemies SET hp=500, attack=42, defense=22 WHERE name='Rebel Leader'");
+    echo "✓ Enemy stats updated\n\n";
+
+    // Update Lucky Charm description and type
+    echo "Updating Lucky Charm item...\n";
+    $pdo->exec("UPDATE items SET description='Boosts XP earned per battle by 50%', type='scroll' WHERE name='Lucky Charm'");
+    echo "✓ Lucky Charm updated\n\n";
 
     // Insert seed data for items
     echo "Inserting seed data for items...\n";

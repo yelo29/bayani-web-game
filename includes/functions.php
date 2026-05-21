@@ -9,6 +9,32 @@ function getCategories(): array {
     return $stmt->fetchAll();
 }
 
+function getRegions(): array {
+    $pdo = getDB();
+    $stmt = $pdo->query("SELECT * FROM regions GROUP BY id ORDER BY min_level ASC");
+    return $stmt->fetchAll();
+}
+
+function getEnemies(int $regionId): array {
+    $pdo = getDB();
+    $stmt = $pdo->prepare("SELECT * FROM enemies WHERE region_id = ? ORDER BY id ASC");
+    $stmt->execute([$regionId]);
+    return $stmt->fetchAll();
+}
+
+function getEquippedItem(int $userId, string $type): ?array {
+    $pdo = getDB();
+    $stmt = $pdo->prepare("
+        SELECT i.name, i.power, i.type, i.description, i.rarity
+        FROM inventory inv
+        JOIN items i ON inv.item_id = i.id
+        WHERE inv.user_id = ? AND inv.equipped = 1 AND i.type = ?
+        LIMIT 1
+    ");
+    $stmt->execute([$userId, $type]);
+    return $stmt->fetch() ?: null;
+}
+
 function getQuestions(int $categoryId, int $limit = 10): array {
     $pdo = getDB();
     $stmt = $pdo->prepare("

@@ -20,16 +20,43 @@ $totalPlayers = getTotalPlayers($categoryId);
 // Calculate total pages for pagination
 $totalScores = count(getLeaderboard($categoryId, 1000, 0, $sortBy)); // Get all for pagination
 $totalPages = ceil($totalScores / $limit);
+
+// Get battle leaderboard data
+$pdo = getDB();
+$stmt = $pdo->query("
+    SELECT 
+        u.id,
+        u.username,
+        u.hero_class,
+        u.level,
+        u.current_streak,
+        u.best_streak,
+        COUNT(bl.id) as total_battles,
+        SUM(bl.won) as total_wins
+    FROM users u
+    LEFT JOIN battle_log bl ON u.id = bl.user_id
+    GROUP BY u.id
+    HAVING total_battles > 0
+    ORDER BY total_wins DESC, current_streak DESC
+    LIMIT 10
+");
+$battleLeaderboard = $stmt->fetchAll();
 ?>
 
 <main class="min-h-screen bg-gray-50 py-8 px-4">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold font-serif text-center text-[#0038A8] mb-2">Leaderboard</h1>
-        <p class="text-center text-gray-600 mb-8">
-            <?php echo $totalPlayers; ?> players have competed
-        </p>
+        <!-- Quiz Leaderboard Section -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold font-serif text-center text-[#0038A8] mb-2">Quiz Leaderboard</h1>
+            <p class="text-center text-gray-600 mb-8">
+                Top scores from all quiz categories
+            </p>
 
-        <!-- Filter Tabs -->
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-6 text-center">
+                <span class="text-blue-800 font-bold text-lg">📝 QUIZ ONLY</span>
+            </div>
+
+            <!-- Filter Tabs -->
         <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
             <div class="flex flex-wrap gap-2 mb-4">
                 <a href="leaderboard.php"
@@ -190,6 +217,106 @@ $totalPages = ceil($totalScores / $limit);
                 </div>
                 <?php endif; ?>
             <?php endif; ?>
+        </div>
+        </div>
+
+        <!-- Battle Leaderboard Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold font-serif text-center text-[#CE1126] mb-2">Mundo ng mga Bayani — Battle Leaderboard</h2>
+            <p class="text-center text-gray-600 mb-8">
+                Top warriors in the battle arena
+            </p>
+
+            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-6 text-center">
+                <span class="text-red-800 font-bold text-lg">⚔️ BATTLE ARENA</span>
+            </div>
+
+            <!-- Battle Leaderboard Table -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <?php if (empty($battleLeaderboard)): ?>
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="fas fa-sword text-4xl mb-4"></i>
+                        <p>No battles yet. Start fighting in Mundo!</p>
+                    </div>
+                <?php else: ?>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Rank</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Player</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Hero Class</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Level</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Battles Won</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Win Rate</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Streak</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <?php foreach ($battleLeaderboard as $index => $player): ?>
+                                    <?php
+                                    $rank = $index + 1;
+                                    $rankClasses = [
+                                        1 => 'bg-yellow-100 text-yellow-800 border-yellow-400',
+                                        2 => 'bg-gray-100 text-gray-800 border-gray-400',
+                                        3 => 'bg-orange-100 text-orange-800 border-orange-400'
+                                    ];
+                                    $rankClass = $rankClasses[$rank] ?? 'bg-gray-50 text-gray-600 border-gray-200';
+                                    $rankIcon = $rank <= 3 ? 'fas fa-trophy' : '';
+                                    $winRate = $player['total_battles'] > 0 ? round(($player['total_wins'] / $player['total_battles']) * 100, 1) : 0;
+                                    ?>
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4">
+                                            <div class="w-10 h-10 rounded-full <?php echo $rankClass; ?> border-2 flex items-center justify-center font-bold">
+                                                <?php if ($rankIcon): ?>
+                                                    <i class="<?php echo $rankIcon; ?>"></i>
+                                                <?php else: ?>
+                                                    <?php echo $rank; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="font-semibold text-gray-800">
+                                                <?php echo htmlspecialchars($player['username']); ?>
+                                            </p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <?php if (!empty($player['hero_class'])): ?>
+                                                <?php
+                                                $heroColors = ['mandirigma' => '#CE1126', 'lakambini' => '#0038A8', 'mangkukulam' => '#FCD116'];
+                                                $heroColor = $heroColors[$player['hero_class']] ?? '#0038A8';
+                                                ?>
+                                                <span class="inline-block px-2 py-1 text-white rounded-full text-xs font-bold uppercase" style="background: <?php echo $heroColor; ?>;">
+                                                    <?php echo htmlspecialchars($player['hero_class']); ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="text-gray-400 text-xs">None</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">
+                                                Lvl <?php echo $player['level'] ?? 1; ?>
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-lg font-bold text-green-600"><?php echo $player['total_wins']; ?></p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-lg font-bold text-blue-600"><?php echo $winRate; ?>%</p>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-lg font-bold <?php echo $player['current_streak'] >= 3 ? 'text-yellow-600' : 'text-gray-600'; ?>">
+                                                🔥 <?php echo $player['current_streak']; ?>
+                                            </p>
+                                            <p class="text-xs text-gray-500">Best: <?php echo $player['best_streak']; ?></p>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
 
         <!-- Back to Home -->

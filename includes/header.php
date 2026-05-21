@@ -29,6 +29,11 @@
                 <a href="index.php" class="hover:text-yellow-400 transition">Home</a>
                 <a href="leaderboard.php" class="hover:text-yellow-400 transition">Leaderboard</a>
                 <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="mundo.php" class="hover:text-yellow-400 transition">Mundo</a>
+                    <a href="tindahan.php" class="hover:text-yellow-400 transition">Tindahan</a>
+                    <a href="inventaryo.php" class="hover:text-yellow-400 transition">Inventaryo</a>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="profile.php" class="hover:text-yellow-400 transition">Profile</a>
                     <div class="flex items-center gap-2 ml-4 pl-4 border-l border-white/30">
                         <span class="font-medium"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
@@ -37,6 +42,7 @@
                                 <?php echo htmlspecialchars($_SESSION['hero_class']); ?>
                             </span>
                         <?php endif; ?>
+                        <span class="text-yellow-400 font-bold">🪙 <?php echo $_SESSION['coins'] ?? 0; ?></span>
                         <a href="logout.php" class="hover:text-yellow-400 transition ml-2">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>

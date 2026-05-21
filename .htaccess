@@ -3,6 +3,7 @@
   RewriteEngine On
   RewriteRule ^includes/ - [F,L]
   RewriteRule ^admin/seed\.php$ - [F,L]
+  RewriteRule ^admin/migrate\.php$ - [F,L]
 </IfModule>
 
 # Security headers
