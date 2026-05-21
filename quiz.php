@@ -69,12 +69,13 @@ if (isset($_GET['reset'])) {
     unset($_SESSION['quiz_start_time']);
     unset($_SESSION['score_saved']);
     unset($_SESSION['saved_player_name']);
+    unset($_SESSION['last_answer']);
     header('Location: quiz.php?category=' . $categoryId);
     exit;
 }
 
 // Initialize quiz session
-if (!isset($_SESSION['quiz_started']) || $_SESSION['quiz_category_id'] !== $categoryId) {
+if (!isset($_SESSION['quiz_started']) || (int)$_SESSION['quiz_category_id'] !== $categoryId) {
     $_SESSION['quiz_started'] = true;
     $_SESSION['quiz_category_id'] = $categoryId;
     $_SESSION['quiz_questions'] = getQuestions($categoryId, 10);
@@ -84,11 +85,33 @@ if (!isset($_SESSION['quiz_started']) || $_SESSION['quiz_category_id'] !== $cate
     $_SESSION['quiz_start_time'] = time();
     unset($_SESSION['score_saved']);
     unset($_SESSION['saved_player_name']);
+    unset($_SESSION['last_answer']);
 }
 
 // Check if quiz is complete BEFORE accessing current question
 $questions = $_SESSION['quiz_questions'];
 $totalQuestions = count($questions);
+
+// Handle case where no questions are available
+if ($totalQuestions === 0) {
+    require_once 'includes/header.php';
+    ?>
+    <main class="min-h-screen bg-gray-50 py-8 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                <i class="fas fa-exclamation-triangle text-5xl text-yellow-500 mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">No Questions Available</h2>
+                <p class="text-gray-600 mb-6">There are no questions available for this category yet.</p>
+                <a href="piliin.php" class="inline-block bg-[#0038A8] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#002870] transition">
+                    Choose Another Category
+                </a>
+            </div>
+        </div>
+    </main>
+    <?php
+    require_once 'includes/footer.php';
+    exit;
+}
 $currentScore = $_SESSION['quiz_score'];
 
 if ($_SESSION['quiz_current_index'] >= $totalQuestions) {

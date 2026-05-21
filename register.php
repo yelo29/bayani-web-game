@@ -1,6 +1,6 @@
 <?php
+ob_start();
 session_start();
-require_once 'includes/header.php';
 require_once 'includes/functions.php';
 
 // Redirect if already logged in
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
-    
+
     // Validate inputs
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         $error = 'All fields are required.';
@@ -34,18 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo = getDB();
         $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$username, $email]);
-        
+
         if ($stmt->fetch()) {
             $error = 'Username or email already exists.';
         } else {
             // Create user
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-            
+
             if ($stmt->execute([$username, $email, $password_hash])) {
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['username'] = $username;
-                header('Location: choose-hero.php');
+                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+                $host = $_SERVER['HTTP_HOST'];
+                header("Location: $protocol://$host/choose-hero.php");
                 exit;
             } else {
                 $error = 'Registration failed. Please try again.';
@@ -53,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once 'includes/header.php';
 ?>
 
 <main class="min-h-screen bg-gray-50 py-12 px-4">

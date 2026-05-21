@@ -218,11 +218,11 @@ require_once 'includes/header.php';
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4">
-            <a href="quiz.php?category=<?php echo $categoryId; ?>&reset=1" 
+            <a href="quiz.php?category=<?php echo $categoryId; ?>&reset=1"
                class="flex-1 bg-[#0038A8] text-white px-6 py-4 rounded-xl font-bold text-center hover:bg-[#002870] transition">
                 <i class="fas fa-redo mr-2"></i> Play Again
             </a>
-            <a href="index.php" 
+            <a href="piliin.php"
                class="flex-1 bg-gray-200 text-gray-800 px-6 py-4 rounded-xl font-bold text-center hover:bg-gray-300 transition">
                 <i class="fas fa-home mr-2"></i> Try Another Category
             </a>

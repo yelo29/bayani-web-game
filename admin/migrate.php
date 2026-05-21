@@ -270,6 +270,11 @@ try {
     $pdo->exec("UPDATE items SET description='Boosts XP earned per battle by 50%', type='scroll' WHERE name='Lucky Charm'");
     echo "✓ Lucky Charm updated\n\n";
 
+    // Add battle_warning_dismissed column
+    echo "Adding battle_warning_dismissed column...\n";
+    $pdo->exec("ALTER TABLE users ADD COLUMN IF NOT EXISTS battle_warning_dismissed TINYINT DEFAULT 0");
+    echo "✓ battle_warning_dismissed column added\n\n";
+
     // Insert seed data for items
     echo "Inserting seed data for items...\n";
     $items = [

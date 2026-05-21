@@ -4,7 +4,7 @@ require_once 'includes/header.php';
 require_once 'includes/functions.php';
 
 // Get filter parameters
-$categoryId = isset($_GET['category']) ? (int)$_GET['category'] : null;
+$categoryId = isset($_GET['category']) && $_GET['category'] !== '' ? (int)$_GET['category'] : null;
 $sortBy = isset($_GET['sort']) && in_array($_GET['sort'], ['score', 'xp']) ? $_GET['sort'] : 'score';
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $limit = 10;
@@ -18,8 +18,18 @@ $leaderboard = getLeaderboard($categoryId, $limit, $offset, $sortBy);
 $totalPlayers = getTotalPlayers($categoryId);
 
 // Calculate total pages for pagination
-$totalScores = count(getLeaderboard($categoryId, 1000, 0, $sortBy)); // Get all for pagination
-$totalPages = ceil($totalScores / $limit);
+$totalScores = getTotalScores($categoryId, $sortBy);
+$totalPages = $totalScores > 0 ? ceil($totalScores / $limit) : 1;
+
+// Debug: Log pagination values (remove in production)
+error_log("Pagination: page=$page, limit=$limit, offset=$offset, totalScores=$totalScores, totalPages=$totalPages, categoryId=" . ($categoryId ?? 'null') . ", sortBy=$sortBy, leaderboardCount=" . count($leaderboard));
+
+// Ensure page is within valid range
+if ($page > $totalPages) {
+    $page = $totalPages;
+    $offset = ($page - 1) * $limit;
+    $leaderboard = getLeaderboard($categoryId, $limit, $offset, $sortBy);
+}
 
 // Get battle leaderboard data
 $pdo = getDB();
@@ -148,7 +158,7 @@ $battleLeaderboard = $stmt->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">
+                                        <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold whitespace-nowrap">
                                             Lvl <?php echo $score['level'] ?? 1; ?>
                                         </span>
                                     </td>
@@ -170,7 +180,9 @@ $battleLeaderboard = $stmt->fetchAll();
                                     <?php endif; ?>
                                     <td class="px-6 py-4">
                                         <p class="text-sm text-gray-600">
-                                            <?php echo date('M d, Y', strtotime($score['created_at'])); ?>
+                                            <?php $date = new DateTime($score['created_at'], new DateTimeZone('UTC'));
+$date->setTimezone(new DateTimeZone('Asia/Manila'));
+echo $date->format('M d, Y g:i A'); ?>
                                         </p>
                                     </td>
                                 </tr>
@@ -188,7 +200,7 @@ $battleLeaderboard = $stmt->fetchAll();
                         </p>
                         <div class="flex gap-2">
                             <?php if ($page > 1): ?>
-                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $page - 1; ?>"
+                                <a href="?<?php echo $categoryId !== null ? 'category=' . $categoryId . '&' : ''; ?>sort=<?php echo $sortBy; ?>&page=<?php echo $page - 1; ?>"
                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                                     <i class="fas fa-chevron-left"></i>
                                 </a>
@@ -200,14 +212,14 @@ $battleLeaderboard = $stmt->fetchAll();
 
                             for ($i = $startPage; $i <= $endPage; $i++):
                             ?>
-                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $i; ?>"
+                                <a href="?<?php echo $categoryId !== null ? 'category=' . $categoryId . '&' : ''; ?>sort=<?php echo $sortBy; ?>&page=<?php echo $i; ?>"
                                    class="px-4 py-2 rounded-lg font-medium transition <?php echo $i === $page ? 'bg-[#0038A8] text-white' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>">
                                     <?php echo $i; ?>
                                 </a>
                             <?php endfor; ?>
 
                             <?php if ($page < $totalPages): ?>
-                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $page + 1; ?>"
+                                <a href="?<?php echo $categoryId !== null ? 'category=' . $categoryId . '&' : ''; ?>sort=<?php echo $sortBy; ?>&page=<?php echo $page + 1; ?>"
                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                                     <i class="fas fa-chevron-right"></i>
                                 </a>
@@ -221,7 +233,7 @@ $battleLeaderboard = $stmt->fetchAll();
         </div>
 
         <!-- Battle Leaderboard Section -->
-        <div class="mb-8">
+        <div id="battle" class="mb-8">
             <h2 class="text-3xl font-bold font-serif text-center text-[#CE1126] mb-2">Mundo ng mga Bayani — Battle Leaderboard</h2>
             <p class="text-center text-gray-600 mb-8">
                 Top warriors in the battle arena
@@ -294,7 +306,7 @@ $battleLeaderboard = $stmt->fetchAll();
                                             <?php endif; ?>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">
+                                            <span class="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold whitespace-nowrap">
                                                 Lvl <?php echo $player['level'] ?? 1; ?>
                                             </span>
                                         </td>

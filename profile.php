@@ -127,7 +127,9 @@ $currentHero = $heroClasses[$userData['hero_class']] ?? null;
                             </span>
                         </p>
                     <?php endif; ?>
-                    <p class="text-gray-500">Member since <?php echo date('F j, Y', strtotime($userData['created_at'])); ?></p>
+                    <p class="text-gray-500">Member since <?php $date = new DateTime($userData['created_at'], new DateTimeZone('UTC'));
+$date->setTimezone(new DateTimeZone('Asia/Manila'));
+echo $date->format('F d, Y g:i A'); ?></p>
                 </div>
                 <div class="text-center">
                     <p class="text-5xl font-bold text-[#0038A8]"><?php echo $userData['level']; ?></p>
@@ -294,7 +296,9 @@ $currentHero = $heroClasses[$userData['hero_class']] ?? null;
                                 </div>
                                 <div>
                                     <p class="font-semibold text-gray-800"><?php echo htmlspecialchars($battle['enemy_name']); ?> (<?php echo htmlspecialchars($battle['era']); ?>)</p>
-                                    <p class="text-sm text-gray-500"><?php echo date('M j, Y g:i A', strtotime($battle['created_at'])); ?></p>
+                                    <p class="text-sm text-gray-500"><?php $date = new DateTime($battle['created_at'], new DateTimeZone('UTC'));
+$date->setTimezone(new DateTimeZone('Asia/Manila'));
+echo $date->format('F d, Y g:i A'); ?></p>
                                 </div>
                             </div>
                             <div class="text-right">
@@ -344,7 +348,9 @@ $currentHero = $heroClasses[$userData['hero_class']] ?? null;
                                 <div>
                                     <p class="font-bold text-gray-800"><?php echo htmlspecialchars($achievement['achievement_name']); ?></p>
                                     <p class="text-sm text-gray-600"><?php echo htmlspecialchars($achievement['achievement_description']); ?></p>
-                                    <p class="text-xs text-gray-500 mt-1"><?php echo date('M j, Y', strtotime($achievement['earned_at'])); ?></p>
+                                    <p class="text-xs text-gray-500 mt-1"><?php $date = new DateTime($achievement['earned_at'], new DateTimeZone('UTC'));
+$date->setTimezone(new DateTimeZone('Asia/Manila'));
+echo $date->format('F d, Y g:i A'); ?></p>
                                 </div>
                             </div>
                         </div>

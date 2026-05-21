@@ -1,6 +1,5 @@
 <?php
-// Helper Functions
-
+date_default_timezone_set('Asia/Manila');
 require_once 'db.php';
 
 function getCategories(): array {
@@ -78,9 +77,9 @@ function getLeaderboard(int $categoryId = null, int $limit = 10, int $offset = 0
                 LEFT JOIN categories c ON s.category_id = c.id
                 GROUP BY u.id
                 ORDER BY u.xp DESC, u.level DESC
-                LIMIT ? OFFSET ?
             ");
-            $stmt->execute([$limit, $offset]);
+            $stmt->execute();
+            $results = $stmt->fetchAll();
         } else {
             $stmt = $pdo->prepare("
                 SELECT s.*, COALESCE(s.player_name, u.username) as display_name, u.hero_class, u.level, u.xp, c.name as category_name
@@ -88,22 +87,22 @@ function getLeaderboard(int $categoryId = null, int $limit = 10, int $offset = 0
                 LEFT JOIN users u ON s.user_id = u.id
                 LEFT JOIN categories c ON s.category_id = c.id
                 ORDER BY s.score DESC, s.time_taken ASC
-                LIMIT ? OFFSET ?
             ");
-            $stmt->execute([$limit, $offset]);
+            $stmt->execute();
+            $results = $stmt->fetchAll();
         }
     } else {
         if ($sortBy === 'xp') {
             $stmt = $pdo->prepare("
                 SELECT u.*, c.name as category_name, s.score, s.total_questions
                 FROM users u
-                LEFT JOIN scores s ON u.id = s.user_id AND s.category_id = ?
+                INNER JOIN scores s ON u.id = s.user_id AND s.category_id = ?
                 LEFT JOIN categories c ON s.category_id = c.id
                 GROUP BY u.id
                 ORDER BY u.xp DESC, u.level DESC
-                LIMIT ? OFFSET ?
             ");
-            $stmt->execute([$categoryId, $limit, $offset]);
+            $stmt->execute([$categoryId]);
+            $results = $stmt->fetchAll();
         } else {
             $stmt = $pdo->prepare("
                 SELECT s.*, COALESCE(s.player_name, u.username) as display_name, u.hero_class, u.level, u.xp, c.name as category_name
@@ -112,13 +111,14 @@ function getLeaderboard(int $categoryId = null, int $limit = 10, int $offset = 0
                 LEFT JOIN categories c ON s.category_id = c.id
                 WHERE s.category_id = ?
                 ORDER BY s.score DESC, s.time_taken ASC
-                LIMIT ? OFFSET ?
             ");
-            $stmt->execute([$categoryId, $limit, $offset]);
+            $stmt->execute([$categoryId]);
+            $results = $stmt->fetchAll();
         }
     }
 
-    return $stmt->fetchAll();
+    // Apply pagination in PHP to ensure consistent behavior
+    return array_slice($results, $offset, $limit);
 }
 
 function getTotalPlayers(int $categoryId = null): int {
@@ -129,6 +129,29 @@ function getTotalPlayers(int $categoryId = null): int {
     } else {
         $stmt = $pdo->prepare("SELECT COUNT(DISTINCT player_name) FROM scores WHERE category_id = ?");
         $stmt->execute([$categoryId]);
+    }
+
+    return (int) $stmt->fetchColumn();
+}
+
+function getTotalScores(int $categoryId = null, string $sortBy = 'score'): int {
+    $pdo = getDB();
+
+    if ($categoryId === null) {
+        if ($sortBy === 'xp') {
+            $stmt = $pdo->query("SELECT COUNT(DISTINCT u.id) FROM users u LEFT JOIN scores s ON u.id = s.user_id");
+        } else {
+            $stmt = $pdo->query("SELECT COUNT(*) FROM scores");
+        }
+    } else {
+        if ($sortBy === 'xp') {
+            // Count distinct users who have scores in this category
+            $stmt = $pdo->prepare("SELECT COUNT(DISTINCT u.id) FROM users u INNER JOIN scores s ON u.id = s.user_id WHERE s.category_id = ?");
+            $stmt->execute([$categoryId]);
+        } else {
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM scores WHERE category_id = ?");
+            $stmt->execute([$categoryId]);
+        }
     }
 
     return (int) $stmt->fetchColumn();

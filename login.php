@@ -1,6 +1,6 @@
 <?php
+ob_start();
 session_start();
-require_once 'includes/header.php';
 require_once 'includes/functions.php';
 
 // Redirect if already logged in
@@ -14,13 +14,13 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
     $password = $_POST['password'] ?? '';
-    
+
     if (empty($login) || empty($password)) {
         $error = 'Please enter both email/username and password.';
     } else {
         $pdo = getDB();
         // Check by username or email
-        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins FROM users WHERE username = ? OR email = ?");
+        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins, battle_warning_dismissed FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$login, $login]);
         $user = $stmt->fetch();
 
@@ -32,19 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['xp'] = $user['xp'];
             $_SESSION['level'] = $user['level'];
             $_SESSION['coins'] = $user['coins'] ?? 0;
-            
+            $_SESSION['battle_warning_dismissed'] = $user['battle_warning_dismissed'] ?? 0;
+
             // Redirect to profile if hero chosen, otherwise to hero selection
-            if ($user['hero_class']) {
-                header('Location: profile.php');
-            } else {
-                header('Location: choose-hero.php');
-            }
+            $redirectUrl = $user['hero_class'] ? 'profile.php' : 'choose-hero.php';
+            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+            $host = $_SERVER['HTTP_HOST'];
+            header("Location: $protocol://$host/$redirectUrl");
             exit;
         } else {
             $error = 'Invalid email/username or password.';
         }
     }
 }
+
+require_once 'includes/header.php';
 ?>
 
 <main class="min-h-screen bg-gray-50 py-12 px-4">
