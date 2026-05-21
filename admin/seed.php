@@ -1,11 +1,11 @@
 <?php
 // Database Seeder - Password Protected
-// Access via: seed.php?token=B4y4n1Qu1z_S3cr3t_T0k3n_2026_PH_H1st0ry!@#$%^&*
+// Access via: seed.php?token=BayaniQuiz2026
 
 session_start();
 
 // Check for secret token
-$secret_token = 'B4y4n1Qu1z_S3cr3t_T0k3n_2026_PH_H1st0ry!@#$%^&*';
+$secret_token = 'BayaniQuiz2026';
 if (!isset($_GET['token']) || $_GET['token'] !== $secret_token) {
     die('Access denied. Invalid token.');
 }
