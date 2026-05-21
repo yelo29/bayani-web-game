@@ -1,0 +1,21 @@
+# Database credentials (if using config file outside web root)
+config.php
+includes/db.php
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
