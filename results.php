@@ -42,11 +42,25 @@ if ($score === $totalQuestions) {
     $messageClass = 'text-red-500';
 }
 
+// Calculate XP if user is logged in
+$xpEarned = 0;
+if (isset($_SESSION['user_id'])) {
+    $heroClass = $_SESSION['hero_class'] ?? '';
+    $xpEarned = calculateXP($score, $totalQuestions, $timeTaken, $heroClass, $categoryId);
+}
+
 // Handle score saving
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['player_name'])) {
     $playerName = sanitize($_POST['player_name']);
     if (!empty($playerName)) {
-        saveScore($playerName, $categoryId, $score, $totalQuestions, $timeTaken);
+        if (isset($_SESSION['user_id'])) {
+            // Save with user account
+            saveScoreWithUser($_SESSION['user_id'], $categoryId, $score, $totalQuestions, $timeTaken, $xpEarned);
+            updateUserXP($_SESSION['user_id'], $xpEarned);
+        } else {
+            // Save as guest
+            saveScore($playerName, $categoryId, $score, $totalQuestions, $timeTaken);
+        }
         $_SESSION['score_saved'] = true;
         $_SESSION['saved_player_name'] = $playerName;
         header('Location: results.php');
@@ -68,10 +82,48 @@ require_once 'includes/header.php';
             </div>
             <p class="text-2xl font-bold <?php echo $messageClass; ?> mb-4"><?php echo $message; ?></p>
             <p class="text-gray-600">
-                Category: <?php echo htmlspecialchars($categoryName); ?> | 
+                Category: <?php echo htmlspecialchars($categoryName); ?> |
                 Time: <?php echo gmdate('i:s', $timeTaken); ?>
             </p>
         </div>
+
+        <!-- XP Progress Bar (for logged in users) -->
+        <?php if (isset($_SESSION['user_id']) && isset($_SESSION['score_saved'])): ?>
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-[#0038A8] mb-4">XP Earned</h3>
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-center">
+                    <p class="text-4xl font-bold text-yellow-500">+<?php echo $xpEarned; ?></p>
+                    <p class="text-sm text-gray-600">XP Earned</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-bold text-[#0038A8]"><?php echo $_SESSION['level']; ?></p>
+                    <p class="text-sm text-gray-600">Current Level</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-bold text-green-500"><?php echo $_SESSION['xp']; ?></p>
+                    <p class="text-sm text-gray-600">Total XP</p>
+                </div>
+            </div>
+            <?php
+            $currentLevel = $_SESSION['level'];
+            $currentXP = $_SESSION['xp'];
+            $nextLevelXP = getXPForNextLevel($currentLevel);
+            $prevLevelXP = $currentLevel === 1 ? 0 : getXPForNextLevel($currentLevel - 1);
+            $progress = $currentLevel >= 10 ? 100 : (($currentXP - $prevLevelXP) / ($nextLevelXP - $prevLevelXP)) * 100;
+            ?>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+                <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-4 rounded-full transition-all duration-1000" style="width: <?php echo $progress; ?>%"></div>
+            </div>
+            <p class="text-sm text-gray-600 mt-2 text-center">
+                <?php if ($currentLevel >= 10): ?>
+                    🏆 Bayani ng Bayan - Maximum Level!
+                <?php else: ?>
+                    <?php echo $nextLevelXP - $currentXP; ?> XP to Level <?php echo $currentLevel + 1; ?>
+                <?php endif; ?>
+            </p>
+        </div>
+        <?php endif; ?>
 
         <!-- Save Score Form -->
         <?php if (!isset($_SESSION['score_saved'])): ?>

@@ -5,6 +5,7 @@ require_once 'includes/functions.php';
 
 // Get filter parameters
 $categoryId = isset($_GET['category']) ? (int)$_GET['category'] : null;
+$sortBy = isset($_GET['sort']) && in_array($_GET['sort'], ['score', 'xp']) ? $_GET['sort'] : 'score';
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $limit = 10;
 $offset = ($page - 1) * $limit;
@@ -13,11 +14,11 @@ $offset = ($page - 1) * $limit;
 $categories = getCategories();
 
 // Get leaderboard data
-$leaderboard = getLeaderboard($categoryId, $limit, $offset);
+$leaderboard = getLeaderboard($categoryId, $limit, $offset, $sortBy);
 $totalPlayers = getTotalPlayers($categoryId);
 
 // Calculate total pages for pagination
-$totalScores = count(getLeaderboard($categoryId, 1000, 0)); // Get all for pagination
+$totalScores = count(getLeaderboard($categoryId, 1000, 0, $sortBy)); // Get all for pagination
 $totalPages = ceil($totalScores / $limit);
 ?>
 
@@ -30,17 +31,27 @@ $totalPages = ceil($totalScores / $limit);
 
         <!-- Filter Tabs -->
         <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
-            <div class="flex flex-wrap gap-2">
-                <a href="leaderboard.php" 
+            <div class="flex flex-wrap gap-2 mb-4">
+                <a href="leaderboard.php"
                    class="px-4 py-2 rounded-full font-medium transition <?php echo $categoryId === null ? 'bg-[#0038A8] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
                     All Categories
                 </a>
                 <?php foreach ($categories as $cat): ?>
-                    <a href="leaderboard.php?category=<?php echo $cat['id']; ?>" 
+                    <a href="leaderboard.php?category=<?php echo $cat['id']; ?>"
                        class="px-4 py-2 rounded-full font-medium transition <?php echo $categoryId === $cat['id'] ? 'bg-[#0038A8] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
                         <?php echo htmlspecialchars($cat['name']); ?>
                     </a>
                 <?php endforeach; ?>
+            </div>
+            <div class="flex gap-2 border-t pt-4">
+                <a href="leaderboard.php?category=<?php echo $categoryId ?? ''; ?>&sort=score"
+                   class="px-4 py-2 rounded-full font-medium transition <?php echo $sortBy === 'score' ? 'bg-yellow-400 text-[#0038A8]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+                    <i class="fas fa-trophy mr-2"></i>By Score
+                </a>
+                <a href="leaderboard.php?category=<?php echo $categoryId ?? ''; ?>&sort=xp"
+                   class="px-4 py-2 rounded-full font-medium transition <?php echo $sortBy === 'xp' ? 'bg-yellow-400 text-[#0038A8]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
+                    <i class="fas fa-star mr-2"></i>By XP
+                </a>
             </div>
         </div>
 
@@ -58,8 +69,14 @@ $totalPages = ceil($totalScores / $limit);
                             <tr>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Rank</th>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Player</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Category</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Score</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Hero</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Level</th>
+                                <?php if ($sortBy === 'xp'): ?>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">XP</th>
+                                <?php else: ?>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Category</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Score</th>
+                                <?php endif; ?>
                                 <th class="px-6 py-4 text-left text-sm font-semibold text-gray-600">Date</th>
                             </tr>
                         </thead>
@@ -87,19 +104,43 @@ $totalPages = ceil($totalScores / $limit);
                                     </td>
                                     <td class="px-6 py-4">
                                         <p class="font-semibold text-gray-800">
-                                            <?php echo htmlspecialchars($score['player_name']); ?>
+                                            <?php echo htmlspecialchars($score['username'] ?? $score['player_name']); ?>
                                         </p>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="inline-block max-w-[120px] sm:max-w-full px-3 py-1 bg-[#0038A8] text-white rounded-full text-xs font-medium whitespace-nowrap overflow-hidden text-ellipsis">
-                                            <?php echo htmlspecialchars($score['category_name']); ?>
+                                        <?php if (!empty($score['hero_class'])): ?>
+                                            <?php
+                                            $heroColors = ['mandirigma' => '#CE1126', 'lakambini' => '#0038A8', 'mangkukulam' => '#FCD116'];
+                                            $heroColor = $heroColors[$score['hero_class']] ?? '#0038A8';
+                                            ?>
+                                            <span class="inline-block px-2 py-1 text-white rounded-full text-xs font-bold uppercase" style="background: <?php echo $heroColor; ?>;">
+                                                <?php echo htmlspecialchars($score['hero_class']); ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="text-gray-400 text-xs">Guest</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold">
+                                            Lvl <?php echo $score['level'] ?? 1; ?>
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <p class="text-2xl font-bold text-[#0038A8]">
-                                            <?php echo $score['score']; ?>/<?php echo $score['total_questions']; ?>
-                                        </p>
-                                    </td>
+                                    <?php if ($sortBy === 'xp'): ?>
+                                        <td class="px-6 py-4">
+                                            <p class="text-lg font-bold text-yellow-500"><?php echo $score['xp'] ?? 0; ?></p>
+                                        </td>
+                                    <?php else: ?>
+                                        <td class="px-6 py-4">
+                                            <span class="inline-block max-w-[120px] sm:max-w-full px-3 py-1 bg-[#0038A8] text-white rounded-full text-xs font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                                                <?php echo htmlspecialchars($score['category_name']); ?>
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <p class="text-2xl font-bold text-[#0038A8]">
+                                                <?php echo $score['score']; ?>/<?php echo $score['total_questions']; ?>
+                                            </p>
+                                        </td>
+                                    <?php endif; ?>
                                     <td class="px-6 py-4">
                                         <p class="text-sm text-gray-600">
                                             <?php echo date('M d, Y', strtotime($score['created_at'])); ?>
@@ -120,26 +161,26 @@ $totalPages = ceil($totalScores / $limit);
                         </p>
                         <div class="flex gap-2">
                             <?php if ($page > 1): ?>
-                                <a href="?category=<?php echo $categoryId; ?>&page=<?php echo $page - 1; ?>" 
+                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $page - 1; ?>"
                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                                     <i class="fas fa-chevron-left"></i>
                                 </a>
                             <?php endif; ?>
-                            
+
                             <?php
                             $startPage = max(1, $page - 2);
                             $endPage = min($totalPages, $page + 2);
-                            
+
                             for ($i = $startPage; $i <= $endPage; $i++):
                             ?>
-                                <a href="?category=<?php echo $categoryId; ?>&page=<?php echo $i; ?>" 
+                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $i; ?>"
                                    class="px-4 py-2 rounded-lg font-medium transition <?php echo $i === $page ? 'bg-[#0038A8] text-white' : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'; ?>">
                                     <?php echo $i; ?>
                                 </a>
                             <?php endfor; ?>
-                            
+
                             <?php if ($page < $totalPages): ?>
-                                <a href="?category=<?php echo $categoryId; ?>&page=<?php echo $page + 1; ?>" 
+                                <a href="?category=<?php echo $categoryId ?? ''; ?>&sort=<?php echo $sortBy; ?>&page=<?php echo $page + 1; ?>"
                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                                     <i class="fas fa-chevron-right"></i>
                                 </a>

@@ -2,6 +2,12 @@
 session_start();
 require_once 'includes/functions.php';
 
+// Redirect to login if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 // Handle POST request to update session
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['quiz_score'] = (int)$_POST['current_score'];

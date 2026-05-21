@@ -25,9 +25,26 @@
     <nav class="bg-[#0038A8] text-white py-4 px-6 shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="index.php" class="text-2xl font-bold font-serif">Bayani World</a>
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center">
                 <a href="index.php" class="hover:text-yellow-400 transition">Home</a>
                 <a href="leaderboard.php" class="hover:text-yellow-400 transition">Leaderboard</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="profile.php" class="hover:text-yellow-400 transition">Profile</a>
+                    <div class="flex items-center gap-2 ml-4 pl-4 border-l border-white/30">
+                        <span class="font-medium"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                        <?php if (isset($_SESSION['hero_class'])): ?>
+                            <span class="px-2 py-1 bg-yellow-400 text-[#0038A8] rounded-full text-xs font-bold uppercase">
+                                <?php echo htmlspecialchars($_SESSION['hero_class']); ?>
+                            </span>
+                        <?php endif; ?>
+                        <a href="logout.php" class="hover:text-yellow-400 transition ml-2">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <a href="login.php" class="hover:text-yellow-400 transition">Login</a>
+                    <a href="register.php" class="bg-yellow-400 text-[#0038A8] px-4 py-2 rounded-full font-bold hover:bg-yellow-300 transition">Register</a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>
