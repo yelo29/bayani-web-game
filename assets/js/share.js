@@ -80,7 +80,7 @@ function generateShareCard(score, total, categoryName, playerName) {
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 48px Playfair Display';
     ctx.textAlign = 'center';
-    ctx.fillText('Bayani Quiz', canvas.width / 2, 80);
+    ctx.fillText('Bayani World', canvas.width / 2, 80);
     
     // Score
     ctx.fillStyle = '#FCD116';
@@ -108,12 +108,12 @@ function generateShareCard(score, total, categoryName, playerName) {
     // Website URL
     ctx.fillStyle = '#0038A8';
     ctx.font = '24px Poppins';
-    ctx.fillText('bayani-quiz.com', canvas.width / 2, 480);
+    ctx.fillText('bayani-world.com', canvas.width / 2, 480);
     
     // Tagline
     ctx.fillStyle = '#666666';
     ctx.font = '18px Poppins';
-    ctx.fillText('Test Your Knowledge of Philippine History', canvas.width / 2, 520);
+    ctx.fillText('Play. Learn. Be a Hero.', canvas.width / 2, 520);
     
     return canvas.toDataURL('image/png');
 }
@@ -122,13 +122,13 @@ function downloadCard(score, total, categoryName, playerName) {
     const dataUrl = generateShareCard(score, total, categoryName, playerName);
     
     const link = document.createElement('a');
-    link.download = 'bayani-quiz-score.png';
+    link.download = 'bayani-world-score.png';
     link.href = dataUrl;
     link.click();
 }
 
 function shareOnFacebook(score, total, categoryName, playerName) {
-    const text = `I scored ${score}/${total} in Bayani Quiz - ${categoryName}! Test your knowledge of Philippine history!`;
+    const text = `I scored ${score}/${total} in Bayani World - ${categoryName}! Play. Learn. Be a Hero.`;
     const url = encodeURIComponent(window.location.href);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(text)}`, '_blank');
 }

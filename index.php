@@ -16,11 +16,11 @@ $leaderboard = getLeaderboard(null, 3, 0);
     </div>
     
     <div class="text-center z-10 px-4">
-        <h1 class="text-6xl md:text-8xl font-bold font-serif text-white mb-6 drop-shadow-lg" data-i18n='{"en":"Bayani Quiz","fil":"Bayani Quiz"}'>
-            Bayani Quiz
+        <h1 class="text-6xl md:text-8xl font-bold font-serif text-white mb-6 drop-shadow-lg" data-i18n='{"en":"Bayani World","fil":"Bayani World"}'>
+            Bayani World
         </h1>
-        <p class="text-xl md:text-2xl text-yellow-400 font-medium mb-8 max-w-2xl mx-auto" data-i18n='{"en":"Test your knowledge of Philippine history","fil":"Subukan ang iyong kaalaman sa kasaysayan ng Pilipinas"}'>
-            Subukan ang iyong kaalaman sa kasaysayan ng Pilipinas
+        <p class="text-xl md:text-2xl text-yellow-400 font-medium mb-8 max-w-2xl mx-auto" data-i18n='{"en":"Play. Learn. Be a Hero.","fil":"Maglaro. Matuto. Maging Bayani."}'>
+            Maglaro. Matuto. Maging Bayani.
         </p>
         <a href="#categories" class="inline-block bg-yellow-400 text-[#0038A8] px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition transform hover:scale-105 shadow-lg">
             <i class="fas fa-play mr-2"></i> <span data-i18n='{"en":"Start","fil":"Magsimula"}'>Magsimula</span>

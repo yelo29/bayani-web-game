@@ -1,6 +1,8 @@
-# Bayani Quiz
+# Bayani World
 
 An educational quiz game about Philippine history, heroes, events, and culture. Built for Filipino students and curious adults to test their knowledge in a fun, engaging way.
+
+**Tagline:** Play. Learn. Be a Hero.
 
 ## Screenshots
 

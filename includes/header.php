@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bayani Quiz - Test Your Knowledge of Philippine History</title>
+    <title>Bayani World - Play. Learn. Be a Hero.</title>
     <meta name="description" content="An educational quiz game about Philippine history, heroes, and culture.">
     
     <!-- Tailwind CSS via CDN -->
@@ -24,7 +24,7 @@
     <!-- Navigation -->
     <nav class="bg-[#0038A8] text-white py-4 px-6 shadow-lg">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="index.php" class="text-2xl font-bold font-serif">Bayani Quiz</a>
+            <a href="index.php" class="text-2xl font-bold font-serif">Bayani World</a>
             <div class="flex gap-4">
                 <a href="index.php" class="hover:text-yellow-400 transition">Home</a>
                 <a href="leaderboard.php" class="hover:text-yellow-400 transition">Leaderboard</a>
