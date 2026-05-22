@@ -57,51 +57,76 @@ $stmt = $pdo->prepare("SELECT completed FROM region_progress WHERE user_id = ? A
 $stmt->execute([$_SESSION['user_id'], $regionId]);
 $progress = $stmt->fetch() ?: ['completed' => 0];
 
-// Region-specific data (maps, history background, enemy images)
+// Region-specific data (maps, history background, enemy images, enemy facts)
 $regionData = [
     1 => [
         'map_image' => 'https://images.pexels.com/photos/33076681/pexels-photo-33076681.jpeg', // Add your Manila map image URL here
         'history' => 'Maynila (Manila) is the capital city of the Philippines and has been the center of Philippine history for centuries. Founded in 1571 by Spanish conquistador Miguel López de Legazpi, it became the seat of Spanish colonial government in Asia. The city witnessed key events including the Cry of Balintawak, the Philippine Revolution against Spain, and the Battle of Manila during World War II. Intramuros, the historic walled city, stands as a testament to Spanish colonial architecture and the resilience of the Filipino people.',
         'enemy_images' => [
-            '', // Add enemy 1 image URL here
-            '', // Add enemy 2 image URL here
-            ''  // Add enemy 3 image URL here
+            'https://amuraworld.com/images/articles/119-manila/118-miguel-lopez/118-miguel-lopez1.jpg', // Add enemy 1 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/8/89/Retrato_de_Rafael_Izquierdo_y_Guti%C3%A9rrez_%28cropped%29.jpg', // Add enemy 2 image URL here
+            'https://xiaochua.net/wp-content/uploads/2013/10/24-ang-lahat-mismo-padre-mariano-gil.jpg'  // Add enemy 3 image URL here
+        ],
+        'enemy_facts' => [
+            'Miguel López de Legazpi - Led the Spanish conquest of Manila in 1571. Established permanent Spanish colonial rule in the Philippines. Introduced the encomienda system, where natives were forced to pay tribute and labor. Helped dismantle existing local kingdoms and indigenous political systems.',
+            'Rafael Izquierdo y Gutiérrez - Enforced strict colonial control after the 1872 Cavite Mutiny. Removed privileges of Filipino workers and soldiers, increasing unrest. Ordered the execution of Filipino priests linked to reform movements. Strengthened Spanish repression against Filipino nationalism.',
+            'Mariano Gil - Exposed the Katipunan to Spanish authorities in 1896. Triggered mass arrests, torture, and executions of suspected revolutionaries. Became a symbol of friar interference in politics and suppression of Filipino independence movements.'
         ]
     ],
     2 => [
         'map_image' => 'https://images.pexels.com/photos/36703366/pexels-photo-36703366.jpeg', // Add your Cebu map image URL here
         'history' => 'Cebu is known as the "Queen City of the South" and holds a special place in Philippine history as the site of the first Spanish settlement and the baptism of the first Filipino Christians. It was here in 1521 that Ferdinand Magellan arrived, only to be defeated by the local chieftain Lapu-Lapu in the Battle of Mactan - the first successful resistance against foreign invaders. Cebu became a center of trade and Christianity, with the Basilica Minore del Santo Niño housing the oldest religious relic in the Philippines.',
         'enemy_images' => [
-            '', // Add enemy 1 image URL here
-            '', // Add enemy 2 image URL here
-            ''  // Add enemy 3 image URL here
+            'https://pbs.twimg.com/media/DkNEvgWU0AA59IH.jpg', // Add enemy 1 image URL here
+            'https://scontent.fmnl17-5.fna.fbcdn.net/v/t39.30808-6/472268638_1138085781014518_8905430817681953385_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeF3F3xpl1jJvPwjZe0FghXeCBfF9231ozAIF8X3bfWjMEes8j2-B7sOvyuXNNkGKYA0Wvi6KcdS_E3OqOABJpng&_nc_ohc=ZSlhHqjbCn0Q7kNvwFRuBBN&_nc_oc=AdoiCjB5JN9Rhxt5uuY-Ib08hI9z37mVm5Fx0SxqyJtDCHQ-qUgGXI6WA7cYNHWshyg&_nc_zt=23&_nc_ht=scontent.fmnl17-5.fna&_nc_gid=n23Y2lz5H-ogNqA4vDPMVw&_nc_ss=7b2a8&oh=00_Af6u5aSGQzceVUxfR7YQ98l_V8BdK8Wx4aETtG5-gBzNxg&oe=6A15E1DE', // Add enemy 2 image URL here
+            'https://alchetron.com/cdn/rajah-humabon-4a37ebfa-cc96-42c9-bfa4-47c2c2f38be-resize-750.jpeg'  // Add enemy 3 image URL here
+        ],
+        'enemy_facts' => [
+            'Ferdinand Magellan - Arrived in the Philippines in 1521 to claim lands for Spain. Introduced foreign military intervention and forced alliances. Pressured local rulers into accepting Spanish authority and Christianity. His expedition marked the beginning of future Spanish colonization.',
+            'Limahong - Conducted pirate raids across Philippine coastal settlements. Attacked Spanish-controlled areas and disrupted trade routes. Caused destruction and instability in several communities.',
+            'Rajah Humabon - Allied with Magellan and accepted Spanish influence. Allowed Spanish presence to expand in Cebu. Rivalries with other native leaders contributed to early colonial footholds in the Visayas.'
         ]
     ],
     3 => [
         'map_image' => 'https://images.pexels.com/photos/32047037/pexels-photo-32047037.jpeg', // Add your Davao map image URL here
         'history' => 'Davao is the largest city in the Philippines by land area and serves as the gateway to Mindanao. Home to Mount Apo, the country\'s highest peak, Davao has a rich history of indigenous culture and resistance. During World War II, it was a major battleground between Filipino and American forces against Japanese occupation. The city is known for its diverse cultural heritage, blending indigenous Lumad, Muslim, and Christian traditions. Today, it stands as a symbol of Mindanao\'s resilience and natural beauty.',
         'enemy_images' => [
-            '', // Add enemy 1 image URL here
-            '', // Add enemy 2 image URL here
-            ''  // Add enemy 3 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Yamashita_Tomoyuki_%28cropped%29_%282%29.jpg/500px-Yamashita_Tomoyuki_%28cropped%29_%282%29.jpg', // Add enemy 1 image URL here
+            'https://alchetron.com/cdn/benigno-ramos-4323a809-6b04-449e-bee0-27f4bf9cbaa-resize-750.jpeg', // Add enemy 2 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Portrait_of_General_Masaharu_Homma%2C_1943.jpg/250px-Portrait_of_General_Masaharu_Homma%2C_1943.jpg'  // Add enemy 3 image URL here
+        ],
+        'enemy_facts' => [
+            'Tomoyuki Yamashita - Commanded Japanese occupation forces in the Philippines during World War II. Oversaw military campaigns linked to massacres, torture, and destruction. His forces committed severe abuses against Filipino civilians and prisoners.',
+            'Benigno Ramos - Supported Japanese occupation authorities. Helped organize the Makapili, a pro-Japanese group accused of identifying Filipino guerrillas. Viewed by many Filipinos as a collaborator against the resistance movement.',
+            'Masaharu Homma - Led the invasion of the Philippines in 1941–1942. Associated with the Bataan Death March, where thousands of Filipino and American prisoners died. Convicted of war crimes after World War II.'
         ]
     ],
     4 => [
         'map_image' => 'https://images.pexels.com/photos/4175000/pexels-photo-4175000.jpeg', // Add your Vigan map image URL here
         'history' => 'Vigan is a UNESCO World Heritage Site renowned for its well-preserved Spanish colonial architecture. Founded in 1572 by Juan de Salcedo, it became a center of trade and culture in Northern Luzon. The city\'s Calle Crisologo, with its cobblestone streets and ancestral houses, offers a glimpse into the Philippines\' colonial past. Vigan was also the birthplace of notable figures including Father Jose Burgos, one of the GOMBURZA martyrs who inspired the Philippine Revolution.',
         'enemy_images' => [
-            '', // Add enemy 1 image URL here
-            '', // Add enemy 2 image URL here
-            ''  // Add enemy 3 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/3/3f/Jos%C3%A9_Basco_y_Vargas.jpg', // Add enemy 1 image URL here
+            'https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/577559288_1286024163568408_4718905600654558562_n.webp?stp=dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGRo95exqd-QY8bUObRUl12EfC9HYOxwTgR8L0dg7HBOFScvq_JuIVkND7Y1T3TOcsa7-Y6pxaiOhH5Qy-bxi4y&_nc_ohc=A5kf1tGHu0cQ7kNvwHJueJ7&_nc_oc=AdoaWyYMJyxVCORX1fJAS7_Ppauzo4Jb3ARDNjcVprGpQA6ahRhyJg66a4YIoxbXu6I&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=476YVC0jFzkHKMlL4VJm9g&_nc_ss=7b2a8&oh=00_Af6RH1SZnjX4ICSc97NMjOg7jizJi7wWkEt5wUCgwxzetQ&oe=6A15CA4C', // Add enemy 2 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/b/bd/Valeriano_Weyler_bust.jpg'  // Add enemy 3 image URL here
+        ],
+        'enemy_facts' => [
+            'José Basco y Vargas - Implemented the tobacco monopoly that heavily burdened Filipino farmers. Forced farmers to plant tobacco under strict colonial quotas. Punished those who resisted colonial economic policies. Increased Spain\'s economic control over Northern Luzon.',
+            'Esteban Rodríguez de Figueroa - Participated in military campaigns tied to forced labor and slave-taking practices. Exploited native communities during colonial expansion efforts. Used armed expeditions to strengthen Spanish territorial control.',
+            'Valeriano Weyler - Used harsh military tactics against Filipino rebels. Expanded surveillance and suppression during anti-Spanish resistance. Became known for brutal counterinsurgency methods.'
         ]
     ],
     5 => [
         'map_image' => 'https://preview.redd.it/zamboanga-del-sur-v0-qlcr3tksmkee1.jpg?width=1080&crop=smart&auto=webp&s=9a100f9461b605b39ade42ac7d8705796e1bfc39', // Add your Zamboanga map image URL here
         'history' => 'Zamboanga, known as the "City of Flowers," is a melting pot of cultures with strong Spanish, Muslim, and indigenous influences. Founded in 1635 as a military fort to defend against Moro raids, it became the southernmost outpost of Spanish colonial rule. The city\'s Fort Pilar, built in 1718, stands as a symbol of Spanish colonial presence. Zamboanga\'s unique Chavacano language, a Spanish-based creole, reflects its rich cultural heritage and historical significance as a crossroads of civilizations.',
         'enemy_images' => [
-            '', // Add enemy 1 image URL here
-            '', // Add enemy 2 image URL here
-            ''  // Add enemy 3 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/0/0a/Sultan_Utto_Anwaruddin.png', // Add enemy 1 image URL here
+            'https://alchetron.com/cdn/pascual-cervera-y-topete-8ffc898f-2dfc-41f1-a43d-66bef870c32-resize-750.jpeg', // Add enemy 2 image URL here
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sultan_of_Sulu_with_others_LCCN2014685226_%28cropped%29.jpg/500px-Sultan_of_Sulu_with_others_LCCN2014685226_%28cropped%29.jpg'  // Add enemy 3 image URL here
+        ],
+        'enemy_facts' => [
+            'Datu Uto - Conducted raids and armed resistance in Mindanao. Involved in conflicts that disrupted settlements and trade. Opposed Spanish expansion through warfare and attacks.',
+            'Pascual Cervera y Topete - Supported Spanish military defense operations in colonial territories. Helped maintain Spanish military presence in Mindanao regions. Represented continued colonial enforcement during resistance movements.',
+            'Amirul Kiram - Participated in armed conflicts connected to territorial and political struggles. Led resistance actions that caused instability in parts of Mindanao and Sulu. Involved in prolonged clashes with colonial and rival regional forces.'
         ]
     ]
 ];
@@ -109,7 +134,8 @@ $regionData = [
 $data = $regionData[$regionId] ?? [
     'map_image' => '',
     'history' => 'No historical information available.',
-    'enemy_images' => []
+    'enemy_images' => [],
+    'enemy_facts' => []
 ];
 
 require_once 'includes/header.php';
@@ -200,10 +226,10 @@ require_once 'includes/header.php';
                     <?php foreach ($enemies as $index => $enemy): ?>
                         <div class="border-2 border-gray-200 rounded-xl overflow-hidden hover:border-[#0038A8] transition">
                             <?php if (isset($data['enemy_images'][$index])): ?>
-                                <div class="h-48 overflow-hidden">
-                                    <img src="<?php echo htmlspecialchars($data['enemy_images'][$index]); ?>" 
-                                         alt="<?php echo htmlspecialchars($enemy['name']); ?>" 
-                                         class="w-full h-full object-cover">
+                                <div class="h-48 overflow-hidden bg-gray-100 flex items-center justify-center">
+                                    <img src="<?php echo htmlspecialchars($data['enemy_images'][$index]); ?>"
+                                         alt="<?php echo htmlspecialchars($enemy['name']); ?>"
+                                         class="w-full h-full object-contain">
                                 </div>
                             <?php endif; ?>
                             <div class="p-4">
@@ -228,11 +254,17 @@ require_once 'includes/header.php';
                                 </div>
                                 
                                 <p class="text-gray-600 text-sm mb-4"><?php echo htmlspecialchars($enemy['description']); ?></p>
-                                
-                                <a href="battle.php?region_id=<?php echo $regionId; ?>&enemy_id=<?php echo $enemy['id']; ?>" 
-                                   class="block w-full bg-[#CE1126] text-white py-2 rounded-xl font-bold text-center hover:bg-[#a00d1a] transition">
-                                    <i class="fas fa-sword mr-2"></i> Labanan
-                                </a>
+
+                                <div class="flex gap-2">
+                                    <a href="battle.php?region_id=<?php echo $regionId; ?>&enemy_id=<?php echo $enemy['id']; ?>"
+                                       class="flex-1 bg-[#CE1126] text-white py-2 rounded-xl font-bold text-center hover:bg-[#a00d1a] transition">
+                                        <i class="fas fa-sword mr-2"></i> Labanan
+                                    </a>
+                                    <button onclick="showFactModal(<?php echo $index; ?>)"
+                                            class="flex-1 bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
+                                        <i class="fas fa-question-circle mr-2"></i> Sino?
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -252,6 +284,21 @@ require_once 'includes/header.php';
     </div>
 </div>
 
+<!-- Fact Modal -->
+<div id="factModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50" onclick="closeFactModal()">
+    <div class="max-w-2xl mx-4 bg-white rounded-2xl p-6" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-2xl font-bold text-[#0038A8]">
+                <i class="fas fa-info-circle mr-2"></i> Sino?
+            </h3>
+            <button onclick="closeFactModal()" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <p id="factContent" class="text-gray-700 text-lg leading-relaxed"></p>
+    </div>
+</div>
+
 <script>
 function openImageModal(imageUrl) {
     document.getElementById('modalImage').src = imageUrl;
@@ -266,10 +313,30 @@ function closeImageModal() {
     document.body.style.overflow = 'auto';
 }
 
+// Enemy facts data
+const enemyFacts = <?php echo json_encode($data['enemy_facts'] ?? []); ?>;
+
+function showFactModal(enemyIndex) {
+    const fact = enemyFacts[enemyIndex];
+    if (fact) {
+        document.getElementById('factContent').textContent = fact;
+        document.getElementById('factModal').classList.remove('hidden');
+        document.getElementById('factModal').classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeFactModal() {
+    document.getElementById('factModal').classList.add('hidden');
+    document.getElementById('factModal').classList.remove('flex');
+    document.body.style.overflow = 'auto';
+}
+
 // Close modal on Escape key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         closeImageModal();
+        closeFactModal();
     }
 });
 </script>
