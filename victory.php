@@ -91,11 +91,13 @@ if ($dropChance <= 30) {
 }
 
 // Log battle
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$createdAt = $now->format('Y-m-d H:i:s');
 $stmt = $pdo->prepare("
-    INSERT INTO battle_log (user_id, enemy_id, won, xp_earned)
-    VALUES (?, ?, 1, ?)
+    INSERT INTO battle_log (user_id, enemy_id, won, xp_earned, created_at)
+    VALUES (?, ?, 1, ?, ?)
 ");
-$stmt->execute([$_SESSION['user_id'], $enemyId, $xpEarned]);
+$stmt->execute([$_SESSION['user_id'], $enemyId, $xpEarned, $createdAt]);
 
 // Update region progress
 $stmt = $pdo->prepare("

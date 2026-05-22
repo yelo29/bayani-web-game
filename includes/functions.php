@@ -49,20 +49,24 @@ function getQuestions(int $categoryId, int $limit = 10): array {
 
 function saveScore(string $name, int $categoryId, int $score, int $total, int $timeTaken): bool {
     $pdo = getDB();
+    $now = new DateTime('now', new DateTimeZone('UTC'));
+    $createdAt = $now->format('Y-m-d H:i:s');
     $stmt = $pdo->prepare("
-        INSERT INTO scores (player_name, category_id, score, total_questions, time_taken)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO scores (player_name, category_id, score, total_questions, time_taken, created_at)
+        VALUES (?, ?, ?, ?, ?, ?)
     ");
-    return $stmt->execute([$name, $categoryId, $score, $total, $timeTaken]);
+    return $stmt->execute([$name, $categoryId, $score, $total, $timeTaken, $createdAt]);
 }
 
 function saveScoreWithUser(int $userId, string $username, int $categoryId, int $score, int $total, int $timeTaken, int $xpEarned): bool {
     $pdo = getDB();
+    $now = new DateTime('now', new DateTimeZone('UTC'));
+    $createdAt = $now->format('Y-m-d H:i:s');
     $stmt = $pdo->prepare("
-        INSERT INTO scores (user_id, player_name, category_id, score, total_questions, time_taken, xp_earned)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO scores (user_id, player_name, category_id, score, total_questions, time_taken, xp_earned, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ");
-    return $stmt->execute([$userId, $username, $categoryId, $score, $total, $timeTaken, $xpEarned]);
+    return $stmt->execute([$userId, $username, $categoryId, $score, $total, $timeTaken, $xpEarned, $createdAt]);
 }
 
 function getLeaderboard(int $categoryId = null, int $limit = 10, int $offset = 0, string $sortBy = 'score'): array {
@@ -316,8 +320,10 @@ function unlockAchievement(int $userId, string $achievementName, string $descrip
     $stmt->execute([$userId, $achievementName]);
 
     if (!$stmt->fetch()) {
-        $stmt = $pdo->prepare("INSERT INTO achievements (user_id, achievement_name, achievement_description) VALUES (?, ?, ?)");
-        $stmt->execute([$userId, $achievementName, $description]);
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $earnedAt = $now->format('Y-m-d H:i:s');
+        $stmt = $pdo->prepare("INSERT INTO achievements (user_id, achievement_name, achievement_description, earned_at) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$userId, $achievementName, $description, $earnedAt]);
     }
 }
 

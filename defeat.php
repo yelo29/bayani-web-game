@@ -41,11 +41,13 @@ $_SESSION['player_hp'] = $restoredHp;
 $_SESSION['current_streak'] = 0;
 
 // Log battle (lost)
+$now = new DateTime('now', new DateTimeZone('UTC'));
+$createdAt = $now->format('Y-m-d H:i:s');
 $stmt = $pdo->prepare("
-    INSERT INTO battle_log (user_id, enemy_id, won, xp_earned)
-    VALUES (?, ?, 0, 0)
+    INSERT INTO battle_log (user_id, enemy_id, won, xp_earned, created_at)
+    VALUES (?, ?, 0, 0, ?)
 ");
-$stmt->execute([$_SESSION['user_id'], $enemyId]);
+$stmt->execute([$_SESSION['user_id'], $enemyId, $createdAt]);
 
 // Clear battle session
 unset($_SESSION['battle_started']);

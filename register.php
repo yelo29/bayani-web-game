@@ -40,9 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Create user
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
+            $now = new DateTime('now', new DateTimeZone('UTC'));
+            $createdAt = $now->format('Y-m-d H:i:s');
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password_hash, created_at) VALUES (?, ?, ?, ?)");
 
-            if ($stmt->execute([$username, $email, $password_hash])) {
+            if ($stmt->execute([$username, $email, $password_hash, $createdAt])) {
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['username'] = $username;
                 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
