@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'includes/functions.php';
 
 // Redirect to login if not logged in
@@ -7,6 +9,9 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
+
+// Refresh session data from database
+refreshSessionData();
 
 $pdo = getDB();
 

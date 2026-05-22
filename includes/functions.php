@@ -184,6 +184,28 @@ function verifyCSRFToken(string $token): bool {
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 
+function refreshSessionData(): void {
+    if (!isset($_SESSION['user_id'])) {
+        return;
+    }
+
+    $pdo = getDB();
+    $stmt = $pdo->prepare("SELECT username, hero_class, xp, level, coins, player_hp, player_max_hp, battle_warning_dismissed FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+
+    if ($user) {
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['hero_class'] = $user['hero_class'];
+        $_SESSION['xp'] = $user['xp'];
+        $_SESSION['level'] = $user['level'];
+        $_SESSION['coins'] = $user['coins'] ?? 0;
+        $_SESSION['player_hp'] = $user['player_hp'] ?? 100;
+        $_SESSION['player_max_hp'] = $user['player_max_hp'] ?? 100;
+        $_SESSION['battle_warning_dismissed'] = $user['battle_warning_dismissed'] ?? 0;
+    }
+}
+
 function calculateXP(int $score, int $total, int $timeTaken, string $heroClass, int $categoryId): int {
     $xp = 0;
 

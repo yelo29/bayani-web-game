@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'includes/header.php';
 require_once 'includes/functions.php';
 
@@ -8,6 +10,9 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
+
+// Refresh session data from database
+refreshSessionData();
 
 // Get user data
 $userId = $_SESSION['user_id'];

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $pdo = getDB();
         // Check by username or email
-        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins, battle_warning_dismissed FROM users WHERE username = ? OR email = ?");
+        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins, player_hp, player_max_hp, battle_warning_dismissed FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$login, $login]);
         $user = $stmt->fetch();
 
@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['xp'] = $user['xp'];
             $_SESSION['level'] = $user['level'];
             $_SESSION['coins'] = $user['coins'] ?? 0;
+            $_SESSION['player_hp'] = $user['player_hp'] ?? 100;
+            $_SESSION['player_max_hp'] = $user['player_max_hp'] ?? 100;
             $_SESSION['battle_warning_dismissed'] = $user['battle_warning_dismissed'] ?? 0;
 
             // Redirect to profile if hero chosen, otherwise to hero selection

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once 'includes/functions.php';
 
 // Redirect to login if not logged in
@@ -8,9 +10,19 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Refresh session data from database
+refreshSessionData();
+
 // Get all regions with enemy counts and player progress
 $regions = getRegions();
 $pdo = getDB();
+
+// Get current HP directly from database to ensure accuracy
+$stmt = $pdo->prepare("SELECT player_hp, player_max_hp FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$hpData = $stmt->fetch();
+$currentHp = $hpData ? $hpData['player_hp'] : 100;
+$maxHp = $hpData ? $hpData['player_max_hp'] : 100;
 
 // Get enemy counts per region
 $regionEnemyCounts = [];
@@ -71,7 +83,7 @@ require_once 'includes/header.php';
                         <p class="text-sm text-gray-600">XP</p>
                     </div>
                     <div class="text-center">
-                        <p class="text-2xl font-bold text-[#0038A8]"><?php echo $_SESSION['player_hp'] ?? 100; ?></p>
+                        <p class="text-2xl font-bold text-[#0038A8]"><?php echo $currentHp; ?></p>
                         <p class="text-sm text-gray-600">HP</p>
                     </div>
                 </div>

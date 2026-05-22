@@ -13,6 +13,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Refresh session data from database
+refreshSessionData();
+
 // Check if region_id and enemy_id are provided
 if (!isset($_GET['region_id']) || !isset($_GET['enemy_id'])) {
     header('Location: mundo.php');
