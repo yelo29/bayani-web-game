@@ -126,6 +126,9 @@ require_once 'includes/header.php';
                                     <?php if ($item['type'] === 'scroll'): ?>
                                         <span class="text-gray-600">XP Bonus:</span>
                                         <span class="font-bold text-yellow-600">+<?php echo $item['power']; ?>%</span>
+                                    <?php elseif ($_SESSION['hero_class'] === 'mangkukulam' && $item['type'] === 'weapon'): ?>
+                                        <span class="text-gray-600">Magic Power:</span>
+                                        <span class="font-bold text-purple-600">+<?php echo $item['power']; ?></span>
                                     <?php else: ?>
                                         <span class="text-gray-600">Power:</span>
                                         <span class="font-bold text-red-600">+<?php echo $item['power']; ?></span>

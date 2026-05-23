@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once 'includes/header.php';
 require_once 'includes/functions.php';
 
 // Redirect if not logged in
@@ -20,35 +19,38 @@ $heroes = [
     'mandirigma' => [
         'name' => 'Mandirigma',
         'title' => 'Warrior',
-        'description' => 'Bonus XP on history questions. Strong and brave, the Mandirigma excels in battles of knowledge about Philippine history.',
+        'description' => 'High ATK, Medium DEF, Low Speed, Low Magic. Frontline damage dealer who excels in physical combat.',
         'color' => '#CE1126',
         'icon' => 'fa-shield-alt',
         'bonus' => '+5 XP per history question',
-        'base_attack' => 15,
-        'base_defense' => 8,
-        'base_speed' => 8
+        'base_attack' => 18,
+        'base_defense' => 10,
+        'base_speed' => 6,
+        'base_magic' => 5
     ],
     'lakambini' => [
         'name' => 'Lakambini',
         'title' => 'Scholar',
-        'description' => 'Bonus XP on perfect scores. Wise and learned, the Lakambini rewards excellence and perfect knowledge.',
+        'description' => 'Balanced ATK, High DEF, Medium Speed, Medium Magic. Support hero with excellent survivability.',
         'color' => '#0038A8',
         'icon' => 'fa-book',
         'bonus' => '+20 XP for perfect scores',
         'base_attack' => 12,
-        'base_defense' => 12,
-        'base_speed' => 10
+        'base_defense' => 15,
+        'base_speed' => 10,
+        'base_magic' => 12
     ],
     'mangkukulam' => [
         'name' => 'Mangkukulam',
         'title' => 'Mystic',
-        'description' => 'Bonus XP on speed. Quick and clever, the Mangkukulam rewards fast thinkers and swift answers.',
+        'description' => 'Low ATK, Low DEF, High Speed, High Magic. Magic-based damage dealer with mystical powers.',
         'color' => '#FCD116',
         'icon' => 'fa-bolt',
         'bonus' => '+10 XP for finishing under 2 minutes',
-        'base_attack' => 10,
-        'base_defense' => 8,
-        'base_speed' => 15
+        'base_attack' => 8,
+        'base_defense' => 6,
+        'base_speed' => 12,
+        'base_magic' => 18
     ]
 ];
 
@@ -68,15 +70,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             SET hero_class = ?,
                 base_attack = ?,
                 base_defense = ?,
-                base_speed = ?
+                base_speed = ?,
+                base_magic = ?
             WHERE id = ?
         ");
 
-        if ($stmt->execute([$hero_class, $hero['base_attack'], $hero['base_defense'], $hero['base_speed'], $_SESSION['user_id']])) {
+        if ($stmt->execute([$hero_class, $hero['base_attack'], $hero['base_defense'], $hero['base_speed'], $hero['base_magic'], $_SESSION['user_id']])) {
             $_SESSION['hero_class'] = $hero_class;
             $_SESSION['base_attack'] = $hero['base_attack'];
             $_SESSION['base_defense'] = $hero['base_defense'];
             $_SESSION['base_speed'] = $hero['base_speed'];
+            $_SESSION['base_magic'] = $hero['base_magic'];
             header('Location: profile.php');
             exit;
         } else {
@@ -84,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once 'includes/header.php';
 ?>
 
 <main class="min-h-screen bg-gray-50 py-12 px-4">
@@ -104,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <form method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <form method="POST" id="heroForm" class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <?php foreach ($heroes as $class => $hero): ?>
                 <div class="hero-card cursor-pointer" onclick="selectHero('<?php echo $class; ?>')">
                     <input type="radio" name="hero_class" value="<?php echo $class; ?>" id="hero_<?php echo $class; ?>" class="hidden" required>
@@ -127,13 +133,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </label>
                 </div>
             <?php endforeach; ?>
-        </form>
 
-        <div class="text-center mt-12">
-            <button type="submit" form="heroForm" class="bg-[#0038A8] text-white px-12 py-4 rounded-full font-bold text-lg hover:bg-[#002870] transition transform hover:scale-105 shadow-lg">
-                <i class="fas fa-check-circle mr-2"></i>Confirm Hero Selection
-            </button>
-        </div>
+            <div class="md:col-span-3 text-center mt-8">
+                <button type="submit" class="bg-[#0038A8] text-white px-12 py-4 rounded-full font-bold text-lg hover:bg-[#002870] transition transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-check-circle mr-2"></i>Confirm Hero Selection
+                </button>
+            </div>
+        </form>
     </div>
 </main>
 
@@ -158,9 +164,6 @@ function selectHero(heroClass) {
     selectedCard.querySelector('div').classList.add('border-4');
     selectedCard.querySelector('div').style.borderColor = colors[heroClass];
 }
-
-// Add form ID to form
-document.querySelector('form').id = 'heroForm';
 </script>
 
 <?php require_once 'includes/footer.php'; ?>

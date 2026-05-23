@@ -55,15 +55,33 @@ $stmt = $pdo->prepare("
 $stmt->execute([$userId]);
 $equippedScroll = $stmt->fetch();
 
-// Calculate total attack and defense with level-based formulas
+// Calculate total stats with class-specific base stats
 $playerLevel = $userData['level'] ?? 1;
-$baseAttack = 10 + ($playerLevel * 5);
-$baseDefense = 5 + ($playerLevel * 2);
+$heroClass = $userData['hero_class'] ?? null;
+
+// Use class-specific base stats
+$baseAttack = ($userData['base_attack'] ?? 10) + ($playerLevel * 5);
+$baseDefense = ($userData['base_defense'] ?? 5) + ($playerLevel * 2);
+$baseSpeed = ($userData['base_speed'] ?? 10) + ($playerLevel * 1);
+$baseMagic = ($userData['base_magic'] ?? 5) + ($playerLevel * 5);
+
 $weaponBonus = $equippedWeapon ? $equippedWeapon['power'] : 0;
 $armorBonus = $equippedArmor ? $equippedArmor['power'] : 0;
 $scrollBonus = $equippedScroll ? $equippedScroll['power'] : 0;
-$totalAttack = $baseAttack + $weaponBonus;
+
+// Mangkukulam uses magic instead of attack for damage
+// Weapon power adds to magic for Mangkukulam, not attack
+if ($heroClass === 'mangkukulam') {
+    $magicBonus = $weaponBonus;
+    $weaponBonus = 0;
+    $totalAttack = $baseMagic + $magicBonus;
+} else {
+    $magicBonus = 0;
+    $totalAttack = $baseAttack + $weaponBonus;
+}
 $totalDefense = $baseDefense + $armorBonus;
+$totalSpeed = $baseSpeed;
+$totalMagic = $baseMagic + $magicBonus;
 
 // Get battle stats
 $stmt = $pdo->prepare("
@@ -214,7 +232,11 @@ echo $date->format('F d, Y g:i A'); ?></p>
                         </div>
                     </div>
                     <p class="text-sm text-gray-600">
-                        Power: <span class="font-bold text-red-600">+<?php echo $weaponBonus; ?></span>
+                        <?php if ($heroClass === 'mangkukulam'): ?>
+                            Magic Power: <span class="font-bold text-purple-600">+<?php echo $magicBonus; ?></span>
+                        <?php else: ?>
+                            Power: <span class="font-bold text-red-600">+<?php echo $weaponBonus; ?></span>
+                        <?php endif; ?>
                     </p>
                 </div>
                 <!-- Armor -->
@@ -248,21 +270,34 @@ echo $date->format('F d, Y g:i A'); ?></p>
                     </p>
                 </div>
             </div>
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="text-center p-3 bg-orange-50 rounded-xl">
                     <p class="text-2xl font-bold text-orange-600"><?php echo $totalAttack; ?></p>
-                    <p class="text-sm text-gray-600">Total Attack</p>
-                    <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseAttack; ?> + Weapon: <?php echo $weaponBonus; ?></p>
+                    <p class="text-sm text-gray-600">Attack</p>
+                    <?php if ($heroClass === 'mangkukulam'): ?>
+                        <p class="text-xs text-gray-500 mt-1">Magic Base: <?php echo $baseMagic; ?> + Weapon: <?php echo $magicBonus; ?></p>
+                    <?php else: ?>
+                        <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseAttack; ?> + Weapon: <?php echo $weaponBonus; ?></p>
+                    <?php endif; ?>
                 </div>
                 <div class="text-center p-3 bg-blue-50 rounded-xl">
                     <p class="text-2xl font-bold text-blue-600"><?php echo $totalDefense; ?></p>
-                    <p class="text-sm text-gray-600">Total Defense</p>
+                    <p class="text-sm text-gray-600">Defense</p>
                     <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseDefense; ?> + Armor: <?php echo $armorBonus; ?></p>
                 </div>
-                <div class="text-center p-3 bg-yellow-50 rounded-xl">
-                    <p class="text-2xl font-bold text-yellow-600"><?php echo $scrollBonus; ?>%</p>
-                    <p class="text-sm text-gray-600">XP Bonus</p>
-                    <p class="text-xs text-gray-500 mt-1">Boosts XP earned per battle</p>
+                <div class="text-center p-3 bg-green-50 rounded-xl">
+                    <p class="text-2xl font-bold text-green-600"><?php echo $totalSpeed; ?></p>
+                    <p class="text-sm text-gray-600">Speed</p>
+                    <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseSpeed; ?></p>
+                </div>
+                <div class="text-center p-3 bg-purple-50 rounded-xl">
+                    <p class="text-2xl font-bold text-purple-600"><?php echo $totalMagic; ?></p>
+                    <p class="text-sm text-gray-600">Magic</p>
+                    <?php if ($heroClass === 'mangkukulam'): ?>
+                        <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseMagic; ?> + Weapon: <?php echo $magicBonus; ?></p>
+                    <?php else: ?>
+                        <p class="text-xs text-gray-500 mt-1">Base: <?php echo $baseMagic; ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

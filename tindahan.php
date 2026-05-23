@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (!$charmItem) {
                         $stmt = $pdo->prepare("
                             INSERT INTO items (name, type, power, rarity, description, region_id)
-                            VALUES ('Lucky Charm', 'scroll', 50, 'rare', 'Doubles damage on correct answers for next battle', NULL)
+                            VALUES ('Lucky Charm', 'scroll', 50, 'rare', 'Experience bonus for next battle', NULL)
                         ");
                         $stmt->execute();
                         $charmItemId = $pdo->lastInsertId();
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $pdo->prepare("UPDATE users SET coins = coins - ? WHERE id = ?")
                         ->execute([$cost, $_SESSION['user_id']]);
                     $_SESSION['coins'] -= $cost;
-                    $message = "Nabili mo ang Lucky Charm! 2x damage sa susunod na laban";
+                    $message = "Nabili mo ang Lucky Charm! XP sa susunod na laban";
                     $messageType = 'success';
                     $user['coins'] -= $cost;
                 } else {
@@ -278,10 +278,10 @@ require_once 'includes/header.php';
                     </div>
                     <div>
                         <h3 class="text-xl font-bold text-gray-800">Lucky Charm</h3>
-                        <p class="text-sm text-gray-600">2x Damage</p>
+                        <p class="text-sm text-gray-600">XP Bonus</p>
                     </div>
                 </div>
-                <p class="text-gray-600 text-sm mb-4">Susunod na laban: tamaang sagot = 2x damage! (Equip sa Inventaryo)</p>
+                <p class="text-gray-600 text-sm mb-4">Susunod na laban: XP bonus! (Equip sa Inventaryo)</p>
                 <div class="flex justify-between items-center">
                     <span class="text-2xl font-bold text-yellow-500">🪙 200</span>
                     <form method="POST" action="tindahan.php">
@@ -326,7 +326,12 @@ require_once 'includes/header.php';
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800"><?php echo htmlspecialchars($item['name']); ?></h3>
                                 <p class="text-sm text-gray-600">
-                                    <?php echo ucfirst($item['type']); ?> • Power: <?php echo $item['power']; ?>
+                                    <?php echo ucfirst($item['type']); ?> •
+                                    <?php if ($item['hero_class'] === 'mangkukulam' && $item['type'] === 'weapon'): ?>
+                                        Magic Power: <span class="font-bold text-purple-600"><?php echo $item['power']; ?></span>
+                                    <?php else: ?>
+                                        Power: <?php echo $item['power']; ?>
+                                    <?php endif; ?>
                                     <?php if ($item['hero_class']): ?>
                                         <span class="text-xs bg-<?php echo $rarityColor; ?>-100 text-<?php echo $rarityColor; ?>-800 px-2 py-1 rounded-full ml-2">
                                             <?php echo ucfirst($item['hero_class']); ?>

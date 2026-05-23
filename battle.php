@@ -96,8 +96,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     // 5. Now calculate damage
     if ($isCorrect) {
-        // Use class-specific base attack from session
-        $base_attack = ($_SESSION['base_attack'] ?? 10) + ($player_level * 5);
+        // Use class-specific base attack or magic from session
+        // Mangkukulam uses magic instead of attack
+        if ($_SESSION['hero_class'] === 'mangkukulam') {
+            $base_attack = ($_SESSION['base_magic'] ?? 5) + ($player_level * 5);
+            // For Mangkukulam, weapon power adds to magic
+            $magicBonus = $weaponBonus;
+            $weaponBonus = 0; // No attack bonus for magic class
+        } else {
+            $base_attack = ($_SESSION['base_attack'] ?? 10) + ($player_level * 5);
+            $magicBonus = 0;
+        }
 
         if ($timeTaken <= 5) {
             $speedBonus = 20;
@@ -117,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $speedClass = 'text-gray-400';
         }
 
-        $damage = max(5, ($base_attack + $speedBonus + $weaponBonus) - $enemy_defense);
+        $damage = max(5, ($base_attack + $speedBonus + $weaponBonus + $magicBonus) - $enemy_defense);
         $_SESSION['battle_enemy_hp'] -= $damage;
 
         $_SESSION['battle_log'][] = [
