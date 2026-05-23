@@ -26,11 +26,11 @@ $stmt = $pdo->prepare("
 $stmt->execute([$_SESSION['user_id']]);
 $inventory = $stmt->fetchAll();
 
-// Handle equip/unequip requests
+// Handle equip/unequip/sell requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_POST['inventory_id'])) {
     $inventoryId = (int)$_POST['inventory_id'];
     $action = $_POST['action'];
-    
+
     if ($action === 'equip') {
         // Get item type
         $stmt = $pdo->prepare("
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
         ");
         $stmt->execute([$inventoryId, $_SESSION['user_id']]);
         $item = $stmt->fetch();
-        
+
         if ($item) {
             // Unequip all items of same type
             $pdo->prepare("
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
                 SET inv.equipped = 0
                 WHERE inv.user_id = ? AND i.type = ?
             ")->execute([$_SESSION['user_id'], $item['type']]);
-            
+
             // Equip selected item
             $pdo->prepare("UPDATE inventory SET equipped = 1 WHERE id = ? AND user_id = ?")
                 ->execute([$inventoryId, $_SESSION['user_id']]);
@@ -57,8 +57,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && isset($_
     } elseif ($action === 'unequip') {
         $pdo->prepare("UPDATE inventory SET equipped = 0 WHERE id = ? AND user_id = ?")
             ->execute([$inventoryId, $_SESSION['user_id']]);
+    } elseif ($action === 'sell') {
+        // Get item details
+        $stmt = $pdo->prepare("
+            SELECT inv.equipped, i.power, i.rarity
+            FROM inventory inv
+            JOIN items i ON inv.item_id = i.id
+            WHERE inv.id = ? AND inv.user_id = ?
+        ");
+        $stmt->execute([$inventoryId, $_SESSION['user_id']]);
+        $item = $stmt->fetch();
+
+        if ($item && !$item['equipped']) {
+            // Shop price is power × 10
+            // Sell price is a percentage of shop price (always lower than buy price)
+            $sellPercentage = [
+                'common' => 0.5,    // 50% of shop price
+                'rare' => 0.6,      // 60% of shop price
+                'legendary' => 0.7  // 70% of shop price
+            ];
+            $percentage = $sellPercentage[$item['rarity']] ?? 0.5;
+            $shopPrice = $item['power'] * 10;
+            $sellPrice = (int)($shopPrice * $percentage);
+
+            // Remove item from inventory
+            $pdo->prepare("DELETE FROM inventory WHERE id = ? AND user_id = ?")
+                ->execute([$inventoryId, $_SESSION['user_id']]);
+
+            // Add coins to user
+            $pdo->prepare("UPDATE users SET coins = coins + ? WHERE id = ?")
+                ->execute([$sellPrice, $_SESSION['user_id']]);
+
+            // Refresh session
+            refreshSessionData();
+        } elseif ($item['equipped']) {
+            // Cannot sell equipped items
+            $_SESSION['sell_error'] = 'Hindi mo maaaring magbenta ng naka-equip na item!';
+        }
     }
-    
+
     header('Location: inventaryo.php');
     exit;
 }
@@ -72,6 +109,14 @@ require_once 'includes/header.php';
         <p class="text-center text-gray-600 mb-8">
             Iyong mga armas, armor, at scrolls
         </p>
+
+        <!-- Sell error message -->
+        <?php if (isset($_SESSION['sell_error'])): ?>
+            <div class="bg-red-100 border-2 border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6">
+                <?php echo htmlspecialchars($_SESSION['sell_error']); ?>
+            </div>
+            <?php unset($_SESSION['sell_error']); ?>
+        <?php endif; ?>
 
         <!-- Inventory Grid -->
         <?php if (empty($inventory)): ?>
@@ -134,8 +179,18 @@ require_once 'includes/header.php';
                                         <span class="font-bold text-red-600">+<?php echo $item['power']; ?></span>
                                     <?php endif; ?>
                                 </div>
+                                <div class="text-sm">
+                                    <span class="text-gray-600">Sell Price:</span>
+                                    <?php
+                                    $sellPercentage = ['common' => 0.5, 'rare' => 0.6, 'legendary' => 0.7];
+                                    $percentage = $sellPercentage[$item['rarity']] ?? 0.5;
+                                    $shopPrice = $item['power'] * 10;
+                                    $sellPrice = (int)($shopPrice * $percentage);
+                                    ?>
+                                    <span class="font-bold text-green-600"><?php echo $sellPrice; ?> coins</span>
+                                </div>
                             </div>
-                            
+
                             <?php if ($item['equipped']): ?>
                                 <form method="POST" action="inventaryo.php">
                                     <input type="hidden" name="action" value="unequip">
@@ -145,13 +200,22 @@ require_once 'includes/header.php';
                                     </button>
                                 </form>
                             <?php else: ?>
-                                <form method="POST" action="inventaryo.php">
-                                    <input type="hidden" name="action" value="equip">
-                                    <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
-                                    <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
-                                        <i class="fas fa-check mr-2"></i> Equip
-                                    </button>
-                                </form>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <form method="POST" action="inventaryo.php">
+                                        <input type="hidden" name="action" value="equip">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
+                                            <i class="fas fa-check mr-1"></i> Equip
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="inventaryo.php" onsubmit="return confirm('Sigurado ka bang gusto mong ibenta itong item?');">
+                                        <input type="hidden" name="action" value="sell">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 transition">
+                                            <i class="fas fa-coins mr-1"></i> Sell
+                                        </button>
+                                    </form>
+                                </div>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -202,8 +266,18 @@ require_once 'includes/header.php';
                                     <span class="text-gray-600">Defense:</span>
                                     <span class="font-bold text-blue-600">+<?php echo $item['power']; ?></span>
                                 </div>
+                                <div class="text-sm">
+                                    <span class="text-gray-600">Sell Price:</span>
+                                    <?php
+                                    $sellPercentage = ['common' => 0.5, 'rare' => 0.6, 'legendary' => 0.7];
+                                    $percentage = $sellPercentage[$item['rarity']] ?? 0.5;
+                                    $shopPrice = $item['power'] * 10;
+                                    $sellPrice = (int)($shopPrice * $percentage);
+                                    ?>
+                                    <span class="font-bold text-green-600"><?php echo $sellPrice; ?> coins</span>
+                                </div>
                             </div>
-                            
+
                             <?php if ($item['equipped']): ?>
                                 <form method="POST" action="inventaryo.php">
                                     <input type="hidden" name="action" value="unequip">
@@ -213,13 +287,22 @@ require_once 'includes/header.php';
                                     </button>
                                 </form>
                             <?php else: ?>
-                                <form method="POST" action="inventaryo.php">
-                                    <input type="hidden" name="action" value="equip">
-                                    <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
-                                    <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
-                                        <i class="fas fa-check mr-2"></i> Equip
-                                    </button>
-                                </form>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <form method="POST" action="inventaryo.php">
+                                        <input type="hidden" name="action" value="equip">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
+                                            <i class="fas fa-check mr-1"></i> Equip
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="inventaryo.php" onsubmit="return confirm('Sigurado ka bang gusto mong ibenta itong item?');">
+                                        <input type="hidden" name="action" value="sell">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 transition">
+                                            <i class="fas fa-coins mr-1"></i> Sell
+                                        </button>
+                                    </form>
+                                </div>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -270,8 +353,18 @@ require_once 'includes/header.php';
                                     <span class="text-gray-600">XP Bonus:</span>
                                     <span class="font-bold text-yellow-600">+<?php echo $item['power']; ?>%</span>
                                 </div>
+                                <div class="text-sm">
+                                    <span class="text-gray-600">Sell Price:</span>
+                                    <?php
+                                    $sellPercentage = ['common' => 0.5, 'rare' => 0.6, 'legendary' => 0.7];
+                                    $percentage = $sellPercentage[$item['rarity']] ?? 0.5;
+                                    $shopPrice = $item['power'] * 10;
+                                    $sellPrice = (int)($shopPrice * $percentage);
+                                    ?>
+                                    <span class="font-bold text-green-600"><?php echo $sellPrice; ?> coins</span>
+                                </div>
                             </div>
-                            
+
                             <?php if ($item['equipped']): ?>
                                 <form method="POST" action="inventaryo.php">
                                     <input type="hidden" name="action" value="unequip">
@@ -281,13 +374,22 @@ require_once 'includes/header.php';
                                     </button>
                                 </form>
                             <?php else: ?>
-                                <form method="POST" action="inventaryo.php">
-                                    <input type="hidden" name="action" value="equip">
-                                    <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
-                                    <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
-                                        <i class="fas fa-check mr-2"></i> Equip
-                                    </button>
-                                </form>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <form method="POST" action="inventaryo.php">
+                                        <input type="hidden" name="action" value="equip">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-[#0038A8] text-white py-2 rounded-xl font-bold hover:bg-[#002870] transition">
+                                            <i class="fas fa-check mr-1"></i> Equip
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="inventaryo.php" onsubmit="return confirm('Sigurado ka bang gusto mong ibenta itong item?');">
+                                        <input type="hidden" name="action" value="sell">
+                                        <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
+                                        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-xl font-bold hover:bg-green-700 transition">
+                                            <i class="fas fa-coins mr-1"></i> Sell
+                                        </button>
+                                    </form>
+                                </div>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
