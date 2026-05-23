@@ -11,7 +11,7 @@ require_once 'includes/header.php';
         </div>
 
         <!-- Game Mode Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Quiz Card -->
             <div class="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition-transform duration-300">
                 <div class="text-center mb-6">
@@ -60,6 +60,30 @@ require_once 'includes/header.php';
 
                 <a href="mundo.php" class="block w-full bg-[#CE1126] text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-[#A00D1A] transition">
                     <i class="fas fa-play mr-2"></i> <?php echo t('magsimula'); ?>
+                </a>
+            </div>
+
+            <!-- Kwento Card -->
+            <div class="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition-transform duration-300">
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book text-4xl text-purple-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-purple-600 mb-2">📖 Kwento Mode</h2>
+                    <p class="text-gray-600">2D Story RPG - Travel through Philippine history</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-gray-800 mb-3">Chapters:</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">Spanish Colonial</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Revolution</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">World War II</span>
+                    </div>
+                </div>
+
+                <a href="kwento/index.php" class="block w-full bg-purple-600 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-purple-700 transition">
+                    <i class="fas fa-play mr-2"></i> Magsimula
                 </a>
             </div>
         </div>

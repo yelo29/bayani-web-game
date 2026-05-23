@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'includes/translations.php';
+require_once __DIR__ . '/translations.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +24,7 @@ require_once 'includes/translations.php';
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
 
     <style>
         /* Page fade in animation */
@@ -104,11 +104,11 @@ require_once 'includes/translations.php';
     <nav class="bg-[#0038A8] text-white py-3 px-4 shadow-lg sticky top-0 z-40">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Logo -->
-            <a href="index.php" class="text-2xl font-bold font-serif">Bayani World</a>
+            <a href="/index.php" class="text-2xl font-bold font-serif">Bayani World</a>
 
             <!-- Desktop Navigation -->
             <div class="hidden md:flex gap-6 items-center">
-                <a href="index.php" class="hover:text-yellow-400 transition text-base"><?php echo t('home'); ?></a>
+                <a href="/index.php" class="hover:text-yellow-400 transition text-base"><?php echo t('home'); ?></a>
 
                 <!-- Leaderboard Dropdown -->
                 <div class="dropdown relative">
@@ -116,23 +116,23 @@ require_once 'includes/translations.php';
                         <?php echo t('leaderboard'); ?> 🏆 <i class="fas fa-chevron-down text-xs"></i>
                     </button>
                     <div class="dropdown-menu absolute top-full left-0 mt-2 bg-yellow-100 rounded-xl shadow-xl min-w-[200px] overflow-hidden">
-                        <a href="leaderboard.php" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                        <a href="/leaderboard.php" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
                             <i class="fas fa-book-open mr-2"></i> <?php echo t('quiz_leaderboard'); ?>
                         </a>
-                        <a href="leaderboard.php#battle" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                        <a href="/leaderboard.php#battle" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
                             <i class="fas fa-swords mr-2"></i> <?php echo t('battle_leaderboard'); ?>
                         </a>
                     </div>
                 </div>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="inventaryo.php" class="hover:text-yellow-400 transition text-base"><?php echo t('inventory'); ?></a>
-                    <a href="tindahan.php" class="hover:text-yellow-400 transition text-base"><?php echo t('shop'); ?></a>
-                    <a href="profile.php" class="hover:text-yellow-400 transition text-base"><?php echo t('profile'); ?></a>
+                    <a href="/inventaryo.php" class="hover:text-yellow-400 transition text-base"><?php echo t('inventory'); ?></a>
+                    <a href="/tindahan.php" class="hover:text-yellow-400 transition text-base"><?php echo t('shop'); ?></a>
+                    <a href="/profile.php" class="hover:text-yellow-400 transition text-base"><?php echo t('profile'); ?></a>
                 <?php endif; ?>
 
                 <!-- Language Toggle -->
-                <form method="POST" action="set_language.php" class="inline">
+                <form method="POST" action="/set_language.php" class="inline">
                     <button type="submit" class="hover:text-yellow-400 transition text-base flex items-center gap-1">
                         <i class="fas fa-globe"></i>
                         <?php echo ($_SESSION['lang'] ?? 'fil') === 'fil' ? 'Filipino' : 'English'; ?>
@@ -148,13 +148,13 @@ require_once 'includes/translations.php';
                             </span>
                         <?php endif; ?>
                         <span class="text-yellow-400 font-bold text-sm">🪙 <?php echo $_SESSION['coins'] ?? 0; ?></span>
-                        <a href="logout.php" class="hover:text-yellow-400 transition">
+                        <a href="/logout.php" class="hover:text-yellow-400 transition">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
                     </div>
                 <?php else: ?>
-                    <a href="login.php" class="hover:text-yellow-400 transition text-base"><?php echo t('login'); ?></a>
-                    <a href="register.php" class="bg-yellow-400 text-[#0038A8] px-4 py-2 rounded-full font-bold text-sm hover:bg-yellow-300 transition"><?php echo t('register'); ?></a>
+                    <a href="/login.php" class="hover:text-yellow-400 transition text-base"><?php echo t('login'); ?></a>
+                    <a href="/register.php" class="bg-yellow-400 text-[#0038A8] px-4 py-2 rounded-full font-bold text-sm hover:bg-yellow-300 transition"><?php echo t('register'); ?></a>
                 <?php endif; ?>
             </div>
 
@@ -171,23 +171,23 @@ require_once 'includes/translations.php';
         <!-- Mobile Menu -->
         <div id="mobileMenu" class="mobile-menu md:hidden bg-[#0038A8] border-t border-white/10">
             <div class="px-4 py-4 space-y-3">
-                <a href="index.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('home'); ?></a>
+                <a href="/index.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('home'); ?></a>
 
                 <!-- Leaderboard Section -->
                 <div class="py-2">
                     <p class="text-yellow-400 font-bold mb-2 px-4"><?php echo t('leaderboard'); ?> 🏆</p>
-                    <a href="leaderboard.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                    <a href="/leaderboard.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
                         <i class="fas fa-book-open mr-2"></i> <?php echo t('quiz_leaderboard'); ?>
                     </a>
-                    <a href="leaderboard.php#battle" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                    <a href="/leaderboard.php#battle" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
                         <i class="fas fa-swords mr-2"></i> <?php echo t('battle_leaderboard'); ?>
                     </a>
                 </div>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="inventaryo.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('inventory'); ?></a>
-                    <a href="tindahan.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('shop'); ?></a>
-                    <a href="profile.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('profile'); ?></a>
+                    <a href="/inventaryo.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('inventory'); ?></a>
+                    <a href="/tindahan.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('shop'); ?></a>
+                    <a href="/profile.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('profile'); ?></a>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
@@ -201,18 +201,18 @@ require_once 'includes/translations.php';
                             <?php endif; ?>
                             <span class="text-yellow-400 font-bold">🪙 <?php echo $_SESSION['coins'] ?? 0; ?></span>
                         </div>
-                        <a href="logout.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition text-red-300">
+                        <a href="/logout.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition text-red-300">
                             <i class="fas fa-sign-out-alt mr-2"></i> <?php echo t('logout'); ?>
                         </a>
                     </div>
                 <?php else: ?>
-                    <a href="login.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('login'); ?></a>
-                    <a href="register.php" class="block py-3 px-4 bg-yellow-400 text-[#0038A8] rounded-lg font-bold text-center"><?php echo t('register'); ?></a>
+                    <a href="/login.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition"><?php echo t('login'); ?></a>
+                    <a href="/register.php" class="block py-3 px-4 bg-yellow-400 text-[#0038A8] rounded-lg font-bold text-center"><?php echo t('register'); ?></a>
                 <?php endif; ?>
 
                 <!-- Language Toggle -->
                 <div class="border-t border-white/10 pt-4 mt-4">
-                    <form method="POST" action="set_language.php">
+                    <form method="POST" action="/set_language.php">
                         <button type="submit" class="w-full py-3 px-4 hover:bg-white/10 rounded-lg transition text-left">
                             <i class="fas fa-globe mr-2"></i>
                             <?php echo ($_SESSION['lang'] ?? 'fil') === 'fil' ? '🌐 Filipino' : '🌐 English'; ?>

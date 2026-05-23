@@ -53,6 +53,7 @@ if (!isset($_SESSION['battle_started']) || $_SESSION['battle_enemy_id'] !== $ene
     unset($_SESSION['battle_enemy_max_hp']);
     unset($_SESSION['battle_log']);
     unset($_SESSION['battle_used_questions']);
+    unset($_SESSION['battle_max_rounds']);
 
     // Initialize fresh battle state from database
     $_SESSION['battle_started'] = true;
@@ -64,7 +65,6 @@ if (!isset($_SESSION['battle_started']) || $_SESSION['battle_enemy_id'] !== $ene
     $_SESSION['battle_enemy_hp'] = $enemy['hp'];
     $_SESSION['battle_enemy_max_hp'] = $enemy['hp'];
     $_SESSION['battle_round'] = 1;
-    $_SESSION['battle_max_rounds'] = 5;
     $_SESSION['battle_log'] = [];
     $_SESSION['battle_used_questions'] = [];
     $_SESSION['battle_start_time'] = time();
@@ -154,13 +154,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     // Increment round
     $_SESSION['battle_round']++;
 
-    // Check if battle is over (5 rounds or HP depleted)
-    if ($_SESSION['battle_round'] > $_SESSION['battle_max_rounds'] || 
-        $_SESSION['battle_player_hp'] <= 0 || 
-        $_SESSION['battle_enemy_hp'] <= 0) {
-        
-        // Determine winner
-        if ($_SESSION['battle_player_hp'] > $_SESSION['battle_enemy_hp']) {
+    // Check if battle is over (HP depleted only - no round limit)
+    if ($_SESSION['battle_player_hp'] <= 0 || $_SESSION['battle_enemy_hp'] <= 0) {
+        // Determine winner by who still has HP
+        if ($_SESSION['battle_enemy_hp'] <= 0) {
             header('Location: victory.php');
         } else {
             header('Location: defeat.php');
@@ -226,7 +223,7 @@ require_once 'includes/header.php';
         <!-- Round Indicator -->
         <div class="bg-white rounded-2xl shadow-lg p-4 mb-6 text-center">
             <p class="text-2xl font-bold text-[#0038A8]">
-                Round <?php echo $_SESSION['battle_round']; ?>/<?php echo $_SESSION['battle_max_rounds']; ?>
+                Round <?php echo $_SESSION['battle_round']; ?>
             </p>
         </div>
 

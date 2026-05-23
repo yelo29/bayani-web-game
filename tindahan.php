@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
 
             case 'lucky_charm':
-                $cost = 200;
+                $cost = 400;
                 if ($user['coins'] >= $cost) {
                     // Add lucky charm to inventory
                     // First check if lucky charm item exists, if not create it
@@ -283,7 +283,7 @@ require_once 'includes/header.php';
                 </div>
                 <p class="text-gray-600 text-sm mb-4">Susunod na laban: XP bonus! (Equip sa Inventaryo)</p>
                 <div class="flex justify-between items-center">
-                    <span class="text-2xl font-bold text-yellow-500">🪙 200</span>
+                    <span class="text-2xl font-bold text-yellow-500">🪙 400</span>
                     <form method="POST" action="tindahan.php">
                         <input type="hidden" name="item" value="lucky_charm">
                         <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-xl font-bold hover:bg-yellow-600 transition">
