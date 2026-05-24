@@ -63,7 +63,7 @@ $battleLeaderboard = $stmt->fetchAll();
             </p>
 
             <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-6 text-center">
-                <span class="text-blue-800 font-bold text-lg">📝 QUIZ ONLY</span>
+                <span class="text-blue-800 font-bold text-lg">QUIZ ONLY</span>
             </div>
 
             <!-- Filter Tabs -->
@@ -240,7 +240,7 @@ echo $date->format('M d, Y g:i A'); ?>
             </p>
 
             <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-6 text-center">
-                <span class="text-red-800 font-bold text-lg">⚔️ BATTLE ARENA</span>
+                <span class="text-red-800 font-bold text-lg">BATTLE ARENA</span>
             </div>
 
             <!-- Battle Leaderboard Table -->
