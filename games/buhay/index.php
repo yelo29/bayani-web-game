@@ -108,13 +108,13 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-3 mb-4 rounded">
-                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-drag ang pangalan ng rehiyon sa tamang lokasyon sa mapa. Pwede mong ilagay kahit saang lugar para matuto, pero tamang lokasyon lang ang may puntos.</p>
+                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang pangalan ng rehiyon, then i-tap ang tamang lokasyon sa mapa. Pwede mong ilagay kahit saang lugar para matuto, pero tamang lokasyon lang ang may puntos.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 <!-- Map Area with Drop Zones -->
                 <div class="space-y-4">
-                    <div class="text-center text-gray-500 text-sm md:text-base">I-drag ang region sa tamang lokasyon</div>
+                    <div class="text-center text-gray-500 text-sm md:text-base">I-tap ang region, then i-tap ang tamang lokasyon</div>
 
                     <!-- Luzon Drop Zone -->
                     <div class="bg-gray-100 rounded-2xl p-4 relative drop-zone-container" data-region="Luzon">
@@ -181,7 +181,7 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-4 rounded">
-                <p class="text-sm text-yellow-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-drag ang mga kaganapan sa tamang order sa timeline. Mula sa pinakauna hanggang sa pinakabago.</p>
+                <p class="text-sm text-yellow-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang kaganapan, then i-tap ang tamang slot sa timeline. Mula sa pinakauna hanggang sa pinakabago.</p>
             </div>
 
             <div class="bg-white rounded-2xl p-4 md:p-6 mb-4 md:mb-6 border-2 border-gray-200">
@@ -229,23 +229,10 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-3 mb-4 rounded">
-                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-drag ang hayop sa tamang rehiyon kung saan ito matatagpuan. Pwede mong ilagay kahit saang rehiyon para matuto, pero tamang rehiyon lang ang may puntos.</p>
+                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang hayop, then i-tap ang tamang rehiyon kung saan ito matatagpuan. Pwede mong ilagay kahit saang rehiyon para matuto, pero tamang rehiyon lang ang may puntos.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-                <!-- Animals -->
-                <div class="bg-gray-50 rounded-2xl p-4">
-                    <h3 class="font-bold text-gray-800 mb-4">Mga Hayop:</h3>
-                    <div class="grid grid-cols-2 gap-2 md:gap-3" id="animalCards">
-                        <?php foreach ($animals as $index => $animal): ?>
-                        <div class="bg-white p-3 md:p-4 rounded-lg shadow cursor-grab active:cursor-grabbing border-2 border-gray-200 hover:border-green-400 transition text-center" draggable="true" data-animal="<?php echo $animal['name']; ?>" data-region="<?php echo $animal['region']; ?>" data-index="<?php echo $index; ?>">
-                            <div class="text-3xl md:text-4xl mb-1 md:mb-2"><?php echo $animal['emoji']; ?></div>
-                            <div class="text-xs md:text-sm font-medium text-gray-800"><?php echo $animal['name']; ?></div>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
                 <!-- Map Regions -->
                 <div class="bg-gray-100 rounded-2xl p-4">
                     <h3 class="font-bold text-gray-800 mb-4">I-drag sa tamang rehiyon:</h3>
@@ -268,6 +255,19 @@ $mode = $_GET['mode'] ?? 'menu';
                         <div class="bg-teal-200 p-3 md:p-4 rounded-lg border-2 border-teal-400 min-h-[70px] md:min-h-[80px] flex items-center justify-center" data-region="Palawan">
                             <span class="font-bold text-teal-800 text-sm md:text-base">Palawan</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Animals -->
+                <div class="bg-gray-50 rounded-2xl p-4">
+                    <h3 class="font-bold text-gray-800 mb-4">Mga Hayop:</h3>
+                    <div class="grid grid-cols-2 gap-2 md:gap-3" id="animalCards">
+                        <?php foreach ($animals as $index => $animal): ?>
+                        <div class="bg-white p-3 md:p-4 rounded-lg shadow cursor-grab active:cursor-grabbing border-2 border-gray-200 hover:border-green-400 transition text-center" draggable="true" data-animal="<?php echo $animal['name']; ?>" data-region="<?php echo $animal['region']; ?>" data-index="<?php echo $index; ?>">
+                            <div class="text-3xl md:text-4xl mb-1 md:mb-2"><?php echo $animal['emoji']; ?></div>
+                            <div class="text-xs md:text-sm font-medium text-gray-800"><?php echo $animal['name']; ?></div>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -293,6 +293,260 @@ let droppedItems = new Set();
 let placedItems = new Map(); // Track which items are placed where
 let zoneContents = new Map(); // Track contents of each zone for piling
 let isSubmitting = false; // Prevent multiple submissions
+
+// Touch support for mobile - tap to select, tap to drop
+let selectedItem = null;
+let selectedData = null;
+
+function handleTap(e) {
+    e.preventDefault();
+
+    // Check if tapping on a draggable item
+    if (this.hasAttribute('draggable') && !droppedItems.has(this.dataset.regionId || this.dataset.index)) {
+        // If tapping the same item, deselect it
+        if (selectedItem === this) {
+            selectedItem.classList.remove('ring-4', 'ring-blue-500', 'scale-105');
+            selectedItem = null;
+            selectedData = null;
+            hideSelectionIndicator();
+            return;
+        }
+
+        // Deselect previous selection
+        if (selectedItem) {
+            selectedItem.classList.remove('ring-4', 'ring-blue-500', 'scale-105');
+        }
+
+        // Select this item
+        selectedItem = this;
+        selectedItem.classList.add('ring-4', 'ring-blue-500', 'scale-105');
+
+        // Store data
+        if (this.dataset.regionId) {
+            selectedData = {
+                id: this.dataset.regionId,
+                name: this.dataset.name,
+                island: this.dataset.island,
+                type: 'mapa'
+            };
+        } else if (this.dataset.year) {
+            selectedData = {
+                index: this.dataset.index,
+                year: this.dataset.year,
+                event: this.dataset.event,
+                type: 'kasaysayan'
+            };
+        } else if (this.dataset.animal) {
+            selectedData = {
+                index: this.dataset.index,
+                animal: this.dataset.animal,
+                region: this.dataset.region,
+                emoji: this.querySelector('.text-3xl, .text-4xl').textContent,
+                type: 'hayop'
+            };
+        }
+
+        // Show selection indicator
+        showSelectionIndicator(selectedData.name || selectedData.event || selectedData.animal);
+
+        // Scroll to top to show drop zones
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+function showSelectionIndicator(itemName) {
+    // Remove existing indicator
+    hideSelectionIndicator();
+
+    // Create indicator
+    const indicator = document.createElement('div');
+    indicator.id = 'selection-indicator';
+    indicator.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg z-50 flex items-center gap-2';
+    indicator.innerHTML = `
+        <span class="text-sm">Selected: <strong>${itemName}</strong></span>
+        <button onclick="cancelSelection()" class="ml-2 bg-white/20 hover:bg-white/30 rounded-full w-6 h-6 flex items-center justify-center">
+            <i class="fas fa-times text-xs"></i>
+        </button>
+    `;
+    document.body.appendChild(indicator);
+}
+
+function hideSelectionIndicator() {
+    const indicator = document.getElementById('selection-indicator');
+    if (indicator) {
+        indicator.remove();
+    }
+}
+
+function cancelSelection() {
+    if (selectedItem) {
+        selectedItem.classList.remove('ring-4', 'ring-blue-500', 'scale-105');
+    }
+    selectedItem = null;
+    selectedData = null;
+    hideSelectionIndicator();
+}
+
+function handleDropZoneTap(e) {
+    e.preventDefault();
+
+    if (selectedItem && selectedData) {
+        handleDrop(this, selectedData);
+
+        // Deselect after drop
+        selectedItem.classList.remove('ring-4', 'ring-blue-500', 'scale-105');
+        selectedItem = null;
+        selectedData = null;
+        hideSelectionIndicator();
+    }
+}
+
+function handleDrop(dropZone, data) {
+    if (data.type === 'mapa') {
+        const targetRegion = dropZone.dataset.region;
+        if (!droppedItems.has(data.id)) {
+            droppedItems.add(data.id);
+            placedItems.set(data.id, targetRegion);
+
+            const label = document.querySelector(`[data-region-id="${data.id}"]`);
+            if (label) {
+                label.draggable = false;
+                label.classList.add('opacity-50', 'cursor-not-allowed');
+                label.classList.remove('cursor-grab', 'active:cursor-grabbing');
+            }
+
+            let dropZoneId = '';
+            if (targetRegion === 'Luzon') dropZoneId = 'luzonDropZone';
+            if (targetRegion === 'Visayas') dropZoneId = 'visayasDropZone';
+            if (targetRegion === 'Mindanao') dropZoneId = 'mindanaoDropZone';
+
+            const zoneDiv = document.getElementById(dropZoneId);
+            if (zoneDiv) {
+                const placeholder = zoneDiv.querySelector('span.text-gray-400');
+                if (placeholder) placeholder.remove();
+
+                if (data.island === targetRegion) {
+                    score++;
+                    document.getElementById('score').textContent = score;
+                    dropZone.style.backgroundColor = '#D1FAE5';
+                    dropZone.style.borderColor = '#10B981';
+                } else {
+                    dropZone.style.backgroundColor = '#FEE2E2';
+                    dropZone.style.borderColor = '#EF4444';
+                }
+
+                if (!zoneContents.has(targetRegion)) zoneContents.set(targetRegion, []);
+                zoneContents.get(targetRegion).push(data.name);
+
+                const badge = document.createElement('div');
+                badge.className = 'px-2 py-1 rounded text-xs font-medium ' +
+                    (data.island === targetRegion ? 'bg-green-500 text-white' : 'bg-red-500 text-white opacity-70');
+                badge.textContent = (data.island === targetRegion ? '✓ ' : '✗ ') + data.name.substring(0, 12);
+                zoneDiv.appendChild(badge);
+
+                updateSubmitButton();
+            }
+        }
+    } else if (data.type === 'kasaysayan') {
+        const slotIndex = parseInt(dropZone.dataset.slot);
+        const eventsData = <?php echo json_encode($events ?? []); ?>;
+
+        if (!droppedItems.has(data.index)) {
+            droppedItems.add(data.index);
+            placedItems.set(data.index, slotIndex);
+
+            const card = document.querySelector(`[data-index="${data.index}"]`);
+            if (card) {
+                card.draggable = false;
+                card.classList.add('opacity-50', 'cursor-not-allowed');
+                card.classList.remove('cursor-grab', 'active:cursor-grabbing');
+            }
+
+            dropZone.innerHTML = `
+                <div class="text-center">
+                    <div class="text-xs font-bold text-yellow-600">${data.year}</div>
+                    <div class="text-xs text-gray-800">${data.event.substring(0, 18)}...</div>
+                </div>
+            `;
+
+            const correctYear = eventsData[slotIndex]?.year;
+            if (parseInt(data.year) === correctYear) {
+                score++;
+                document.getElementById('score').textContent = score;
+                dropZone.style.backgroundColor = '#D1FAE5';
+                dropZone.style.borderColor = '#10B981';
+                dropZone.style.borderStyle = 'solid';
+            } else {
+                dropZone.style.backgroundColor = '#FEE2E2';
+                dropZone.style.borderColor = '#EF4444';
+                dropZone.style.borderStyle = 'solid';
+            }
+
+            updateSubmitButton();
+        }
+    } else if (data.type === 'hayop') {
+        const targetRegion = dropZone.dataset.region;
+
+        if (!droppedItems.has(data.index)) {
+            droppedItems.add(data.index);
+            placedItems.set(data.index, targetRegion);
+
+            const card = document.querySelector(`[data-index="${data.index}"]`);
+            if (card) {
+                card.draggable = false;
+                card.classList.add('opacity-50', 'cursor-not-allowed');
+                card.classList.remove('cursor-grab', 'active:cursor-grabbing');
+            }
+
+            if (data.region === targetRegion) {
+                score++;
+                document.getElementById('score').textContent = score;
+                dropZone.style.backgroundColor = '#10B981';
+                dropZone.style.borderColor = '#065F46';
+            } else {
+                dropZone.style.backgroundColor = '#EF4444';
+                dropZone.style.borderColor = '#991B1B';
+                setTimeout(() => {
+                    dropZone.style.backgroundColor = '#FCA5A5';
+                    dropZone.style.borderColor = '#991B1B';
+                }, 500);
+            }
+
+            if (!zoneContents.has(targetRegion)) {
+                zoneContents.set(targetRegion, []);
+                dropZone.innerHTML = '<div class="flex flex-wrap gap-1 justify-center items-center animal-container"></div>';
+            }
+            zoneContents.get(targetRegion).push({ emoji: data.emoji, name: data.animal });
+
+            const container = dropZone.querySelector('.animal-container');
+            if (container) {
+                const animalSpan = document.createElement('span');
+                animalSpan.className = 'text-lg';
+                animalSpan.textContent = data.emoji;
+                if (data.region !== targetRegion) {
+                    animalSpan.style.opacity = '0.5';
+                }
+                container.appendChild(animalSpan);
+            }
+
+            updateSubmitButton();
+        }
+    }
+}
+
+// Add touch event listeners for mobile tap-to-select
+document.addEventListener('DOMContentLoaded', () => {
+    const draggables = document.querySelectorAll('[draggable="true"]');
+    draggables.forEach(el => {
+        el.addEventListener('click', handleTap);
+    });
+
+    // Add tap listeners to drop zones
+    const dropZones = document.querySelectorAll('.drop-zone-container, .timeline-slot, #regionDropZones > div');
+    dropZones.forEach(zone => {
+        zone.addEventListener('click', handleDropZoneTap);
+    });
+});
 
 // Update submit button state
 function updateSubmitButton() {
