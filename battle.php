@@ -36,6 +36,16 @@ if (!$enemy) {
     exit;
 }
 
+// Get region data
+$stmt = $pdo->prepare("SELECT * FROM regions WHERE id = ?");
+$stmt->execute([$regionId]);
+$region = $stmt->fetch();
+
+if (!$region) {
+    header('Location: mundo.php');
+    exit;
+}
+
 // Get user data
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
@@ -170,41 +180,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     exit;
 }
 
-// Get a random question (60% enemy's category, 40% random other category)
+// Get a random region-specific question
 $usedQuestions = $_SESSION['battle_used_questions'] ?? [];
 $question = null;
 
-// Decide category: 60% enemy's category, 40% random
-$useEnemyCategory = (rand(1, 100) <= 60);
-$categoryId = $useEnemyCategory ? $enemy['category_id'] : null;
-
-if ($categoryId === null) {
-    // Get random category (not enemy's)
-    $stmt = $pdo->prepare("SELECT id FROM categories WHERE id != ? ORDER BY RAND() LIMIT 1");
-    $stmt->execute([$enemy['category_id']]);
-    $randomCat = $stmt->fetch();
-    if ($randomCat) {
-        $categoryId = $randomCat['id'];
-    } else {
-        $categoryId = $enemy['category_id']; // Fallback
-    }
-}
-
 if (empty($usedQuestions)) {
-    $stmt = $pdo->prepare("SELECT * FROM questions WHERE category_id = ? ORDER BY RAND() LIMIT 1");
-    $stmt->execute([$categoryId]);
+    $stmt = $pdo->prepare("SELECT * FROM region_questions WHERE region_id = ? ORDER BY RAND() LIMIT 1");
+    $stmt->execute([$regionId]);
     $question = $stmt->fetch();
 } else {
     $placeholders = implode(',', array_fill(0, count($usedQuestions), '?'));
-    $stmt = $pdo->prepare("SELECT * FROM questions WHERE category_id = ? AND id NOT IN ($placeholders) ORDER BY RAND() LIMIT 1");
-    $stmt->execute(array_merge([$categoryId], $usedQuestions));
+    $stmt = $pdo->prepare("SELECT * FROM region_questions WHERE region_id = ? AND id NOT IN ($placeholders) ORDER BY RAND() LIMIT 1");
+    $stmt->execute(array_merge([$regionId], $usedQuestions));
     $question = $stmt->fetch();
 
     // If all questions used, reset and start over
     if (!$question) {
         $_SESSION['battle_used_questions'] = [];
-        $stmt = $pdo->prepare("SELECT * FROM questions WHERE category_id = ? ORDER BY RAND() LIMIT 1");
-        $stmt->execute([$categoryId]);
+        $stmt = $pdo->prepare("SELECT * FROM region_questions WHERE region_id = ? ORDER BY RAND() LIMIT 1");
+        $stmt->execute([$regionId]);
         $question = $stmt->fetch();
     }
 }
@@ -308,7 +302,15 @@ require_once 'includes/header.php';
         <?php if ($question): ?>
         <div class="bg-white rounded-2xl shadow-lg p-8 mb-6">
             <div class="flex justify-between items-center mb-6">
-                <span class="text-sm text-gray-600">Category: <?php echo htmlspecialchars($question['category_id'] == $enemy['category_id'] ? 'Thematic' : 'Random'); ?></span>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Rehiyon:</span>
+                    <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold">
+                        <?php echo htmlspecialchars($region['name']); ?>
+                    </span>
+                    <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-bold ml-2">
+                        <?php echo ucfirst($question['difficulty']); ?>
+                    </span>
+                </div>
                 <div class="flex items-center gap-2">
                     <span class="text-sm text-gray-600">Speed:</span>
                     <div id="speedIndicator" class="w-24 h-4 bg-green-500 rounded-full transition-all duration-1000"></div>

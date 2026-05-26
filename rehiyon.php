@@ -180,6 +180,21 @@ require_once 'includes/header.php';
             </div>
         </div>
 
+        <!-- Wiki/Aralin Button -->
+        <?php if (!$isLocked): ?>
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-xl mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="font-bold text-purple-800 mb-1"><i class="fas fa-book-open mr-2"></i> Aralin / Wiki</h3>
+                    <p class="text-sm text-purple-600">Matuto ang kasaysayan at impormasyon tungkol sa rehiyong ito</p>
+                </div>
+                <button onclick="location.href='rehiyon_wiki.php?region_id=<?php echo $regionId; ?>'" class="bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition">
+                    <i class="fas fa-arrow-right mr-2"></i> Basahin
+                </button>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <?php if ($isLocked): ?>
             <!-- Locked Message -->
             <div class="bg-white rounded-2xl shadow-lg p-8 text-center mb-8">
