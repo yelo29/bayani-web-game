@@ -1,0 +1,230 @@
+[
+  {
+    "sentence": "Ang matandang lalaki ay dahan-dahang lumakad.",
+    "english": "The old man walked slowly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "matandang", "pos": "pang-uri"},
+      {"word": "lalaki", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "dahan-dahang", "pos": "pang-abay"},
+      {"word": "lumakad", "pos": "pandiwa"}
+    ]
+  },
+  {
+    "sentence": "Masayang sumayaw ang magandang babae.",
+    "english": "The beautiful woman danced happily.",
+    "words": [
+      {"word": "Masayang", "pos": "pang-abay"},
+      {"word": "sumayaw", "pos": "pandiwa"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "magandang", "pos": "pang-uri"},
+      {"word": "babae", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Mabilis na tumakbo ang maliit na bata.",
+    "english": "The small child ran quickly.",
+    "words": [
+      {"word": "Mabilis", "pos": "pang-abay"},
+      {"word": "na", "pos": "connector"},
+      {"word": "tumakbo", "pos": "pandiwa"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "maliit", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "bata", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Ang mabuting guro ay nagtuturo nang mabuti.",
+    "english": "The good teacher teaches well.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "mabuting", "pos": "pang-uri"},
+      {"word": "guro", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "nagtuturo", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "mabuti", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Ang magsasaka ay nagtatanim nang dahan-dahan.",
+    "english": "The farmer planted slowly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "magsasaka", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "nagtatanim", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "dahan-dahan", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Ang matibay na sundalo ay lumaban nang matapang.",
+    "english": "The strong soldier fought bravely.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "matibay", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "sundalo", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "lumaban", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "matapang", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Masayang kumanta ang matalinong estudyante.",
+    "english": "The smart student sang happily.",
+    "words": [
+      {"word": "Masayang", "pos": "pang-abay"},
+      {"word": "kumanta", "pos": "pandiwa"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "matalinong", "pos": "pang-uri"},
+      {"word": "estudyante", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Ang maliwanag na ilaw ay sumilaw nang maliwanag.",
+    "english": "The bright light shone brightly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "maliwanag", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "ilaw", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "sumilaw", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "maliwanag", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Maingat na naghuli ang mangingisda.",
+    "english": "The fisherman caught fish carefully.",
+    "words": [
+      {"word": "Maingat", "pos": "pang-abay"},
+      {"word": "na", "pos": "connector"},
+      {"word": "naghuli", "pos": "pandiwa"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "mangingisda", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Ang matayong lola ay nagluluto nang masipag.",
+    "english": "The diligent grandmother cooks industriously.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "matayong", "pos": "pang-uri"},
+      {"word": "lola", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "nagluluto", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "masipag", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Dahan-dahan ang mabangong bulaklak ay sumikat.",
+    "english": "The fragrant flower bloomed slowly.",
+    "words": [
+      {"word": "Dahan-dahan", "pos": "pang-abay"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "mabangong", "pos": "pang-uri"},
+      {"word": "bulaklak", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "sumikat", "pos": "pandiwa"}
+    ]
+  },
+  {
+    "sentence": "Ang maliit na kapatid ay tumakbo nang mabilis.",
+    "english": "The small sibling ran quickly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "maliit", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "kapatid", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "tumakbo", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "mabilis", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Masayang naglalaro ang magandang bata.",
+    "english": "The beautiful child played happily.",
+    "words": [
+      {"word": "Masayang", "pos": "pang-abay"},
+      {"word": "naglalaro", "pos": "pandiwa"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "magandang", "pos": "pang-uri"},
+      {"word": "bata", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Ang matibay na mesa ay nakatayo nang matibay.",
+    "english": "The strong table stands firmly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "matibay", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "mesa", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "nakatayo", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "matibay", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Mabilis ang mabuting estudyante ay tumakbo.",
+    "english": "The good student ran fast.",
+    "words": [
+      {"word": "Mabilis", "pos": "pang-abay"},
+      {"word": "ang", "pos": "connector"},
+      {"word": "mabuting", "pos": "pang-uri"},
+      {"word": "estudyante", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "tumakbo", "pos": "pandiwa"}
+    ]
+  },
+  {
+    "sentence": "Ang mainit na pagkain ay niluto nang maayos.",
+    "english": "The hot food was cooked properly.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "mainit", "pos": "pang-uri"},
+      {"word": "na", "pos": "connector"},
+      {"word": "pagkain", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "niluto", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "maayos", "pos": "pang-abay"}
+    ]
+  },
+  {
+    "sentence": "Ang batang uhaw ay dahan-dahang uminom ng tubig.",
+    "english": "The thirsty child slowly drank water.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "batang", "pos": "pang-uri"},
+      {"word": "uhaw", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "dahan-dahang", "pos": "pang-abay"},
+      {"word": "uminom", "pos": "pandiwa"},
+      {"word": "ng", "pos": "connector"},
+      {"word": "tubig", "pos": "pangngalan"}
+    ]
+  },
+  {
+    "sentence": "Ang mabuting kapatid ay tumulong nang mabuti.",
+    "english": "The good sibling helped well.",
+    "words": [
+      {"word": "Ang", "pos": "connector"},
+      {"word": "mabuting", "pos": "pang-uri"},
+      {"word": "kapatid", "pos": "pangngalan"},
+      {"word": "ay", "pos": "connector"},
+      {"word": "tumulong", "pos": "pandiwa"},
+      {"word": "nang", "pos": "connector"},
+      {"word": "mabuti", "pos": "pang-abay"}
+    ]
+  }
+]

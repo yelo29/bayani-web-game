@@ -1,0 +1,260 @@
+[
+  {
+    "sentence": "Mahal ko ang Pilipinas.",
+    "words": ["Mahal", "ko", "ang", "Pilipinas."],
+    "english": "I love the Philippines.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Ang bata ay nag-aaral ng mabuti.",
+    "words": ["Ang", "bata", "ay", "nag-aaral", "ng", "mabuti."],
+    "english": "The child studies well.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Nagluluto ang nanay sa kusina.",
+    "words": ["Nagluluto", "ang", "nanay", "sa", "kusina."],
+    "english": "Mother is cooking in the kitchen.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Mag-aral ka nang mabuti sa eskwela.",
+    "words": ["Mag-aral", "ka", "nang", "mabuti", "sa", "eskwela."],
+    "english": "Study well in school.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang pamilya ay kumakain ng hapunan.",
+    "words": ["Ang", "pamilya", "ay", "kumakain", "ng", "hapunan."],
+    "english": "The family is eating dinner.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Masaya ang mga bata sa parke.",
+    "words": ["Masaya", "ang", "mga", "bata", "sa", "parke."],
+    "english": "The children are happy in the park.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Gumagawa ng gawaing bahay ang kapatid ko.",
+    "words": ["Gumagawa", "ng", "gawaing", "bahay", "ang", "kapatid", "ko."],
+    "english": "My sibling is doing housework.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Tumakbo ang aso sa hardin.",
+    "words": ["Tumakbo", "ang", "aso", "sa", "hardin."],
+    "english": "The dog ran in the garden.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Nagbasa ng libro ang estudyante.",
+    "words": ["Nagbasa", "ng", "libro", "ang", "estudyante."],
+    "english": "The student read a book.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Magandang umaga sa inyong lahat.",
+    "words": ["Magandang", "umaga", "sa", "inyong", "lahat."],
+    "english": "Good morning to you all.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Respetuhin mo ang iyong mga magulang.",
+    "words": ["Respetuhin", "mo", "ang", "iyong", "mga", "magulang."],
+    "english": "Respect your parents.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Tulungan natin ang isa't isa.",
+    "words": ["Tulungan", "natin", "ang", "isa't", "isa."],
+    "english": "Let us help each other.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang Pilipinas ay may magagandang tanawin.",
+    "words": ["Ang", "Pilipinas", "ay", "may", "magagandang", "tanawin."],
+    "english": "The Philippines has beautiful views.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Mahalin natin ang ating kultura.",
+    "words": ["Mahalin", "natin", "ang", "ating", "kultura."],
+    "english": "Let us love our culture.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang watawat ay kulay asul, pula, at puti.",
+    "words": ["Ang", "watawat", "ay", "kulay", "asul,", "pula,", "at", "puti."],
+    "english": "The flag is blue, red, and white.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Nagpupunta kami sa simbahan tuwing Linggo.",
+    "words": ["Nagpupunta", "kami", "sa", "simbahan", "tuwing", "Linggo."],
+    "english": "We go to church every Sunday.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang guro ay mabait at matulungin.",
+    "words": ["Ang", "guro", "ay", "mabait", "at", "matulungin."],
+    "english": "The teacher is kind and helpful.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Kumakain ng prutas ang mga bata.",
+    "words": ["Kumakain", "ng", "prutas", "ang", "mga", "bata."],
+    "english": "The children are eating fruits.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Naglalaro kami sa plasa ngayong hapon.",
+    "words": ["Naglalaro", "kami", "sa", "plasa", "ngayong", "hapon."],
+    "english": "We are playing in the plaza this afternoon.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang magsasaka ay nagtatanim ng bigas.",
+    "words": ["Ang", "magsasaka", "ay", "nagtatanim", "ng", "bigas."],
+    "english": "The farmer is planting rice.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Mabuting gawain ang pagtulong sa kapwa.",
+    "words": ["Mabuting", "gawain", "ang", "pagtulong", "sa", "kapwa."],
+    "english": "Helping others is a good deed.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang bundok ay mataas at berde.",
+    "words": ["Ang", "bundok", "ay", "mataas", "at", "berde."],
+    "english": "The mountain is tall and green.",
+    "level": "easy"
+  },
+  {
+    "sentence": "Sumasayaw ang mga bata sa pista.",
+    "words": ["Sumasayaw", "ang", "mga", "bata", "sa", "pista."],
+    "english": "The children are dancing at the fiesta.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Nagpapasalamat ako sa Diyos sa lahat.",
+    "words": ["Nagpapasalamat", "ako", "sa", "Diyos", "sa", "lahat."],
+    "english": "I thank God for everything.",
+    "level": "medium"
+  },
+  {
+    "sentence": "Ang mga bata ay naglalaro ng laro.",
+    "words": ["Ang", "mga", "bata", "ay", "naglalaro", "ng", "laro."],
+    "english": "The children are playing a game.",
+    "level": "easy"
+  },
+  {
+    "sentence_with_error": "Ang mga bata ay kumakain ng mabilis.",
+    "error_word": "ng mabilis",
+    "correct_word": "nang mabilis",
+    "wrong_options": ["sa mabilis", "ng mabilis na"],
+    "explanation": "Dapat 'nang mabilis' dahil pang-abay ito na nag-aayos ng pandiwa.",
+    "english": "The children ate quickly.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Si Juan ay kumain ang mansanas.",
+    "error_word": "kumain ang",
+    "correct_word": "kumain ng",
+    "wrong_options": ["kinain ang", "kakain ang"],
+    "explanation": "Dapat 'kumain ng' (actor focus) dahil si Juan ang kumakain.",
+    "english": "Juan ate the apple.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang nanay ay luto ng adobo.",
+    "error_word": "luto",
+    "correct_word": "nagluluto",
+    "wrong_options": ["magluluto", "niluto"],
+    "explanation": "Dapat 'nagluluto' dahil ang nanay ang gumagawa ng kilos (actor focus).",
+    "english": "Mother is cooking adobo.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang bata ay tumakbo mabilis.",
+    "error_word": "mabilis",
+    "correct_word": "nang mabilis",
+    "wrong_options": ["sa mabilis", "ng mabilis"],
+    "explanation": "Dapat 'nang mabilis' dahil pang-abay ito na nag-aayos ng pandiwa.",
+    "english": "The child ran quickly.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Si Maria ay maganda na babae.",
+    "error_word": "maganda na",
+    "correct_word": "magandang",
+    "wrong_options": ["maganda ang", "maganda ang isang"],
+    "explanation": "Gamitin ang 'magandang' dahil ang 'babae' ay nagsisimula sa letrang B.",
+    "english": "Maria is a beautiful woman.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang mga bata ay nag-aral sa eskwela.",
+    "error_word": "nag-aral",
+    "correct_word": "nag-aaral",
+    "wrong_options": ["aral", "aaral"],
+    "explanation": "Gamitin ang 'nag-aaral' dahil continuous action ang ibig sabihin.",
+    "english": "The children study in school.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Bumili ako ng damit sa palengke kabukas.",
+    "error_word": "kabukas",
+    "correct_word": "kahapon",
+    "wrong_options": ["ngayon", "mamaya"],
+    "explanation": "Hindi magkasundo ang 'bumili' (nakaraan) at 'kabukas' (hinaharap). Gamitin ang 'kahapon'.",
+    "english": "I bought clothes at the market yesterday.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang bata ay maingat na maglaro.",
+    "error_word": "maglaro",
+    "correct_word": "naglalaro",
+    "wrong_options": ["maglalaro", "naglaro"],
+    "explanation": "Dapat 'naglalaro' dahil kasalukuyang nagaganap ang kilos.",
+    "english": "The child is carefully playing.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Si Juan ay kinain ang mansanas.",
+    "error_word": "kinain ang",
+    "correct_word": "kinain ng",
+    "wrong_options": ["kumain ang", "kakain ang"],
+    "explanation": "Dapat 'kinain ng' (object focus) dahil ang 'mansanas' ang tinutukoy.",
+    "english": "Juan ate the apple.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang bata ay maliit lalaki.",
+    "error_word": "maliit lalaki",
+    "correct_word": "maliit na lalaki",
+    "wrong_options": ["maliit na", "maliit ang"],
+    "explanation": "Dapat 'maliit na lalaki' dahil kailangan ang 'na' bilang ligature.",
+    "english": "The child is a small boy.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang guro ay mabait at matulungin.",
+    "error_word": "mabait",
+    "correct_word": "mabuting",
+    "wrong_options": ["mabait na", "mabait ang"],
+    "explanation": "Dapat 'mabuting' dahil ang 'at' ay nagsisimula sa letrang T.",
+    "english": "The teacher is kind and helpful.",
+    "has_error": true
+  },
+  {
+    "sentence_with_error": "Ang mga bata ay masaya nag-aaral.",
+    "error_word": "masaya",
+    "correct_word": "masayang",
+    "wrong_options": ["masayahin", "masayang-masaya"],
+    "explanation": "Dapat 'masayang nag-aaral' dahil kailangan ng ligature na 'ng' bago ang pandiwa.",
+    "english": "The children are happily studying.",
+    "has_error": true
+  }
+]

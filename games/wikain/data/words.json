@@ -1,0 +1,290 @@
+[
+  {
+    "word": "bahay",
+    "syllables": ["ba", "hay"],
+    "english": "house",
+    "difficulty": "easy"
+  },
+  {
+    "word": "nanay",
+    "syllables": ["na", "nay"],
+    "english": "mother",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tatay",
+    "syllables": ["ta", "tay"],
+    "english": "father",
+    "difficulty": "easy"
+  },
+  {
+    "word": "kapatid",
+    "syllables": ["ka", "pa", "tid"],
+    "english": "sibling",
+    "difficulty": "medium"
+  },
+  {
+    "word": "guro",
+    "syllables": ["gu", "ro"],
+    "english": "teacher",
+    "difficulty": "easy"
+  },
+  {
+    "word": "eskwela",
+    "syllables": ["es", "kwe", "la"],
+    "english": "school",
+    "difficulty": "medium"
+  },
+  {
+    "word": "libro",
+    "syllables": ["li", "bro"],
+    "english": "book",
+    "difficulty": "easy"
+  },
+  {
+    "word": "papel",
+    "syllables": ["pa", "pel"],
+    "english": "paper",
+    "difficulty": "easy"
+  },
+  {
+    "word": "lapis",
+    "syllables": ["la", "pis"],
+    "english": "pencil",
+    "difficulty": "easy"
+  },
+  {
+    "word": "mesa",
+    "syllables": ["me", "sa"],
+    "english": "table",
+    "difficulty": "easy"
+  },
+  {
+    "word": "silya",
+    "syllables": ["si", "lya"],
+    "english": "chair",
+    "difficulty": "easy"
+  },
+  {
+    "word": "kutsara",
+    "syllables": ["kut", "sa", "ra"],
+    "english": "spoon",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tinidor",
+    "syllables": ["ti", "ni", "dor"],
+    "english": "fork",
+    "difficulty": "medium"
+  },
+  {
+    "word": "baso",
+    "syllables": ["ba", "so"],
+    "english": "glass",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tasa",
+    "syllables": ["ta", "sa"],
+    "english": "cup",
+    "difficulty": "easy"
+  },
+  {
+    "word": "pagkain",
+    "syllables": ["pag", "ka", "in"],
+    "english": "food",
+    "difficulty": "medium"
+  },
+  {
+    "word": "kanin",
+    "syllables": ["ka", "nin"],
+    "english": "rice",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tubig",
+    "syllables": ["tu", "big"],
+    "english": "water",
+    "difficulty": "easy"
+  },
+  {
+    "word": "prutas",
+    "syllables": ["pru", "tas"],
+    "english": "fruit",
+    "difficulty": "medium"
+  },
+  {
+    "word": "gulay",
+    "syllables": ["gu", "lay"],
+    "english": "vegetable",
+    "difficulty": "easy"
+  },
+  {
+    "word": "isda",
+    "syllables": ["is", "da"],
+    "english": "fish",
+    "difficulty": "easy"
+  },
+  {
+    "word": "manok",
+    "syllables": ["ma", "nok"],
+    "english": "chicken",
+    "difficulty": "easy"
+  },
+  {
+    "word": "baka",
+    "syllables": ["ba", "ka"],
+    "english": "cow",
+    "difficulty": "easy"
+  },
+  {
+    "word": "aso",
+    "syllables": ["a", "so"],
+    "english": "dog",
+    "difficulty": "easy"
+  },
+  {
+    "word": "pusa",
+    "syllables": ["pu", "sa"],
+    "english": "cat",
+    "difficulty": "easy"
+  },
+  {
+    "word": "ibon",
+    "syllables": ["i", "bon"],
+    "english": "bird",
+    "difficulty": "easy"
+  },
+  {
+    "word": "punongkahoy",
+    "syllables": ["pu", "nong", "ka", "hoy"],
+    "english": "tree",
+    "difficulty": "hard"
+  },
+  {
+    "word": "paaralan",
+    "syllables": ["pa", "a", "ra", "lan"],
+    "english": "school",
+    "difficulty": "hard"
+  },
+  {
+    "word": "kalayaan",
+    "syllables": ["ka", "la", "ya", "an"],
+    "english": "freedom",
+    "difficulty": "hard"
+  },
+  {
+    "word": "pagmamahal",
+    "syllables": ["pag", "ma", "ma", "hal"],
+    "english": "love",
+    "difficulty": "hard"
+  },
+  {
+    "word": "kalikasan",
+    "syllables": ["ka", "li", "ka", "san"],
+    "english": "environment",
+    "difficulty": "hard"
+  },
+  {
+    "word": "kasaysayan",
+    "syllables": ["ka", "say", "sa", "yan"],
+    "english": "history",
+    "difficulty": "hard"
+  },
+  {
+    "word": "katipunan",
+    "syllables": ["ka", "ti", "pu", "nan"],
+    "english": "society",
+    "difficulty": "hard"
+  },
+  {
+    "word": "pananagutan",
+    "syllables": ["pa", "na", "na", "gu", "tan"],
+    "english": "responsibility",
+    "difficulty": "hard"
+  },
+  {
+    "word": "pagkakataon",
+    "syllables": ["pag", "ka", "ka", "ta", "on"],
+    "english": "opportunity",
+    "difficulty": "hard"
+  },
+  {
+    "word": "bulaklak",
+    "syllables": ["bu", "lak", "lak"],
+    "english": "flower",
+    "difficulty": "medium"
+  },
+  {
+    "word": "araw",
+    "syllables": ["a", "raw"],
+    "english": "sun",
+    "difficulty": "easy"
+  },
+  {
+    "word": "buwan",
+    "syllables": ["bu", "wan"],
+    "english": "moon",
+    "difficulty": "easy"
+  },
+  {
+    "word": "ulan",
+    "syllables": ["u", "lan"],
+    "english": "rain",
+    "difficulty": "easy"
+  },
+  {
+    "word": "mata",
+    "syllables": ["ma", "ta"],
+    "english": "eye",
+    "difficulty": "easy"
+  },
+  {
+    "word": "ilong",
+    "syllables": ["i", "long"],
+    "english": "nose",
+    "difficulty": "easy"
+  },
+  {
+    "word": "bibig",
+    "syllables": ["bi", "big"],
+    "english": "mouth",
+    "difficulty": "easy"
+  },
+  {
+    "word": "kamay",
+    "syllables": ["ka", "may"],
+    "english": "hand",
+    "difficulty": "easy"
+  },
+  {
+    "word": "paa",
+    "syllables": ["pa", "a"],
+    "english": "foot",
+    "difficulty": "easy"
+  },
+  {
+    "word": "pula",
+    "syllables": ["pu", "la"],
+    "english": "red",
+    "difficulty": "easy"
+  },
+  {
+    "word": "asul",
+    "syllables": ["a", "sul"],
+    "english": "blue",
+    "difficulty": "easy"
+  },
+  {
+    "word": "berde",
+    "syllables": ["ber", "de"],
+    "english": "green",
+    "difficulty": "medium"
+  },
+  {
+    "word": "dilaw",
+    "syllables": ["di", "law"],
+    "english": "yellow",
+    "difficulty": "medium"
+  }
+]
