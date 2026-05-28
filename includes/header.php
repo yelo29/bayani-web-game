@@ -129,8 +129,21 @@ require_once __DIR__ . '/translations.php';
                         <a href="/leaderboard.php" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
                             <i class="fas fa-book-open mr-2"></i> <?php echo t('quiz_leaderboard'); ?>
                         </a>
-                        <a href="/leaderboard.php#battle" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
-                            <i class="fas fa-swords mr-2"></i> <?php echo t('battle_leaderboard'); ?>
+                        <a href="/leaderboard.php?type=battle" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                            <i class="fa-solid fa-person-military-rifle mr-2"></i> <?php echo t('battle_leaderboard'); ?>
+                        </a>
+                        <div class="border-t border-yellow-300 my-1"></div>
+                        <a href="/leaderboard.php?type=agham" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                            <i class="fas fa-flask mr-2"></i> Agham
+                        </a>
+                        <a href="/leaderboard.php?type=buhay" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                            <i class="fas fa-map mr-2"></i> Buhay
+                        </a>
+                        <a href="/leaderboard.php?type=handa" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                            <i class="fas fa-shield-alt mr-2"></i> Handa
+                        </a>
+                        <a href="/leaderboard.php?type=wikain" class="block px-4 py-3 text-[#0038A8] hover:bg-yellow-200 transition">
+                            <i class="fas fa-book mr-2"></i> Wikain
                         </a>
                     </div>
                 </div>
@@ -189,8 +202,20 @@ require_once __DIR__ . '/translations.php';
                     <a href="/leaderboard.php" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
                         <i class="fas fa-book-open mr-2"></i> <?php echo t('quiz_leaderboard'); ?>
                     </a>
-                    <a href="/leaderboard.php#battle" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                    <a href="/leaderboard.php?type=battle" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
                         <i class="fas fa-swords mr-2"></i> <?php echo t('battle_leaderboard'); ?>
+                    </a>
+                    <a href="/leaderboard.php?type=agham" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                        <i class="fas fa-flask mr-2"></i> Agham
+                    </a>
+                    <a href="/leaderboard.php?type=buhay" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                        <i class="fas fa-map mr-2"></i> Buhay
+                    </a>
+                    <a href="/leaderboard.php?type=handa" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                        <i class="fas fa-shield-alt mr-2"></i> Handa
+                    </a>
+                    <a href="/leaderboard.php?type=wikain" class="block py-3 px-4 hover:bg-white/10 rounded-lg transition pl-8">
+                        <i class="fas fa-book mr-2"></i> Wikain
                     </a>
                 </div>
 

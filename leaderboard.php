@@ -105,7 +105,7 @@ $battleLeaderboard = $stmt->fetchAll();
                 </a>
                 <a href="leaderboard.php?type=battle"
                    class="px-4 py-2 rounded-full font-medium transition <?php echo $leaderboardType === 'battle' ? 'bg-[#CE1126] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
-                    <i class="fas fa-sword mr-2"></i>Battle
+                    <i class="fa-solid fa-person-military-rifle mr-2"></i>Battle
                 </a>
                 <a href="leaderboard.php?type=agham"
                    class="px-4 py-2 rounded-full font-medium transition <?php echo $leaderboardType === 'agham' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; ?>">
@@ -252,9 +252,15 @@ $battleLeaderboard = $stmt->fetchAll();
                                     <?php endif; ?>
                                     <td class="px-6 py-4">
                                         <p class="text-sm text-gray-600">
-                                            <?php $date = new DateTime($score['created_at'], new DateTimeZone('UTC'));
-$date->setTimezone(new DateTimeZone('Asia/Manila'));
-echo $date->format('M d, Y g:i A'); ?>
+                                            <?php
+                                            try {
+                                                $date = new DateTime($score['created_at'], new DateTimeZone('UTC'));
+                                                $date->setTimezone(new DateTimeZone('Asia/Manila'));
+                                                echo $date->format('M d, Y h:i A');
+                                            } catch (Exception $e) {
+                                                echo 'Invalid date';
+                                            }
+                                            ?>
                                         </p>
                                     </td>
                                 </tr>
@@ -524,9 +530,15 @@ echo $date->format('M d, Y g:i A'); ?>
                                         </td>
                                         <td class="px-6 py-4">
                                             <p class="text-sm text-gray-600">
-                                                <?php $date = new DateTime($score['created_at'], new DateTimeZone('UTC'));
-$date->setTimezone(new DateTimeZone('Asia/Manila'));
-echo $date->format('M d, Y g:i A'); ?>
+                                                <?php
+                                                try {
+                                                    $date = new DateTime($score['created_at'], new DateTimeZone('UTC'));
+                                                    $date->setTimezone(new DateTimeZone('Asia/Manila'));
+                                                    echo $date->format('M d, Y h:i A');
+                                                } catch (Exception $e) {
+                                                    echo 'Invalid date';
+                                                }
+                                                ?>
                                             </p>
                                         </td>
                                     </tr>
