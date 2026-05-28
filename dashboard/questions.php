@@ -68,50 +68,50 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="space-y-6">
     <!-- Add Question Form -->
-    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-        <h3 class="text-lg font-bold text-white mb-4"><i class="fas fa-plus-circle mr-2"></i>Add New Question</h3>
+    <div class="bg-gray-800 rounded-xl p-4 lg:p-6 border border-gray-700">
+        <h3 class="text-base lg:text-lg font-bold text-white mb-4"><i class="fas fa-plus-circle mr-2"></i>Add New Question</h3>
         <form method="POST" action="">
             <input type="hidden" name="action" value="add">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4">
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Category</label>
-                    <select name="category_id" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Category</label>
+                    <select name="category_id" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm">
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Difficulty</label>
-                    <select name="difficulty" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Difficulty</label>
+                    <select name="difficulty" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm">
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
                     </select>
                 </div>
                 <div class="md:col-span-2">
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Question</label>
-                    <textarea name="question" required rows="2" class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Enter the question..."></textarea>
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Question</label>
+                    <textarea name="question" required rows="2" class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Enter the question..."></textarea>
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Option A</label>
-                    <input type="text" name="option_a" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Option A">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Option A</label>
+                    <input type="text" name="option_a" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Option A">
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Option B</label>
-                    <input type="text" name="option_b" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Option B">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Option B</label>
+                    <input type="text" name="option_b" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Option B">
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Option C</label>
-                    <input type="text" name="option_c" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Option C">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Option C</label>
+                    <input type="text" name="option_c" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Option C">
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Option D</label>
-                    <input type="text" name="option_d" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Option D">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Option D</label>
+                    <input type="text" name="option_d" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Option D">
                 </div>
                 <div>
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Correct Answer</label>
-                    <select name="correct_option" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]">
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Correct Answer</label>
+                    <select name="correct_option" required class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm">
                         <option value="a">A</option>
                         <option value="b">B</option>
                         <option value="c">C</option>
@@ -119,12 +119,12 @@ require_once __DIR__ . '/includes/header.php';
                     </select>
                 </div>
                 <div class="md:col-span-2">
-                    <label class="block text-gray-300 text-sm font-bold mb-2">Fun Fact (Optional)</label>
-                    <textarea name="fun_fact" rows="2" class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]" placeholder="Fun fact about the answer..."></textarea>
+                    <label class="block text-gray-300 text-xs lg:text-sm font-bold mb-2">Fun Fact (Optional)</label>
+                    <textarea name="fun_fact" rows="2" class="w-full bg-gray-700 text-white border border-gray-600 rounded-lg px-3 lg:px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm" placeholder="Fun fact about the answer..."></textarea>
                 </div>
             </div>
-            <button type="submit" class="mt-4 bg-[#0038A8] hover:bg-[#0047b3] text-white px-6 py-2 rounded-lg transition">
-                <i class="fas fa-save mr-2"></i>Save Question
+            <button type="submit" class="mt-4 bg-[#0038A8] hover:bg-[#0047b3] text-white px-4 lg:px-6 py-2 rounded-lg transition text-sm">
+                <i class="fas fa-save mr-1 lg:mr-2"></i><span class="hidden sm:inline">Save Question</span>
             </button>
         </form>
     </div>
@@ -171,19 +171,19 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <!-- Pagination -->
-        <div class="bg-gray-700 px-6 py-4 flex items-center justify-between">
-            <p class="text-sm text-gray-300">
+        <div class="bg-gray-700 px-4 lg:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="text-xs sm:text-sm text-gray-300 text-center sm:text-left">
                 Showing <?php echo ($offset + 1); ?> to <?php echo min($offset + $per_page, $total); ?> of <?php echo $total; ?> questions
             </p>
             <div class="flex gap-2">
                 <?php if ($page > 1): ?>
-                    <a href="?page=<?php echo $page - 1; ?>" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition">
+                    <a href="?page=<?php echo $page - 1; ?>" class="px-3 lg:px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition text-sm">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                 <?php endif; ?>
-                <span class="px-4 py-2 bg-[#0038A8] rounded-lg text-white"><?php echo $page; ?></span>
+                <span class="px-3 lg:px-4 py-2 bg-[#0038A8] rounded-lg text-white text-sm"><?php echo $page; ?></span>
                 <?php if ($page < $total_pages): ?>
-                    <a href="?page=<?php echo $page + 1; ?>" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition">
+                    <a href="?page=<?php echo $page + 1; ?>" class="px-3 lg:px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition text-sm">
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 <?php endif; ?>

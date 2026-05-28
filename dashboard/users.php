@@ -56,23 +56,25 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="space-y-6">
     <!-- Search -->
-    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-        <form method="GET" class="flex gap-4">
-            <input 
-                type="text" 
-                name="search" 
+    <div class="bg-gray-800 rounded-xl p-4 lg:p-6 border border-gray-700">
+        <form method="GET" class="flex flex-col sm:flex-row gap-3">
+            <input
+                type="text"
+                name="search"
                 value="<?php echo htmlspecialchars($search); ?>"
                 placeholder="Search by username..."
-                class="flex-1 bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8]"
+                class="flex-1 bg-gray-700 text-white border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:border-[#0038A8] text-sm"
             >
-            <button type="submit" class="bg-[#0038A8] hover:bg-[#0047b3] text-white px-6 py-2 rounded-lg transition">
-                <i class="fas fa-search mr-2"></i>Search
-            </button>
-            <?php if ($search): ?>
-                <a href="/dashboard/users.php" class="bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 rounded-lg transition">
-                    <i class="fas fa-times mr-2"></i>Clear
-                </a>
-            <?php endif; ?>
+            <div class="flex gap-2">
+                <button type="submit" class="bg-[#0038A8] hover:bg-[#0047b3] text-white px-4 lg:px-6 py-2 rounded-lg transition text-sm flex-shrink-0">
+                    <i class="fas fa-search mr-1 lg:mr-2"></i><span class="hidden sm:inline">Search</span>
+                </button>
+                <?php if ($search): ?>
+                    <a href="/dashboard/users.php" class="bg-gray-600 hover:bg-gray-500 text-white px-4 lg:px-6 py-2 rounded-lg transition text-sm flex-shrink-0">
+                        <i class="fas fa-times mr-1 lg:mr-2"></i><span class="hidden sm:inline">Clear</span>
+                    </a>
+                <?php endif; ?>
+            </div>
         </form>
     </div>
 
@@ -123,19 +125,19 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <!-- Pagination -->
-        <div class="bg-gray-700 px-6 py-4 flex items-center justify-between">
-            <p class="text-sm text-gray-300">
+        <div class="bg-gray-700 px-4 lg:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="text-xs sm:text-sm text-gray-300 text-center sm:text-left">
                 Showing <?php echo ($offset + 1); ?> to <?php echo min($offset + $per_page, $total_users); ?> of <?php echo $total_users; ?> users
             </p>
             <div class="flex gap-2">
                 <?php if ($page > 1): ?>
-                    <a href="?page=<?php echo $page - 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition">
+                    <a href="?page=<?php echo $page - 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="px-3 lg:px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition text-sm">
                         <i class="fas fa-chevron-left"></i>
                     </a>
                 <?php endif; ?>
-                <span class="px-4 py-2 bg-[#0038A8] rounded-lg text-white"><?php echo $page; ?></span>
+                <span class="px-3 lg:px-4 py-2 bg-[#0038A8] rounded-lg text-white text-sm"><?php echo $page; ?></span>
                 <?php if ($page < $total_pages): ?>
-                    <a href="?page=<?php echo $page + 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition">
+                    <a href="?page=<?php echo $page + 1; ?><?php echo $search ? '&search=' . urlencode($search) : ''; ?>" class="px-3 lg:px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition text-sm">
                         <i class="fas fa-chevron-right"></i>
                     </a>
                 <?php endif; ?>

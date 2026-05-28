@@ -50,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-900 min-h-screen flex items-center justify-center">
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-        <div class="bg-gray-800 rounded-2xl shadow-2xl p-8">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-[#0038A8] mb-2">
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-6 lg:p-8">
+            <div class="text-center mb-6 lg:mb-8">
+                <h1 class="text-2xl lg:text-3xl font-bold text-[#0038A8] mb-2 truncate">
                     <i class="fas fa-shield-halved mr-2"></i>Bayani World
                 </h1>
-                <p class="text-gray-400">Admin Dashboard</p>
+                <p class="text-gray-400 text-sm lg:text-base">Admin Dashboard</p>
             </div>
 
             <?php if ($error): ?>
