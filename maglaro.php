@@ -69,21 +69,21 @@ require_once 'includes/header.php';
                   <div class="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                             <i class="fa-solid fa-book text-purple-600 text-3xl"></i>
                         </div>
-                    <h2 class="text-3xl font-bold text-purple-600 mb-2"> Kwento Mode</h2>
-                    <p class="text-gray-600">2D Story RPG - Travel through Philippine history</p>
+                    <h2 class="text-3xl font-bold text-purple-600 mb-2"><?php echo t('kwento_mode'); ?></h2>
+                    <p class="text-gray-600"><?php echo t('2d_story_rpg'); ?></p>
                 </div>
 
                 <div class="mb-6">
-                    <h3 class="font-bold text-gray-800 mb-3">Chapters:</h3>
+                    <h3 class="font-bold text-gray-800 mb-3"><?php echo t('chapters'); ?>:</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">Spanish Colonial</span>
-                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Revolution</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">World War II</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm"><?php echo t('spanish_colonial'); ?></span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"><?php echo t('revolution'); ?></span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm"><?php echo t('world_war_ii'); ?></span>
                     </div>
                 </div>
 
                 <a href="kwento/index.php" class="block w-full bg-purple-600 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-purple-700 transition">
-                    <i class="fas fa-play mr-2"></i> Magsimula
+                    <i class="fas fa-play mr-2"></i> <?php echo t('magsimula'); ?>
                 </a>
             </div>
         </div>
@@ -99,20 +99,20 @@ require_once 'includes/header.php';
                         <div class="w-16 h-16 bg-green-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                             <i class="fas fa-calculator text-green-600 text-3xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-green-600 mb-2">Handa Ka Na?</h3>
-                        <p class="text-gray-600 text-sm">Math - Grades 3-6</p>
+                        <h3 class="text-2xl font-bold text-green-600 mb-2"><?php echo t('handa_ka_na'); ?></h3>
+                        <p class="text-gray-600 text-sm"><?php echo t('math_grades'); ?> 3-6</p>
                     </div>
 
                     <div class="mb-4">
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Money Math</span>
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Fractions</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">Math Racing</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"><?php echo t('money_math'); ?></span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('fractions'); ?></span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs"><?php echo t('math_racing'); ?></span>
                         </div>
                     </div>
 
                     <a href="games/handa/index.php" class="block w-full bg-green-600 text-white text-center py-3 rounded-xl font-bold hover:bg-green-700 transition">
-                        <i class="fas fa-play mr-2"></i> Maglaro
+                        <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                     </a>
                 </div>
 
@@ -123,19 +123,19 @@ require_once 'includes/header.php';
                             <i class="fas fa-language text-blue-600 text-3xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-blue-600 mb-2">Wikain</h3>
-                        <p class="text-gray-600 text-sm">Filipino - Grades 1-8</p>
+                        <p class="text-gray-600 text-sm"><?php echo t('filipino_grades'); ?> 1-8</p>
                     </div>
 
                     <div class="mb-4">
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Words</span>
-                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Sentences</span>
-                            <span class="px-2 py-1 bg-cyan-100 text-cyan-800 rounded-full text-xs">Finals</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('words'); ?></span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs"><?php echo t('sentences'); ?></span>
+                            <span class="px-2 py-1 bg-cyan-100 text-cyan-800 rounded-full text-xs"><?php echo t('finals'); ?></span>
                         </div>
                     </div>
 
                     <a href="games/wikain/index.php" class="block w-full bg-blue-600 text-white text-center py-3 rounded-xl font-bold hover:bg-blue-700 transition">
-                        <i class="fas fa-play mr-2"></i> Maglaro
+                        <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                     </a>
                 </div>
 
@@ -146,19 +146,19 @@ require_once 'includes/header.php';
                             <i class="fas fa-map-marked-alt text-red-600 text-3xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-red-600 mb-2">Buhay Pilipinas</h3>
-                        <p class="text-gray-600 text-sm">Araling Panlipunan - Grades 4-10</p>
+                        <p class="text-gray-600 text-sm"><?php echo t('social_studies_grades'); ?> 4-10</p>
                     </div>
 
                     <div class="mb-4">
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">Map Puzzle</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">History</span>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Animals</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs"><?php echo t('map_puzzle'); ?></span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs"><?php echo t('history'); ?></span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"><?php echo t('animal'); ?></span>
                         </div>
                     </div>
 
                     <a href="games/buhay/index.php" class="block w-full bg-red-600 text-white text-center py-3 rounded-xl font-bold hover:bg-red-700 transition">
-                        <i class="fas fa-play mr-2"></i> Maglaro
+                        <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                     </a>
                 </div>
 
@@ -169,19 +169,19 @@ require_once 'includes/header.php';
                             <i class="fas fa-flask text-purple-600 text-3xl"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-purple-600 mb-2">Agham</h3>
-                        <p class="text-gray-600 text-sm">Science - Grades 7-10</p>
+                        <p class="text-gray-600 text-sm"><?php echo t('science_grades'); ?> 7-10</p>
                     </div>
 
                     <div class="mb-4">
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Biology</span>
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Chemistry</span>
-                            <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs">Ecosystem</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"><?php echo t('biology'); ?></span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('chemistry'); ?></span>
+                            <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs"><?php echo t('ecosystem'); ?></span>
                         </div>
                     </div>
 
                     <a href="games/agham/index.php" class="block w-full bg-purple-600 text-white text-center py-3 rounded-xl font-bold hover:bg-purple-700 transition">
-                        <i class="fas fa-play mr-2"></i> Maglaro
+                        <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                     </a>
                 </div>
             </div>

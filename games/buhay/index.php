@@ -24,16 +24,16 @@ $mode = $_GET['mode'] ?? 'menu';
         <?php if ($mode === 'menu'): ?>
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-4">Buhay Pilipinas</h1>
-            <p class="text-xl text-white/80 mb-2">Araling Panlipunan - Grades 4-10</p>
-            <p class="text-white/60">Pumili ng mode upang maglaro</p>
+            <p class="text-xl text-white/80 mb-2"><?php echo t('social_studies_grades'); ?> 4-10</p>
+            <p class="text-white/60"><?php echo t('choose_mode_play'); ?></p>
             <!-- Wiki/Aralin Button -->
         <div class="mt-6 text-center">
             <button onclick="location.href='?mode=wiki'" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg">
-                <i class="fas fa-book-open mr-2"></i> Aralin / Wiki
+                <i class="fas fa-book-open mr-2"></i> <?php echo t('lesson_wiki'); ?>
             </button>
             <br><br>
-            <p class="text-xs text-white/80">Basahin ang mga impormasyon dito upang</p>
-                <p class="text-xs text-white/80">matutunan mo ang mga sagot sa mga laro.</p>
+            <p class="text-xs text-white/80"><?php echo t('read_info_here'); ?></p>
+                <p class="text-xs text-white/80"><?php echo t('learn_game_answers'); ?></p>
         </div>
         </div>
 
@@ -44,17 +44,17 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="w-20 h-20 bg-red-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-map-marked-alt text-red-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-red-600 mb-2">Mapa</h2>
-                    <p class="text-gray-600 text-sm">Map Puzzle</p>
+                    <h2 class="text-2xl font-bold text-red-600 mb-2"><?php echo t('map'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('map_puzzle'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs">17 Regions</span>
-                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Drag & Drop</span>
+                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs"><?php echo t('17_regions'); ?></span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('drag_drop'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -64,17 +64,17 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="w-20 h-20 bg-yellow-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-history text-yellow-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-yellow-600 mb-2">Kasaysayan</h2>
-                    <p class="text-gray-600 text-sm">History Timeline</p>
+                    <h2 class="text-2xl font-bold text-yellow-600 mb-2"><?php echo t('history'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('history_timeline'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">10 Events</span>
-                        <span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs">Chronological</span>
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs"><?php echo t('10_events'); ?></span>
+                        <span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs"><?php echo t('chronological'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-yellow-600 text-white py-3 rounded-xl font-bold hover:bg-yellow-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -84,17 +84,17 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="w-20 h-20 bg-green-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-paw text-green-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-green-600 mb-2">Hayop</h2>
-                    <p class="text-gray-600 text-sm">Animal Match</p>
+                    <h2 class="text-2xl font-bold text-green-600 mb-2"><?php echo t('animal'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('animal_match'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">12 Animals</span>
-                        <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs">Endemic Species</span>
+                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"><?php echo t('12_animals'); ?></span>
+                        <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs"><?php echo t('endemic_species'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
         </div>
@@ -104,7 +104,7 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Back Button -->
         <div class="mt-4 text-center">
             <a href="../../maglaro.php" class="inline-block bg-white/20 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Bumalik
+                <i class="fas fa-arrow-left mr-2"></i> <?php echo t('back'); ?>
             </a>
         </div>
 
@@ -119,13 +119,13 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-3 mb-4 rounded">
-                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang pangalan ng rehiyon, then i-tap ang tamang lokasyon sa mapa. Pwede mong ilagay kahit saang lugar para matuto, pero tamang lokasyon lang ang may puntos.</p>
+                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_region'); ?>. Pwede mong ilagay kahit saang lugar para matuto, pero tamang lokasyon lang ang may puntos.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 <!-- Map Area with Drop Zones -->
                 <div class="space-y-4">
-                    <div class="text-center text-gray-500 text-sm md:text-base">I-tap ang region, then i-tap ang tamang lokasyon</div>
+                    <div class="text-center text-gray-500 text-sm md:text-base"><?php echo t('tap_region'); ?></div>
 
                     <!-- Luzon Drop Zone -->
                     <div class="bg-gray-100 rounded-2xl p-4 relative drop-zone-container" data-region="Luzon">
@@ -192,7 +192,7 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-4 rounded">
-                <p class="text-sm text-yellow-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang kaganapan, then i-tap ang tamang slot sa timeline. Mula sa pinakauna hanggang sa pinakabago.</p>
+                <p class="text-sm text-yellow-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_event'); ?>. Mula sa pinakauna hanggang sa pinakabago.</p>
             </div>
 
             <div class="bg-white rounded-2xl p-4 md:p-6 mb-4 md:mb-6 border-2 border-gray-200">
@@ -240,7 +240,7 @@ $mode = $_GET['mode'] ?? 'menu';
             </div>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-3 mb-4 rounded">
-                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang hayop, then i-tap ang tamang rehiyon kung saan ito matatagpuan. Pwede mong ilagay kahit saang rehiyon para matuto, pero tamang rehiyon lang ang may puntos.</p>
+                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_animal'); ?>. Pwede mong ilagay kahit saang rehiyon para matuto, pero tamang rehiyon lang ang may puntos.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
@@ -297,21 +297,21 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Wiki/Aralin Mode -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600">Aralin / Wiki</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-purple-600"><?php echo t('lesson_wiki'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-purple-50 border-l-4 border-purple-500 p-3 mb-4 rounded">
-                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> Basahin ang mga impormasyon dito upang matutunan mo ang mga sagot sa mga laro.</p>
+                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('read_info_here'); ?> <?php echo t('learn_game_answers'); ?></p>
             </div>
 
             <!-- Tab Navigation -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="showWikiTab('mapa')" id="tab-mapa" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-red-600 text-white">Mapa</button>
-                <button onclick="showWikiTab('kasaysayan')" id="tab-kasaysayan" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300">Kasaysayan</button>
-                <button onclick="showWikiTab('hayop')" id="tab-hayop" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300">Hayop</button>
+                <button onclick="showWikiTab('mapa')" id="tab-mapa" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-red-600 text-white"><?php echo t('map'); ?></button>
+                <button onclick="showWikiTab('kasaysayan')" id="tab-kasaysayan" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300"><?php echo t('history'); ?></button>
+                <button onclick="showWikiTab('hayop')" id="tab-hayop" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300"><?php echo t('animal'); ?></button>
             </div>
 
             <!-- Mapa Content -->

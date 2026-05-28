@@ -21,9 +21,9 @@ $categories = getCategories();
             <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-xl max-w-2xl mx-auto">
                 <div class="flex items-center justify-center gap-3">
                     <i class="fas fa-book-open text-purple-600 text-xl"></i>
-                    <p class="text-sm text-purple-800">Matuto ang mga impormasyon tungkol sa bawat kategorya</p>
+                    <p class="text-sm text-purple-800"><?php echo t('learn_category_info'); ?></p>
                     <button onclick="location.href='piliin_wiki.php'" class="bg-purple-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-purple-700 transition text-sm">
-                        <i class="fas fa-arrow-right mr-1"></i> Aralin / Wiki
+                        <i class="fas fa-arrow-right mr-1"></i> <?php echo t('lesson_wiki'); ?>
                     </button>
                 </div>
             </div>

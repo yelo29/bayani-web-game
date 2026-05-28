@@ -35,16 +35,16 @@ $mode = $_GET['mode'] ?? 'menu';
         <?php if ($mode === 'menu'): ?>
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-4">Agham Pilipinas</h1>
-            <p class="text-xl text-white/80 mb-2">Agham at Teknolohiya - Grades 7-10</p>
-            <p class="text-white/60">Pumili ng mode upang maglaro</p>
+            <p class="text-xl text-white/80 mb-2"><?php echo t('science_tech'); ?> - Grades 7-10</p>
+            <p class="text-white/60"><?php echo t('choose_mode_play'); ?></p>
             <!-- Aralin/Wiki Button -->
             <div class="mt-6 text-center">
                 <button onclick="location.href='?mode=aralin'" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg">
-                    <i class="fas fa-book-open mr-2"></i> Aralin / Wiki
+                    <i class="fas fa-book-open mr-2"></i> <?php echo t('lesson_wiki'); ?>
                 </button>
                 <br><br>
-                <p class="text-xs text-white/80">Basahin ang mga impormasyon dito upang</p>
-                <p class="text-xs text-white/80">matutunan mo ang mga sagot sa mga laro.</p>
+                <p class="text-xs text-white/80"><?php echo t('read_info_here'); ?></p>
+                <p class="text-xs text-white/80"><?php echo t('learn_game_answers'); ?></p>
             </div>
         </div>
 
@@ -65,7 +65,7 @@ $mode = $_GET['mode'] ?? 'menu';
                     </div>
                 </div>
                 <button class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -85,7 +85,7 @@ $mode = $_GET['mode'] ?? 'menu';
                     </div>
                 </div>
                 <button class="w-full bg-teal-600 text-white py-3 rounded-xl font-bold hover:bg-teal-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -105,7 +105,7 @@ $mode = $_GET['mode'] ?? 'menu';
                     </div>
                 </div>
                 <button class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
         </div>
@@ -113,7 +113,7 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Back Button -->
         <div class="mt-4 text-center">
             <a href="../../maglaro.php" class="inline-block bg-white/20 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Bumalik
+                <i class="fas fa-arrow-left mr-2"></i> <?php echo t('back'); ?>
             </a>
         </div>
 
@@ -121,24 +121,24 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Mode 1: Cell Organelles Matching (formerly sihay) -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-green-600">Siyensya - Itugma ang Organelle sa Tungkulin Nito</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-green-600"><?php echo t('science'); ?> - <?php echo t('match'); ?> <?php echo t('cell_organelles'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-3 mb-4 rounded">
-                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang organelle (kaliwang kahon), pagkatapos i-tap ang tamang function (kanang kahon). Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng puntos.</p>
+                <p class="text-sm text-green-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_organelle'); ?>. Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng <?php echo t('points'); ?>.</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="bg-gray-100 rounded-xl px-6 py-3">
-                    <span class="text-gray-700 font-bold">Puntos: </span>
+                    <span class="text-gray-700 font-bold"><?php echo t('points'); ?>: </span>
                     <span id="score" class="text-3xl font-bold text-green-600">0</span>
                     <span class="text-gray-500"> / <?php echo count($cellData); ?></span>
                 </div>
                 <button id="submitBtn" onclick="submitGameScore('siyensya')" disabled class="bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-check-circle mr-2"></i> I-submit ang Puntos
+                    <i class="fas fa-check-circle mr-2"></i> <?php echo t('submit'); ?> <?php echo t('points'); ?>
                 </button>
             </div>
 
@@ -162,24 +162,24 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Mode 2: Ecosystem Matching -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-teal-600">Likhaan - Itugma ang Organismo sa Tirahan o Tungkulin Nito</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-teal-600"><?php echo t('ecosystem'); ?> - <?php echo t('match'); ?> <?php echo t('organism'); ?> <?php echo t('habitat'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-teal-50 border-l-4 border-teal-500 p-3 mb-4 rounded">
-                <p class="text-sm text-teal-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang organismo (kaliwang kahon), pagkatapos i-tap ang tamang tirahan o tungkulin (kanang kahon). Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng puntos.</p>
+                <p class="text-sm text-teal-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_organism'); ?>. Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng <?php echo t('points'); ?>.</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="bg-gray-100 rounded-xl px-6 py-3">
-                    <span class="text-gray-700 font-bold">Puntos: </span>
+                    <span class="text-gray-700 font-bold"><?php echo t('points'); ?>: </span>
                     <span id="score" class="text-3xl font-bold text-teal-600">0</span>
                     <span class="text-gray-500"> / <?php echo count($ecosystemData); ?></span>
                 </div>
                 <button id="submitBtn" onclick="submitGameScore('likhaan')" disabled class="bg-teal-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-check-circle mr-2"></i> I-submit ang Puntos
+                    <i class="fas fa-check-circle mr-2"></i> <?php echo t('submit'); ?> <?php echo t('points'); ?>
                 </button>
             </div>
 
@@ -203,24 +203,24 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Mode 3: Element Matching -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-blue-600">Elemento - Itugma ang Simbolo sa Pangalan ng Elemento</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-blue-600"><?php echo t('element'); ?> - <?php echo t('match'); ?> <?php echo t('element_symbol'); ?> <?php echo t('element_name'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-3 mb-4 rounded">
-                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang simbolo ng elemento (kaliwang kahon), pagkatapos i-tap ang tamang pangalan ng elemento (kanang kahon). Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng puntos.</p>
+                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap_element'); ?>. Kapag tama ang tugma, mawawala ang pares at makakakuha ka ng <?php echo t('points'); ?>.</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="bg-gray-100 rounded-xl px-6 py-3">
-                    <span class="text-gray-700 font-bold">Puntos: </span>
+                    <span class="text-gray-700 font-bold"><?php echo t('points'); ?>: </span>
                     <span id="score" class="text-3xl font-bold text-blue-600">0</span>
                     <span class="text-gray-500"> / <?php echo count($elementData); ?></span>
                 </div>
                 <button id="submitBtn" onclick="submitGameScore('elemento')" disabled class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-check-circle mr-2"></i> I-submit ang Puntos
+                    <i class="fas fa-check-circle mr-2"></i> <?php echo t('submit'); ?> <?php echo t('points'); ?>
                 </button>
             </div>
 
@@ -244,21 +244,21 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Aralin/Wiki Mode: Educational Content -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600">Aralin / Wiki</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-purple-600"><?php echo t('lesson_wiki'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-purple-50 border-l-4 border-purple-500 p-3 mb-4 rounded">
-                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> Basahin ang mga impormasyon dito upang matutunan mo ang mga sagot sa mga laro.</p>
+                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('read_info_here'); ?> <?php echo t('learn_game_answers'); ?></p>
             </div>
 
             <!-- Tab Navigation -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="showWikiTab('siyensya')" id="tab-siyensya" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-green-600 text-white">Siyensya</button>
-                <button onclick="showWikiTab('likhaan')" id="tab-likhaan" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300">Likhaan</button>
-                <button onclick="showWikiTab('elemento')" id="tab-elemento" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300">Elemento</button>
+                <button onclick="showWikiTab('siyensya')" id="tab-siyensya" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-green-600 text-white"><?php echo t('science'); ?></button>
+                <button onclick="showWikiTab('likhaan')" id="tab-likhaan" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300"><?php echo t('ecosystem'); ?></button>
+                <button onclick="showWikiTab('elemento')" id="tab-elemento" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300"><?php echo t('element'); ?></button>
             </div>
 
             <!-- Siyensya Content (formerly Sihay) -->
@@ -442,7 +442,7 @@ function attemptMatch(itemIdx, targetIdx) {
     isProcessing = true;
 
     if (matchedItems[itemIdx] || matchedTargets[targetIdx]) {
-        showFeedback('Ang item na ito ay naitugma na', true, 'Subukan ang iba.');
+        showFeedback('<?php echo t('item_matched'); ?>', true, '<?php echo t('try_other'); ?>');
         isProcessing = false;
         renderGame();
         return;
@@ -457,9 +457,9 @@ function attemptMatch(itemIdx, targetIdx) {
     if (isCorrect) {
         currentScore++;
         document.getElementById('score').textContent = currentScore;
-        showFeedback(`TAMA! +1 puntos`, false, gameData[itemIdx].explanation);
+        showFeedback(`<?php echo t('correct_match'); ?>`, false, gameData[itemIdx].explanation);
     } else {
-        showFeedback(`Mali ang tugma`, true, `Tamang target para sa "${gameData[itemIdx].item}" ay: "${gameData[itemIdx].target}". ${gameData[itemIdx].explanation || ''}`);
+        showFeedback(`<?php echo t('wrong_match'); ?>`, true, `<?php echo t('correct_target'); ?> "${gameData[itemIdx].item}" ay: "${gameData[itemIdx].target}". ${gameData[itemIdx].explanation || ''}`);
     }
 
     selectedItemIndex = null;
@@ -467,7 +467,7 @@ function attemptMatch(itemIdx, targetIdx) {
     
     // Check if all items are matched
     if (matchedItems.every(v => v === true)) {
-        showFeedback('Tapos na ang laro! I-submit mo na ang iyong puntos.', false, 'Pindutin ang "I-submit ang Puntos" para makuha ang XP at Coins.');
+        showFeedback('<?php echo t('all_pairs_matched'); ?> <?php echo t('submit_score'); ?>.', false, '<?php echo t('submit_score'); ?>');
         const btn = document.getElementById('submitBtn');
         if (btn) { btn.disabled = false; btn.classList.remove('disabled:opacity-50'); }
     }
@@ -478,7 +478,7 @@ function attemptMatch(itemIdx, targetIdx) {
 function submitGameScore(gameType) {
     if (isSubmittingFlag) return;
     if (!matchedItems.every(v => v === true)) {
-        showFeedback('Kailangan muna itugma ang LAHAT ng item bago isumite ang puntos', true, 'Kumpletuhin ang lahat ng pares.');
+        showFeedback('<?php echo t('match_all_items'); ?>', true, '<?php echo t('complete_all_pairs'); ?>');
         return;
     }
     isSubmittingFlag = true;
@@ -494,17 +494,17 @@ function submitGameScore(gameType) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(`Puntos: ${currentScore}/${totalItems}\nNakuhang XP: +${xp}\nNakuhang Coins: +${coins}\n\nPatuloy na matuto sa Agham!`);
+            alert(`<?php echo t('points'); ?>: ${currentScore}/${totalItems}\n<?php echo t('xp_gained'); ?>: +${xp}\n<?php echo t('coins_gained'); ?>: +${coins}\n\n<?php echo t('continue_learning'); ?>`);
             location.reload();
         } else {
-            alert('Error: ' + (data.error || 'Hindi na-save ang puntos. Subukan muli.'));
-            if (btn) { btn.disabled = false; btn.textContent = 'I-submit ang Puntos'; }
+            alert('Error: ' + (data.error || '<?php echo t('score_not_saved'); ?>'));
+            if (btn) { btn.disabled = false; btn.textContent = '<?php echo t('submit'); ?> <?php echo t('points'); ?>'; }
             isSubmittingFlag = false;
         }
     })
     .catch(err => {
         alert('Network error: ' + err.message);
-        if (btn) { btn.disabled = false; btn.textContent = 'I-submit ang Puntos'; }
+        if (btn) { btn.disabled = false; btn.textContent = '<?php echo t('submit'); ?> <?php echo t('points'); ?>'; }
         isSubmittingFlag = false;
     });
 }

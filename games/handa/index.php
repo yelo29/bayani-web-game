@@ -33,12 +33,12 @@ $mode = $_GET['mode'] ?? 'menu';
         <?php if ($mode === 'menu'): ?>
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-4">Handa Pilipinas</h1>
-            <p class="text-xl text-white/80 mb-2">Edukasyong Pangkalusugan at Pangkaligtasan - Grades 3-6</p>
-            <p class="text-white/60">Matutong maging handa sa mga sakuna at panganib</p>
+            <p class="text-xl text-white/80 mb-2"><?php echo t('health_safety_edu'); ?> - Grades 3-6</p>
+            <p class="text-white/60"><?php echo t('learn_disaster_preparedness'); ?></p>
             <!-- Aralin/Wiki Button -->
             <div class="mt-6 text-center">
                 <button onclick="location.href='?mode=aralin'" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg">
-                    <i class="fas fa-book-open mr-2"></i> Aralin / Kaalaman
+                    <i class="fas fa-book-open mr-2"></i> <?php echo t('lesson_wiki'); ?>
                 </button>
             </div>
         </div>
@@ -50,8 +50,8 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="w-24 h-24 bg-orange-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-hand-peace text-orange-600 text-5xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-orange-600 mb-2">Laro 1: Itugma</h2>
-                    <p class="text-gray-600 text-sm">Itugma ang sitwasyon sa tamang gawain</p>
+                    <h2 class="text-2xl font-bold text-orange-600 mb-2">Laro 1: <?php echo t('match'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('match_situation_action'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
@@ -61,7 +61,7 @@ $mode = $_GET['mode'] ?? 'menu';
                     </div>
                 </div>
                 <button class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold hover:bg-orange-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -71,18 +71,18 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="w-24 h-24 bg-blue-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-question-circle text-blue-600 text-5xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-blue-600 mb-2">Laro 2: Tama o Mali</h2>
-                    <p class="text-gray-600 text-sm">Alamin kung tama o mali ang pahayag</p>
+                    <h2 class="text-2xl font-bold text-blue-600 mb-2">Laro 2: <?php echo t('true_false'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('check_statement'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">10 Tanong</span>
-                        <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs">Quiz</span>
-                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Tama o Mali</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('10_questions'); ?></span>
+                        <span class="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs"><?php echo t('true_false_quiz'); ?></span>
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs"><?php echo t('true_false'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
         </div>
@@ -90,7 +90,7 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Back Button -->
         <div class="mt-8 text-center">
             <a href="../../maglaro.php" class="inline-block bg-white/20 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Bumalik
+                <i class="fas fa-arrow-left mr-2"></i> <?php echo t('back'); ?>
             </a>
         </div>
 
@@ -98,37 +98,37 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Game Mode 1: Matching Game (Itugma) - No reset, wrong matches are permanent -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-orange-600">Itugma ang Sitwasyon sa Tamang Gawi</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-orange-600"><?php echo t('match'); ?> - <?php echo t('situation'); ?> <?php echo t('action'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-orange-50 border-l-4 border-orange-500 p-3 mb-4 rounded">
-                <p class="text-sm text-orange-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> I-tap ang sitwasyon (kaliwang kahon), pagkatapos i-tap ang tamang gawain (kanang kahon). Kapag mali ang napili mo, hindi mo na ito mababago – kaya mag-isip muna bago pumili! Magpatuloy hanggang matapos ang lahat ng pares, pagkatapos isumite ang iyong puntos.</p>
+                <p class="text-sm text-orange-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('tap'); ?> ang <?php echo t('situation'); ?> (kaliwang kahon), pagkatapos <?php echo t('tap'); ?> ang <?php echo t('correct_action'); ?> (kanang kahon). Kapag mali ang napili mo, hindi mo na ito mababago – kaya mag-isip muna bago pumili! Magpatuloy hanggang matapos ang lahat ng pares, pagkatapos <?php echo t('submit'); ?> ang iyong <?php echo t('points'); ?>.</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
                 <div class="bg-gray-100 rounded-xl px-6 py-3">
-                    <span class="text-gray-700 font-bold">Puntos: </span>
+                    <span class="text-gray-700 font-bold"><?php echo t('points'); ?>: </span>
                     <span id="score" class="text-3xl font-bold text-orange-600">0</span>
                     <span class="text-gray-500"> / <?php echo count($challenges); ?></span>
                 </div>
                 <button id="submitBtn" onclick="submitGameScore()" disabled class="bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                    <i class="fas fa-check-circle mr-2"></i> I-submit ang Puntos
+                    <i class="fas fa-check-circle mr-2"></i> <?php echo t('submit'); ?> <?php echo t('points'); ?>
                 </button>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-gray-50 rounded-2xl p-4">
                     <h3 class="font-bold text-gray-800 mb-4 text-center text-lg border-b pb-2">
-                        <i class="fas fa-exclamation-triangle text-orange-500 mr-2"></i> SITWASYON
+                        <i class="fas fa-exclamation-triangle text-orange-500 mr-2"></i> <?php echo strtoupper(t('situation')); ?>
                     </h3>
                     <div id="situationsContainer" class="space-y-3 max-h-[600px] overflow-y-auto pr-2"></div>
                 </div>
                 <div class="bg-gray-50 rounded-2xl p-4">
                     <h3 class="font-bold text-gray-800 mb-4 text-center text-lg border-b pb-2">
-                        <i class="fas fa-shield-alt text-green-600 mr-2"></i> TAMANG GAWI
+                        <i class="fas fa-shield-alt text-green-600 mr-2"></i> <?php echo strtoupper(t('correct_action')); ?>
                     </h3>
                     <div id="actionsContainer" class="space-y-3 max-h-[600px] overflow-y-auto pr-2"></div>
                 </div>
@@ -180,13 +180,13 @@ $mode = $_GET['mode'] ?? 'menu';
                         // If this situation has been incorrectly matched (should not happen because matchedSituations[i] would be true), but just in case:
                         card.className = `situation-card bg-white rounded-xl p-3 shadow-md border-2 transition-all cursor-pointer hover:shadow-lg ${selectedSituationIndex === i ? 'ring-4 ring-orange-500 border-orange-500 scale-105' : 'border-gray-200 hover:border-orange-300'}`;
                         card.setAttribute('data-situation-index', i);
-                        card.innerHTML = `<div class="flex items-start gap-2"><div class="text-2xl">⚠️</div><div class="flex-1"><p class="text-gray-800 text-sm md:text-base font-medium">${escapeHtml(challenges[i].situation)}</p><p class="text-xs text-gray-400 mt-1"><i class="fas fa-lightbulb"></i> I-tap para piliin</p></div></div>`;
+                        card.innerHTML = `<div class="flex items-start gap-2"><div class="text-2xl">⚠️</div><div class="flex-1"><p class="text-gray-800 text-sm md:text-base font-medium">${escapeHtml(challenges[i].situation)}</p><p class="text-xs text-gray-400 mt-1"><i class="fas fa-lightbulb"></i> <?php echo t('tap'); ?> <?php echo t('tap_to_select'); ?></p></div></div>`;
                         card.addEventListener('click', (e) => { e.stopPropagation(); if (!isProcessing) handleSituationClick(i); });
                         situationsContainer.appendChild(card);
                     }
                 }
                 if (situationsContainer.children.length === 0) {
-                    situationsContainer.innerHTML = '<div class="text-center text-green-600 py-8 bg-green-50 rounded-xl"><i class="fas fa-trophy text-4xl mb-2"></i><p>Napakahusay! Natapos mo na ang lahat ng sitwasyon</p></div>';
+                    situationsContainer.innerHTML = '<div class="text-center text-green-600 py-8 bg-green-50 rounded-xl"><i class="fas fa-trophy text-4xl mb-2"></i><p><?php echo t('all_pairs_matched'); ?></p></div>';
                 }
 
                 // Render actions (only those not yet matched)
@@ -197,13 +197,13 @@ $mode = $_GET['mode'] ?? 'menu';
                         const card = document.createElement('div');
                         card.className = `action-card bg-white rounded-xl p-3 shadow-md border-2 transition-all cursor-pointer hover:shadow-lg ${selectedActionIndex === actionIdx ? 'ring-4 ring-green-500 border-green-500 scale-105' : 'border-gray-200 hover:border-green-300'}`;
                         card.setAttribute('data-action-index', actionIdx);
-                        card.innerHTML = `<div class="flex items-start gap-2"><div class="text-2xl">🛡️</div><div class="flex-1"><p class="text-gray-800 text-sm md:text-base">${escapeHtml(challenges[actionIdx].correctAction)}</p><p class="text-xs text-gray-400 mt-1"><i class="fas fa-lightbulb"></i> I-tap para itugma</p></div></div>`;
+                        card.innerHTML = `<div class="flex items-start gap-2"><div class="text-2xl">🛡️</div><div class="flex-1"><p class="text-gray-800 text-sm md:text-base">${escapeHtml(challenges[actionIdx].correctAction)}</p><p class="text-xs text-gray-400 mt-1"><i class="fas fa-lightbulb"></i> <?php echo t('tap'); ?> <?php echo t('match'); ?></p></div></div>`;
                         card.addEventListener('click', (e) => { e.stopPropagation(); if (!isProcessing) handleActionClick(actionIdx); });
                         actionsContainer.appendChild(card);
                     }
                 }
                 if (actionsContainer.children.length === 0) {
-                    actionsContainer.innerHTML = '<div class="text-center text-green-600 py-8 bg-green-50 rounded-xl"><i class="fas fa-check-circle text-4xl mb-2"></i><p>Lahat ng gawain ay naitugma na</p></div>';
+                    actionsContainer.innerHTML = '<div class="text-center text-green-600 py-8 bg-green-50 rounded-xl"><i class="fas fa-check-circle text-4xl mb-2"></i><p><?php echo t('all_pairs_matched'); ?></p></div>';
                 }
             }
 
@@ -235,7 +235,7 @@ $mode = $_GET['mode'] ?? 'menu';
                 } else {
                     selectedSituationIndex = index;
                     renderGame();
-                    showFeedback(`Napili: "${challenges[index].situation.substring(0, 50)}..."`, false, 'Pumili ng tamang gawain');
+                    showFeedback(`<?php echo t('select_action'); ?>: "${challenges[index].situation.substring(0, 50)}..."`, false, '<?php echo t('select_action'); ?>');
                 }
             }
 
@@ -247,7 +247,7 @@ $mode = $_GET['mode'] ?? 'menu';
                 } else {
                     selectedActionIndex = index;
                     renderGame();
-                    showFeedback(`Napili: "${challenges[index].correctAction.substring(0, 50)}..."`, false, 'Pumili ng sitwasyon para itugma');
+                    showFeedback(`<?php echo t('select_action'); ?>: "${challenges[index].correctAction.substring(0, 50)}..."`, false, '<?php echo t('select_action'); ?>');
                 }
             }
 
@@ -257,7 +257,7 @@ $mode = $_GET['mode'] ?? 'menu';
 
                 // If either is already matched, cannot match again
                 if (matchedSituations[situationIdx] || matchedActions[actionIdx]) {
-                    showFeedback('Ang pares na ito ay nagamit na', true, 'Pumili ng ibang sitwasyon o gawain.');
+                    showFeedback('<?php echo t('all_pairs_matched'); ?>', true, '<?php echo t('select_action'); ?>');
                     isProcessing = false;
                     renderGame();
                     return;
@@ -273,10 +273,10 @@ $mode = $_GET['mode'] ?? 'menu';
                 if (isCorrect) {
                     currentScore++;
                     document.getElementById('score').textContent = currentScore;
-                    showFeedback(`TAMA! +1 puntos`, false, challenges[situationIdx].explanation || 'Magaling! Tandaan ang tamang gawain.');
+                    showFeedback(`<?php echo t('correct_match'); ?>`, false, challenges[situationIdx].explanation || '<?php echo t('correct_match'); ?>');
                 } else {
                     // Wrong match - no points, but both are now permanently locked.
-                    showFeedback(`MALI! Walang puntos. Ang tamang gawain para sa sitwasyong ito ay: "${challenges[situationIdx].correctAction}"`, true, challenges[situationIdx].explanation || 'Basahing mabuti ang aralin para malaman ang tamang sagot.');
+                    showFeedback(`<?php echo t('wrong_match'); ?> <?php echo t('correct_answer'); ?> "${challenges[situationIdx].correctAction}"`, true, challenges[situationIdx].explanation || '<?php echo t('correct_answer'); ?>');
                 }
 
                 // Clear selections
@@ -286,7 +286,7 @@ $mode = $_GET['mode'] ?? 'menu';
                 // Check if all items are now matched (all situations used)
                 const allMatched = matchedSituations.every(v => v === true);
                 if (allMatched) {
-                    showFeedback('Tapos na ang laro! I-submit mo na ang iyong puntos.', false, 'Pindutin ang "I-submit ang Puntos" para makuha ang XP at Coins.');
+                    showFeedback('<?php echo t('all_pairs_matched'); ?> <?php echo t('submit_score'); ?>.', false, '<?php echo t('submit_score'); ?>');
                     const btn = document.getElementById('submitBtn');
                     if (btn) {
                         btn.disabled = false;
@@ -343,14 +343,14 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Game Mode 2: Tama o Mali Quiz -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-blue-600">Tama o Mali: Alamin ang Katotohanan</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-blue-600"><?php echo t('true_false'); ?>: <?php echo t('check_statement'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-3 mb-4 rounded">
-                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> Basahin ang bawat pahayag. Piliin kung ito ay TAMA o MALI. Makakakuha ka ng puntos sa bawat tamang sagot. Pagkatapos ng lahat ng tanong, ipapakita ang iyong kabuuang puntos.</p>
+                <p class="text-sm text-blue-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('check_statement'); ?>. Piliin kung ito ay <?php echo t('correct'); ?> o <?php echo t('incorrect'); ?>. Makakakuha ka ng <?php echo t('points'); ?> sa bawat tamang sagot. Pagkatapos ng lahat ng <?php echo t('question'); ?>, ipapakita ang iyong kabuuang <?php echo t('points'); ?>.</p>
             </div>
 
             <?php
@@ -493,7 +493,7 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Aralin/Wiki Mode: Educational Content -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600">Aralin: Paano Maging Handa sa Sakuna</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-purple-600"><?php echo t('lesson_wiki'); ?>: <?php echo t('disaster_readiness'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
@@ -509,9 +509,9 @@ $mode = $_GET['mode'] ?? 'menu';
                     <div class="flex items-start gap-3">
                      
                         <div class="flex-1">
-                            <h3 class="font-bold text-orange-800 text-lg mb-1">Sitwasyon <?php echo $index + 1; ?>: <?php echo htmlspecialchars($item['situation']); ?></h3>
+                            <h3 class="font-bold text-orange-800 text-lg mb-1"><?php echo t('situation'); ?> <?php echo $index + 1; ?>: <?php echo htmlspecialchars($item['situation']); ?></h3>
                             <div class="bg-green-100 rounded-lg p-3 mt-2">
-                                <p class="text-green-800 font-semibold"><i class="fas fa-check-circle mr-1"></i> Tamang Gagawin:</p>
+                                <p class="text-green-800 font-semibold"><i class="fas fa-check-circle mr-1"></i> <?php echo t('correct_action'); ?>:</p>
                                 <p class="text-gray-800"><?php echo htmlspecialchars($item['correctAction']); ?></p>
                             </div>
                             <div class="bg-blue-50 rounded-lg p-3 mt-2">
@@ -537,7 +537,7 @@ $mode = $_GET['mode'] ?? 'menu';
 
             <div class="mt-6 text-center">
                 <a href="?mode=menu" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition">
-                    <i class="fas fa-arrow-left mr-2"></i> Bumalik sa Menu
+                    <i class="fas fa-arrow-left mr-2"></i> <?php echo t('back'); ?> sa Menu
                 </a>
             </div>
         </div>

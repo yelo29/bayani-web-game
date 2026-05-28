@@ -31,19 +31,19 @@ $quizType = $_GET['quiz'] ?? '';
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-4">Wikain Quiz</h1>
-            <p class="text-xl text-white/80 mb-2">Pag-aaral ng Wikang Filipino</p>
-            <p class="text-white/60">Pumili ng mode upang maglaro</p>
+            <p class="text-xl text-white/80 mb-2"><?php echo t('filipino_study'); ?></p>
+            <p class="text-white/60"><?php echo t('choose_mode_play'); ?></p>
         </div>
 
         <?php if ($mode === 'menu'): ?>
         <!-- Wiki/Aralin Button -->
         <div class="text-center mb-6">
             <button onclick="location.href='?mode=wiki'" class="inline-block bg-purple-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-purple-700 transition shadow-lg">
-                <i class="fas fa-book-open mr-2"></i> Aralin / Wiki
+                <i class="fas fa-book-open mr-2"></i> <?php echo t('lesson_wiki'); ?>
             </button>
             <br><br>
-            <p class="text-xs text-white/80">Basahin ang mga impormasyon dito upang</p>
-            <p class="text-xs text-white/80">matutunan mo ang mga sagot sa mga laro.</p>
+            <p class="text-xs text-white/80"><?php echo t('read_info_here'); ?></p>
+            <p class="text-xs text-white/80"><?php echo t('learn_game_answers'); ?></p>
         </div>
 
         <!-- Mode Selection -->
@@ -54,17 +54,17 @@ $quizType = $_GET['quiz'] ?? '';
                     <div class="w-20 h-20 bg-blue-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-font text-blue-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-blue-600 mb-2">Salita</h2>
+                    <h2 class="text-2xl font-bold text-blue-600 mb-2"><?php echo t('word'); ?></h2>
                     <p class="text-gray-600 text-sm">Word Quiz</p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">English Translation</span>
-                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">10 Items</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"><?php echo t('english'); ?> Translation</span>
+                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs"><?php echo t('10_items'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -74,17 +74,17 @@ $quizType = $_GET['quiz'] ?? '';
                     <div class="w-20 h-20 bg-purple-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-align-left text-purple-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-purple-600 mb-2">Pangungusap</h2>
+                    <h2 class="text-2xl font-bold text-purple-600 mb-2"><?php echo t('sentence'); ?></h2>
                     <p class="text-gray-600 text-sm">Sentence Quiz</p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs">English Translation</span>
-                        <span class="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-xs">10 Items</span>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs"><?php echo t('english'); ?> Translation</span>
+                        <span class="px-2 py-1 bg-pink-100 text-pink-800 rounded-full text-xs"><?php echo t('10_items'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-purple-600 text-white py-3 rounded-xl font-bold hover:bg-purple-700 transition">
-                    <i class="fas fa-play mr-2"></i> Maglaro
+                    <i class="fas fa-play mr-2"></i> <?php echo t('play'); ?>
                 </button>
             </div>
 
@@ -94,17 +94,17 @@ $quizType = $_GET['quiz'] ?? '';
                     <div class="w-20 h-20 bg-orange-100 rounded-full mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-trophy text-orange-600 text-4xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-orange-600 mb-2">Finals</h2>
-                    <p class="text-gray-600 text-sm">Comprehensive Quiz</p>
+                    <h2 class="text-2xl font-bold text-orange-600 mb-2"><?php echo t('finals'); ?></h2>
+                    <p class="text-gray-600 text-sm"><?php echo t('comprehensive_quiz'); ?></p>
                 </div>
                 <div class="mb-4">
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs">20 Items</span>
-                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Review Required</span>
+                        <span class="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs"><?php echo t('20_items'); ?></span>
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs"><?php echo t('review_required'); ?></span>
                     </div>
                 </div>
                 <button class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold hover:bg-orange-700 transition">
-                    <i class="fas fa-book mr-2"></i> Mag-aral Muna
+                    <i class="fas fa-book mr-2"></i> <?php echo t('study_first'); ?>
                 </button>
             </div>
         </div>
@@ -112,7 +112,7 @@ $quizType = $_GET['quiz'] ?? '';
         <!-- Back Button -->
         <div class="text-center">
             <a href="../../maglaro.php" class="inline-block bg-white/20 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Bumalik
+                <i class="fas fa-arrow-left mr-2"></i> <?php echo t('back'); ?>
             </a>
         </div>
 
@@ -120,32 +120,32 @@ $quizType = $_GET['quiz'] ?? '';
         <!-- Wiki/Aralin Mode -->
         <div class="bg-white rounded-3xl shadow-2xl p-4 md:p-6">
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-6 gap-4">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600">Aralin / Wiki</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-purple-600"><?php echo t('lesson_wiki'); ?></h2>
                 <a href="?mode=menu" class="text-gray-600 hover:text-gray-800">
                     <i class="fas fa-times text-2xl"></i>
                 </a>
             </div>
 
             <div class="bg-purple-50 border-l-4 border-purple-500 p-3 mb-4 rounded">
-                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong>Panuto:</strong> Basahin ang mga impormasyon dito upang matutunan mo ang mga sagot sa mga laro.</p>
+                <p class="text-sm text-purple-800"><i class="fas fa-info-circle mr-2"></i><strong><?php echo t('instructions'); ?>:</strong> <?php echo t('read_info_here'); ?> <?php echo t('learn_game_answers'); ?></p>
             </div>
 
             <!-- Tab Navigation -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="showWikiTab('salita')" id="tab-salita" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-blue-600 text-white">Salita</button>
-                <button onclick="showWikiTab('pangungusap')" id="tab-pangungusap" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300">Pangungusap</button>
-                <button onclick="startFinals()" id="tab-finals" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-orange-200 text-orange-700 hover:bg-orange-300">Kumuha ng Finals</button>
+                <button onclick="showWikiTab('salita')" id="tab-salita" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-blue-600 text-white"><?php echo t('word'); ?></button>
+                <button onclick="showWikiTab('pangungusap')" id="tab-pangungusap" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-gray-200 text-gray-700 hover:bg-gray-300"><?php echo t('sentence'); ?></button>
+                <button onclick="startFinals()" id="tab-finals" class="wiki-tab px-4 py-2 rounded-lg font-bold bg-orange-200 text-orange-700 hover:bg-orange-300"><?php echo t('take_finals'); ?></button>
             </div>
 
             <!-- Salita Content -->
             <div id="wiki-salita" class="wiki-content">
-                <h3 class="font-bold text-gray-800 mb-4 text-lg">Mga Salita at Kanilang Kahulugan</h3>
+                <h3 class="font-bold text-gray-800 mb-4 text-lg"><?php echo t('words_meanings'); ?></h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <?php foreach ($words as $word): ?>
                     <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
                         <div class="font-bold text-blue-800 mb-1"><?php echo $word['word']; ?></div>
-                        <p class="text-sm text-gray-700 mb-2"><strong>English:</strong> <?php echo $word['english']; ?></p>
-                        <p class="text-xs text-gray-600"><strong>Pantig:</strong> <?php echo implode(', ', $word['syllables']); ?></p>
+                        <p class="text-sm text-gray-700 mb-2"><strong><?php echo t('english'); ?>:</strong> <?php echo $word['english']; ?></p>
+                        <p class="text-xs text-gray-600"><strong><?php echo t('syllables'); ?>:</strong> <?php echo implode(', ', $word['syllables']); ?></p>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -153,12 +153,12 @@ $quizType = $_GET['quiz'] ?? '';
 
             <!-- Pangungusap Content -->
             <div id="wiki-pangungusap" class="wiki-content hidden">
-                <h3 class="font-bold text-gray-800 mb-4 text-lg">Mga Pangungusap at Kanilang Kahulugan</h3>
+                <h3 class="font-bold text-gray-800 mb-4 text-lg"><?php echo t('sentences_meanings'); ?></h3>
                 <div class="space-y-3">
                     <?php foreach ($regularSentences as $sentence): ?>
                     <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
                         <div class="font-bold text-purple-800 mb-1"><?php echo $sentence['sentence']; ?></div>
-                        <p class="text-sm text-gray-700"><strong>English:</strong> <?php echo $sentence['english']; ?></p>
+                        <p class="text-sm text-gray-700"><strong><?php echo t('english'); ?>:</strong> <?php echo $sentence['english']; ?></p>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -180,8 +180,8 @@ $quizType = $_GET['quiz'] ?? '';
                 <!-- Progress Bar -->
                 <div class="mb-6">
                     <div class="flex justify-between text-sm text-gray-600 mb-2">
-                        <span id="progress-text">Tanong 1/10</span>
-                        <span id="score-text">Puntos: 0</span>
+                        <span id="progress-text"><?php echo t('question'); ?> 1/10</span>
+                        <span id="score-text"><?php echo t('points'); ?>: 0</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3">
                         <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 10%"></div>
@@ -326,19 +326,19 @@ function generateOptions(correct, allOptions) {
 // Load current question
 function loadQuestion() {
     const question = questions[currentQuestionIndex];
-    
+
     // Update progress
-    document.getElementById('progress-text').textContent = `Tanong ${currentQuestionIndex + 1}/${totalQuestions}`;
-    document.getElementById('score-text').textContent = `Puntos: ${score}`;
+    document.getElementById('progress-text').textContent = `<?php echo t('question'); ?> ${currentQuestionIndex + 1}/${totalQuestions}`;
+    document.getElementById('score-text').textContent = `<?php echo t('points'); ?>: ${score}`;
     document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
-    
+
     // Update question
     document.getElementById('question-text').textContent = question.question;
-    
+
     // Generate options
     const optionsGrid = document.getElementById('options-grid');
     optionsGrid.innerHTML = '';
-    
+
     question.options.forEach((option, index) => {
         const button = document.createElement('button');
         button.className = 'bg-white border-2 border-gray-200 hover:border-blue-400 p-4 rounded-xl text-left transition font-medium text-gray-800 hover:bg-blue-50';
@@ -370,19 +370,19 @@ function checkAnswer(selected, correct, button) {
 
     // Show feedback
     feedback.classList.remove('hidden');
-    
+
     if (isCorrect) {
         score++;
         button.classList.remove('border-gray-200');
         button.classList.add('border-green-500', 'bg-green-100');
         feedback.className = 'text-center p-4 rounded-lg mb-4 bg-green-100 border-2 border-green-500';
-        feedbackText.textContent = 'Tama! ✓';
+        feedbackText.textContent = '<?php echo t('correct'); ?> ✓';
         feedbackText.className = 'text-lg font-bold text-green-700';
     } else {
         button.classList.remove('border-gray-200');
         button.classList.add('border-red-500', 'bg-red-100');
         feedback.className = 'text-center p-4 rounded-lg mb-4 bg-red-100 border-2 border-red-500';
-        feedbackText.textContent = 'Mali! ✗';
+        feedbackText.textContent = '<?php echo t('incorrect'); ?> ✗';
         feedbackText.className = 'text-lg font-bold text-red-700';
 
         // Highlight correct answer
@@ -395,7 +395,7 @@ function checkAnswer(selected, correct, button) {
     }
 
     // Update score display
-    document.getElementById('score-text').textContent = `Puntos: ${score}`;
+    document.getElementById('score-text').textContent = `<?php echo t('points'); ?>: ${score}`;
 
     // Wait 1.5 seconds then next question
     setTimeout(() => {
