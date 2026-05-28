@@ -1,0 +1,42 @@
+[
+    {
+        "item": "H (Hydrogen)",
+        "target": "Pinakamagaan na elemento; sangkap ng tubig (H2O)",
+        "explanation": "Ang hydrogen ang pinakamaraming elemento sa uniberso. Kapag pinagsama sa oxygen (O), nagiging tubig (H2O)."
+    },
+    {
+        "item": "O (Oxygen)",
+        "target": "Kailangan sa paghinga ng tao at hayop",
+        "explanation": "Ang oxygen ay 21% ng hangin sa atmospera. Ginagamit ito ng ating katawan para gawing enerhiya ang pagkain."
+    },
+    {
+        "item": "C (Carbon)",
+        "target": "Sangkap ng lahat ng buhay na organismo",
+        "explanation": "Ang carbon ang backbone ng organic chemistry. Matatagpuan ito sa protina, taba, carbohydrate, at DNA."
+    },
+    {
+        "item": "Na (Sodium)",
+        "target": "Sangkap ng asin (NaCl); mahalaga sa nerve at muscle function",
+        "explanation": "Ang sodium ay electrolyte na tumutulong sa pagpapadala ng signal ng ugat at pagkontrata ng kalamnan."
+    },
+    {
+        "item": "Cl (Chlorine)",
+        "target": "Sangkap ng asin; panlinis ng tubig",
+        "explanation": "Ang chlorine ay ginagamit sa pagpapaputi at pagpatay ng bacteria sa tubig bilang bleach."
+    },
+    {
+        "item": "Fe (Iron)",
+        "target": "Sangkap ng dugo (hemoglobin); nagdadala ng oxygen",
+        "explanation": "Ang iron ay mahalaga para sa red blood cells. Kapag kulang sa iron, nagiging anemic (mahina at maputla)."
+    },
+    {
+        "item": "Ca (Calcium)",
+        "target": "Sangkap ng buto at ngipin",
+        "explanation": "Ang calcium ay nagpapalakas ng buto at ngipin. Kailangan din ito sa pagtibok ng puso at pamumuo ng dugo."
+    },
+    {
+        "item": "Au (Gold)",
+        "target": "Mahalagang metal; ginagamit sa alahas at electronics",
+        "explanation": "Ang ginto ay hindi kinakalawang at maganda ang conductivity kaya ginagamit sa computer chips at alahas."
+    }
+]

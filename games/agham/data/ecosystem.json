@@ -1,0 +1,42 @@
+[
+    {
+        "item": "Puno ng Mangrove",
+        "target": "Nakatira sa baybayin; nagpoprotekta laban sa storm surge",
+        "explanation": "Ang mga puno ng mangrove ay tumutubo sa maalat na tubig. Ang kanilang ugat ay sumisipsip ng alon at nagsisilbing tirahan ng isda at alimango."
+    },
+    {
+        "item": "Eagle (Agila)",
+        "target": "Nasa tuktok ng food chain; kumakain ng ahas at butiki",
+        "explanation": "Ang Philippine Eagle ay isang apex predator. Walang natural na kaaway maliban sa tao."
+    },
+    {
+        "item": "Coral Reef (Bahura)",
+        "target": "Tirahan ng maraming isda at iba pang yamang-dagat",
+        "explanation": "Ang coral reef ay parang gubat sa ilalim ng dagat. Dito nakatira ang 25% ng lahat ng uri ng isda."
+    },
+    {
+        "item": "Tarsier",
+        "target": "Matatagpuan sa Bohol; kumakain ng insekto",
+        "explanation": "Isa sa pinakamaliit na primata sa mundo. Malaki ang mata nito na hindi kaya lumiko, kaya ibinaling nito ang ulo ng 180 degrees."
+    },
+    {
+        "item": "Dugong",
+        "target": "Sea cow; kumakain ng sea grass sa karagatan",
+        "explanation": "Ang dugong ay herbivore na nakatira sa mababaw na dagat. Tinatawag itong sea cow dahil dahan-dahan itong gumalaw habang kumakain ng sea grass."
+    },
+    {
+        "item": "Butterfly (Paruparo)",
+        "target": "Polinador; tumutulong sa reproduksiyon ng mga bulaklak",
+        "explanation": "Habang kumakain ng nektar, nagdadala ang paruparo ng pollen mula sa isang bulaklak patungo sa isa pa. Nakatutulong ito sa paggawa ng buto at prutas."
+    },
+    {
+        "item": "Baktirya (Bacteria)",
+        "target": "Decomposer; sumisira ng patay na organismo",
+        "explanation": "Ang bacteria ay tumutulong sa pagsira ng mga patay na halaman at hayop. Ang mga sustansya ay bumabalik sa lupa upang magamit muli ng bagong halaman."
+    },
+    {
+        "item": "Puno ng Narra",
+        "target": "Endemic tree sa Pilipinas; pambansang puno",
+        "explanation": "Matibay ang kahoy ng narra at ginagamit sa paggawa ng muwebles. Isa ito sa mga endangered species dahil sa illegal logging."
+    }
+]

@@ -90,7 +90,7 @@ $mode = $_GET['mode'] ?? 'menu';
         <!-- Back Button -->
         <div class="mt-8 text-center">
             <a href="../../maglaro.php" class="inline-block bg-white/20 text-white px-8 py-3 rounded-xl font-bold hover:bg-white/30 transition">
-                <i class="fas fa-arrow-left mr-2"></i> Bumalik sa Mga Laro
+                <i class="fas fa-arrow-left mr-2"></i> Bumalik
             </a>
         </div>
 

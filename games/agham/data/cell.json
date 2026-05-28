@@ -1,0 +1,42 @@
+[
+    {
+        "item": "Nucleus (Nukleus)",
+        "target": "Control center ng cell; naglalaman ng DNA",
+        "explanation": "Ang nucleus ang utak ng cell. Dito matatagpuan ang genetic material (DNA) na nagkokontrol sa mga gawain ng cell."
+    },
+    {
+        "item": "Mitochondria (Mitokondriya)",
+        "target": "Powerhouse ng cell; gumagawa ng enerhiya (ATP)",
+        "explanation": "Tinatawag na powerhouse dahil dito nagagawa ang enerhiya na kailangan ng cell para gumana."
+    },
+    {
+        "item": "Ribosome (Ribosoma)",
+        "target": "Gumagawa ng protina para sa cell",
+        "explanation": "Ang mga ribosome ay parang pabrika ng protina. Ang protina ay kailangan para sa paglaki at pagkumpuni ng katawan."
+    },
+    {
+        "item": "Endoplasmic Reticulum (ER)",
+        "target": "Nagdadala at nagpoproseso ng mga protina at lipid",
+        "explanation": "Parang highway ang ER na nagdadala ng mga materyales sa iba't ibang bahagi ng cell."
+    },
+    {
+        "item": "Golgi Apparatus (Golgi Body)",
+        "target": "Nag-iimpake at namamahagi ng mga protina",
+        "explanation": "Parang post office ang Golgi apparatus. Nagsasaayos at nagpapadala ng mga protina sa tamang lugar sa loob at labas ng cell."
+    },
+    {
+        "item": "Lysosome (Lisosoma)",
+        "target": "Tagapaglinis ng cell; sumisira ng mga dumi at lumang bahagi",
+        "explanation": "Ang lysosome ay may mga enzyme na tumutunaw ng basura, mikrobyo, at sirang bahagi ng cell."
+    },
+    {
+        "item": "Cell Membrane (Lamad ng Sihay)",
+        "target": "Nagkokontrol kung ano ang pumapasok at lumalabas sa cell",
+        "explanation": "Ang cell membrane ay parang security guard. Pumipili ito kung ano ang maaaring pumasok o lumabas."
+    },
+    {
+        "item": "Chloroplast (Kloroplast)",
+        "target": "Lugar ng photosynthesis; gumagawa ng pagkain para sa halaman",
+        "explanation": "Matatagpuan lamang sa mga halaman. Ang chloroplast ay kumukuha ng enerhiya mula sa araw para gawing asukal (pagkain)."
+    }
+]
