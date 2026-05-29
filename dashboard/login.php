@@ -17,6 +17,11 @@ require_once __DIR__ . '/../includes/functions.php';
 
 $error = '';
 
+// Show banned message if redirected due to ban
+if (isset($_GET['banned'])) {
+    $error = 'Your account has been banned. Please contact support if you believe this is an error.';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -24,15 +29,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username && $password) {
         $db = getDB();
         // FIXED: column is password_hash not password
-        $stmt = $db->prepare("SELECT id, username, password_hash, is_admin FROM users WHERE username = ?");
+        $stmt = $db->prepare("SELECT id, username, password_hash, is_admin, COALESCE(is_banned, 0) as is_banned FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password_hash']) && $user['is_admin'] == 1) {
-            $_SESSION['is_admin'] = 1;
-            $_SESSION['admin_username'] = $user['username'];
-            header('Location: /dashboard/index.php');
-            exit;
+        if ($user && password_verify($password, $user['password_hash'])) {
+            if ($user['is_banned']) {
+                $error = 'Your account has been banned. Please contact support if you believe this is an error.';
+            } elseif ($user['is_admin'] == 1) {
+                $_SESSION['is_admin'] = 1;
+                $_SESSION['admin_username'] = $user['username'];
+                header('Location: /dashboard/index.php');
+                exit;
+            } else {
+                $error = 'Invalid credentials or not an admin account';
+            }
         } else {
             $error = 'Invalid credentials or not an admin account';
         }

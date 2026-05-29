@@ -75,6 +75,30 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             <i class="fas fa-box mr-2 lg:mr-3 text-sm lg:text-base"></i><span class="text-sm lg:text-base">Items</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="/dashboard/battle.php"
+                           class="flex items-center px-3 lg:px-4 py-3 rounded-lg transition <?php echo $current_page === 'battle.php' ? 'bg-[#0038A8] text-white' : 'text-gray-300 hover:bg-gray-700'; ?>">
+                            <i class="fas fa-dragon mr-2 lg:mr-3 text-sm lg:text-base"></i><span class="text-sm lg:text-base">Battle</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/games.php"
+                           class="flex items-center px-3 lg:px-4 py-3 rounded-lg transition <?php echo $current_page === 'games.php' ? 'bg-[#0038A8] text-white' : 'text-gray-300 hover:bg-gray-700'; ?>">
+                            <i class="fas fa-gamepad mr-2 lg:mr-3 text-sm lg:text-base"></i><span class="text-sm lg:text-base">Games</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/settings.php"
+                           class="flex items-center px-3 lg:px-4 py-3 rounded-lg transition <?php echo $current_page === 'settings.php' ? 'bg-[#0038A8] text-white' : 'text-gray-300 hover:bg-gray-700'; ?>">
+                            <i class="fas fa-cogs mr-2 lg:mr-3 text-sm lg:text-base"></i><span class="text-sm lg:text-base">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/achievements.php"
+                           class="flex items-center px-3 lg:px-4 py-3 rounded-lg transition <?php echo $current_page === 'achievements.php' ? 'bg-[#0038A8] text-white' : 'text-gray-300 hover:bg-gray-700'; ?>">
+                            <i class="fas fa-trophy mr-2 lg:mr-3 text-sm lg:text-base"></i><span class="text-sm lg:text-base">Achievements</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
 

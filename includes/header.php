@@ -2,6 +2,23 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Check if user is logged in and banned - force logout
+if (isset($_SESSION['user_id'])) {
+    require_once __DIR__ . '/db.php';
+    $db = getDB();
+    $stmt = $db->prepare("SELECT COALESCE(is_banned, 0) as is_banned FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && $user['is_banned']) {
+        // Destroy session and redirect to login
+        session_destroy();
+        header('Location: /login.php?banned=1');
+        exit;
+    }
+}
+
 require_once __DIR__ . '/translations.php';
 ?>
 <!DOCTYPE html>

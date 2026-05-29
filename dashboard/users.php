@@ -22,7 +22,7 @@ $offset = ($page - 1) * $per_page;
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Build query
-$query = "SELECT id, username, email, hero_class, level, xp, coins, created_at FROM users WHERE 1=1";
+$query = "SELECT id, username, email, hero_class, level, xp, coins, created_at, is_banned, is_admin FROM users WHERE 1=1";
 $params = [];
 
 if ($search) {
@@ -91,7 +91,9 @@ require_once __DIR__ . '/includes/header.php';
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Level</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">XP</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Coins</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Registered</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-700">
@@ -117,7 +119,21 @@ require_once __DIR__ . '/includes/header.php';
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"><?php echo $user['level']; ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"><?php echo number_format($user['xp']); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"><?php echo number_format($user['coins']); ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <?php if ($user['is_banned']): ?>
+                                    <span class="px-2 py-1 bg-red-500/20 text-red-400 rounded-full text-xs font-medium">Banned</span>
+                                <?php elseif ($user['is_admin']): ?>
+                                    <span class="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-medium">Admin</span>
+                                <?php else: ?>
+                                    <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-medium">Active</span>
+                                <?php endif; ?>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300"><?php echo date('M j, Y', strtotime($user['created_at'])); ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="/dashboard/user-edit.php?id=<?php echo $user['id']; ?>" class="text-[#0038A8] hover:text-[#0047b3] text-sm font-medium">
+                                    <i class="fas fa-edit mr-1"></i>Edit
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

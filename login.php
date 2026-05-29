@@ -11,6 +11,11 @@ if (isset($_SESSION['user_id'])) {
 
 $error = '';
 
+// Show banned message if redirected due to ban
+if (isset($_GET['banned'])) {
+    $error = 'Your account has been banned. Please contact support if you believe this is an error.';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -20,32 +25,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $pdo = getDB();
         // Check by username or email
-        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins, player_hp, player_max_hp, base_attack, base_defense, base_speed, base_magic, battle_warning_dismissed FROM users WHERE username = ? OR email = ?");
+        $stmt = $pdo->prepare("SELECT id, username, email, password_hash, hero_class, xp, level, coins, player_hp, player_max_hp, base_attack, base_defense, base_speed, base_magic, battle_warning_dismissed, COALESCE(is_banned, 0) as is_banned, ban_reason FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$login, $login]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password_hash'])) {
-            // Set session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['hero_class'] = $user['hero_class'];
-            $_SESSION['xp'] = $user['xp'];
-            $_SESSION['level'] = $user['level'];
-            $_SESSION['coins'] = $user['coins'] ?? 0;
-            $_SESSION['player_hp'] = $user['player_hp'] ?? 100;
-            $_SESSION['player_max_hp'] = $user['player_max_hp'] ?? 100;
-            $_SESSION['base_attack'] = $user['base_attack'] ?? 10;
-            $_SESSION['base_defense'] = $user['base_defense'] ?? 5;
-            $_SESSION['base_speed'] = $user['base_speed'] ?? 10;
-            $_SESSION['base_magic'] = $user['base_magic'] ?? 5;
-            $_SESSION['battle_warning_dismissed'] = $user['battle_warning_dismissed'] ?? 0;
+            // Check if user is banned
+            if ($user['is_banned']) {
+                $error = $user['ban_reason'] ? 'Your account has been banned. Reason: ' . htmlspecialchars($user['ban_reason']) : 'Your account has been banned.';
+            } else {
+                // Set session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['hero_class'] = $user['hero_class'];
+                $_SESSION['xp'] = $user['xp'];
+                $_SESSION['level'] = $user['level'];
+                $_SESSION['coins'] = $user['coins'] ?? 0;
+                $_SESSION['player_hp'] = $user['player_hp'] ?? 100;
+                $_SESSION['player_max_hp'] = $user['player_max_hp'] ?? 100;
+                $_SESSION['base_attack'] = $user['base_attack'] ?? 10;
+                $_SESSION['base_defense'] = $user['base_defense'] ?? 5;
+                $_SESSION['base_speed'] = $user['base_speed'] ?? 10;
+                $_SESSION['base_magic'] = $user['base_magic'] ?? 5;
+                $_SESSION['battle_warning_dismissed'] = $user['battle_warning_dismissed'] ?? 0;
 
-            // Redirect to profile if hero chosen, otherwise to hero selection
-            $redirectUrl = $user['hero_class'] ? 'profile.php' : 'choose-hero.php';
-            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-            $host = $_SERVER['HTTP_HOST'];
-            header("Location: $protocol://$host/$redirectUrl");
-            exit;
+                // Redirect to profile if hero chosen, otherwise to hero selection
+                $redirectUrl = $user['hero_class'] ? 'profile.php' : 'choose-hero.php';
+                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+                $host = $_SERVER['HTTP_HOST'];
+                header("Location: $protocol://$host/$redirectUrl");
+                exit;
+            }
         } else {
             $error = 'Invalid email/username or password.';
         }
