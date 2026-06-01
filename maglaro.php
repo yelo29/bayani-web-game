@@ -63,27 +63,28 @@ require_once 'includes/header.php';
                 </a>
             </div>
 
-            <!-- Kwento Card -->
+            <!-- Academic Subjects Card (OOP) -->
             <div class="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition-transform duration-300">
                 <div class="text-center mb-6">
-                  <div class="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i class="fa-solid fa-book text-purple-600 text-3xl"></i>
+                    <div class="w-16 h-16 bg-gradient-to-br from-[#0038A8] to-[#0052CC] rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
                         </div>
-                    <h2 class="text-3xl font-bold text-purple-600 mb-2"><?php echo t('kwento_mode'); ?></h2>
-                    <p class="text-gray-600"><?php echo t('2d_story_rpg'); ?></p>
+                    <h2 class="text-3xl font-bold text-[#0038A8] mb-2">Academic Subjects</h2>
+                    <p class="text-gray-600">Philippine Standard Subjects with Grade Levels</p>
                 </div>
 
                 <div class="mb-6">
-                    <h3 class="font-bold text-gray-800 mb-3"><?php echo t('chapters'); ?>:</h3>
+                    <h3 class="font-bold text-gray-800 mb-3">Subjects:</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm"><?php echo t('spanish_colonial'); ?></span>
-                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"><?php echo t('revolution'); ?></span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm"><?php echo t('world_war_ii'); ?></span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Filipino</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">English</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Math</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Science</span>
                     </div>
                 </div>
 
-                <a href="kwento/index.php" class="block w-full bg-purple-600 text-white text-center py-4 rounded-xl font-bold text-lg hover:bg-purple-700 transition">
-                    <i class="fas fa-play mr-2"></i> <?php echo t('magsimula'); ?>
+                <a href="maglaro_oop.php" class="block w-full bg-gradient-to-r from-[#0038A8] to-[#0052CC] text-white text-center py-4 rounded-xl font-bold text-lg hover:from-[#002870] hover:to-[#0040a0] transition">
+                    <i class="fas fa-play mr-2"></i> Play Now
                 </a>
             </div>
         </div>
