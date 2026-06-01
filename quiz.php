@@ -38,7 +38,7 @@ if (isset($_GET['reset'])) {
     exit;
 }
 
-// Initialize quiz session
+// Initialize quiz session (keeping original approach for stability)
 if (!isset($_SESSION['quiz_started']) || (int)$_SESSION['quiz_category_id'] !== $categoryId) {
     $_SESSION['quiz_started'] = true;
     $_SESSION['quiz_category_id'] = $categoryId;
