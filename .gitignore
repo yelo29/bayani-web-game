@@ -22,3 +22,6 @@ temp/
 
 # seed files
 admin/
+
+# migration files
+migration_subjects.sql
